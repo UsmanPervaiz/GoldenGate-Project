@@ -1,0 +1,82 @@
+
+#checkout-container {
+	display: block;
+	background-color: grey;
+}
+
+#checkout-header-div {
+	display: inline-block;
+	margin-top: 3%;
+	margin-left: 3%;
+	font-size: 28px;
+	background-color: yellow;
+}
+
+#shipping-info-div {
+	display: block;
+	background-color: green;
+	margin-top: 3%;
+	margin-left: 3%;
+	width: 45%;
+
+}
+
+#shipping-info-div h2 {
+	display: inline-block;
+	font-size: 30px;
+	width: 100%;
+	background: yellow;
+	border-bottom: 4px solid black;
+}
+
+#shipping-info-div span {
+	
+	float: right;
+	text-align: center;
+	line-height: 34px;
+	font-size: 20px;
+	font-weight: normal;
+	background-color: red;
+}
+
+#shipping-info-div h5 {
+	margin-top: 1%;
+	font-size: 16px;
+	font-weight: normal;
+	background: yellow;
+	
+}
+
+#shipping-address-container {
+	background: pink;
+	margin-top: 2%;
+	margin-left: 3%;
+	width: 45%;
+}
+
+#shipping-address-container h4 {
+	font-size: 20px;
+	height: 40px;
+	line-height: 40px;
+}
+
+#saved-address-div {
+	border: 2px solid black;
+	min-height: 50px;
+	font-weight: normal;
+}
+
+#shipping-address-container h4 {
+	font-weight: normal;
+}
+
+#shipping-options-container {
+	margin-top: 2%;
+	margin-left: 3%;
+}
+
+#shipping-options-container h3 {
+	border: 2px solid black;
+	font-weight: normal;
+	width: 45%;
+}

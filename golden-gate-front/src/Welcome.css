@@ -1,0 +1,294 @@
+* {
+	margin: 0;
+	padding: 0px;
+	/* The CSS padding properties are used to generate space around content.
+	The padding clears an area around the content (inside the border) of an
+	element.*/
+}
+
+
+.welcomePage {
+	background-color: black
+}
+
+.fly-in-text {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	/* With position set as absolute, the element is positioned relative to its first 
+	positioned ancestor element.*/
+	list-style: none;
+	/* This property is applied to list items. Because this property is inherited,
+	it can be set on the parent element (normally <ol> or <ul>) to let it apply
+	to all list items. here "none" is used to remove bullets from <li> elements. */
+	transform: translateX(-50%) translateY(-50%);
+	/* The transform property applies 2D or 3D transformation to an element, 
+	this property allows you to rotate, scale, move, skew, etc, elements.
+	The translateX() CSS function moves the element horizontally on the plane.
+	The translateY() CSS function moves the element vertically on the plane. */
+	box-sizing: border-box;
+}
+.fly-in-text li {
+	color: #FFD700;
+	display: inline-block;
+	/* Inline-block elements allow other elements to sit to their left and right.
+	An inline-block element is placed as an inline element, on the same line
+	as adjacent content, but it behaves as a block element. */
+	margin-right: 50px;
+	/* The margin-right CSS property sets the margin space required on the 
+	right side of an element. A negative value is also allowed. */
+	font-size: 4em;
+	font-family: Open Sans, Arial;
+	font-weight: 300;
+	/* The font-weight property sets how thick or thin characters in text should be displayed. */
+	opacity: 1;
+	/* Opacity-level set to 1, so when we remove the class ".hidden", the elements 
+	will fade in.*/
+	transition: all 5.0s ease;
+	/* Transition enables to define the transition between two states of an element,
+	 over a given duration. CSS transitions provide a way to control animation speed 
+	 when changing CSS properties. 
+	 "ease" specifies a transition effect with a slow start, then fast, then end slowly.*/
+	 animation: glow 2.5s linear infinite;
+	 /* CSS animations make it possible to animate transitions from one CSS style 
+	 configuration to another. To use CSS animation, we must first specify some
+	 keyframes for the animation. Keyframes hold what styles the element will have at 
+	 certain times. Here "glow" is just a name that is used to bind this element
+	 to the keyframes (just like a variable).
+	 The difference between transition and animation is that, transition can't 
+	 change CSS properties, it only defines how the change occurs. And, transition 
+	 requires a trigger to run, but animation don't need a trigger. Animation
+	 can run automatically when the page first loads.*/
+	 box-sizing: border-box;
+	 animation-delay: 1.6s;
+}
+
+.fly-in-text li:last-child {
+	margin-right: 0;
+	/* Since we do not need the breathing room after the last <li> element,
+	we set the margin-right to 0 , to remove any room after the last element. */
+}
+
+.fly-in-text.hidden li {
+	opacity: 0;
+	/* The opacity-level describes the transparency-level, where 1 is not transparent at all,
+	0.5 is 50% see through, and 0 is completely transparent. Setting it at 0 will make the 
+	background totally visible. This opacity will come in affect once the <ul> className
+	is changed to "fly-in-text"*/
+}
+
+.fly-in-text.hidden li:nth-child(1) {
+	/* Here we are targetting the specified <li> child element when the className of <ul>
+	is "fly-in-text hidden".*/
+	transform: translateX(0px) translateY(-700px);
+}
+.fly-in-text.hidden li:nth-child(2) {
+	transform: translateX(0px) translateY(1200px);
+}
+.fly-in-text.hidden li:nth-child(3) {
+	transform: translateX(0px) translateY(-2500px);
+}
+.fly-in-text.hidden li:nth-child(5) {
+	transform: translateX(0px) translateY(5000px);
+}
+.fly-in-text.hidden li:nth-child(6) {
+	transform: translateX(20px) translateY(-10000px);
+}
+.fly-in-text.hidden li:nth-child(7) {
+	transform: translateX(0px) translateY(15000px);
+}
+
+@keyframes glow {
+	/* When you specify CSS styles inside the @keyframes rule, the animation 
+	will gradually change from the current style to the new style at certain times.*/
+	0% {
+		text-shadow: none;
+		/* The text-shadow property adds shadow to text. This property accepts
+		a comma-separated list of shadows to be applied to the text. */	
+	}
+	50% {
+		font-size: 5em;
+	}
+	80% {
+		color: #FF0000;
+		text-shadow: none;
+	}
+	100% {
+		color: red;
+		text-shadow: 0 0 50px #FF4500, 0 0 50px #FF4500, 0 0 50px #FF4500;
+		/* Here a blur-radius of 7px is added.*/
+
+	}
+}
+
+.fly-in-text li:nth-child(1) {
+	animation-delay: .2s;
+}
+.fly-in-text li:nth-child(2) {
+	animation-delay: .4s;
+}
+.fly-in-text li:nth-child(3) {
+	animation-delay: .6s;
+}
+.fly-in-text li:nth-child(4) {
+	animation-delay: .8s;
+}
+.fly-in-text li:nth-child(5) {
+	animation-delay: 1s;
+}
+.fly-in-text li:nth-child(6) {
+	animation-delay: 1.2s;
+}
+.fly-in-text li:nth-child(7) {
+	animation-delay: 1.6s;
+}
+
+.neon {
+	
+}
+
+.neon li {
+	position: relative;
+	list-style: none;
+	float: left;
+	margin: 0 35px;
+	height: 1100px;
+	width: 10px;
+	transition: all 5.0s ease;
+	animation: neon 5.7s linear infinite;
+	box-sizing: border-box;
+	background: #FF0000;
+	box-shadow: 0 0 80px #f00, 0 0 80px #f00;
+	border: 2px solid #FF00FF;
+}
+
+
+@keyframes neon {
+	0% {
+		box-shadow: 0 0 80px #FF00FF, 0 0 80px #FF00FF;	
+	}
+	50% {
+		background: #0000CD;
+		box-shadow: 0 0 80px #0000CD, 0 0 80px #0000CD;
+	}
+	80% {
+		/*color: black;*/
+		background: none;	
+	}
+	100% {
+		color: #0000CD;
+		box-shadow: none;
+		background: #0000CD;
+		/* Here a blur-radius of 7px is added.*/
+	}
+}
+
+.neon li:nth-child(1) {
+	animation-delay: .2s;
+}
+.neon li:nth-child(2) {
+	animation-delay: .4s;
+}
+.neon li:nth-child(3) {
+	animation-delay: .6s;
+}
+.neon li:nth-child(4) {
+	animation-delay: .8s;
+}
+.neon li:nth-child(5) {
+	animation-delay: 1s;
+}
+.neon li:nth-child(6) {
+	animation-delay: 1.2s;
+}
+.neon li:nth-child(7) {
+	animation-delay: 1.6s;
+}
+.neon li:nth-child(8) {
+	animation-delay: 1.8s;
+}
+.neon li:nth-child(9) {
+	animation-delay: 1.9s;
+}
+.neon li:nth-child(10) {
+	animation-delay: 2.0s;
+}
+.neon li:nth-child(11) {
+	animation-delay: 2.2s;
+}
+.neon li:nth-child(12) {
+	animation-delay: 2.4s;
+}
+.neon li:nth-child(13) {
+	animation-delay: 2.6s;
+}
+.neon li:nth-child(14) {
+	animation-delay: 2.8s;
+}
+.neon li:nth-child(15) {
+	animation-delay: 3.0s;
+}
+.neon li:nth-child(16) {
+	animation-delay: 3.2s;
+}
+.neon li:nth-child(17) {
+	animation-delay: 3.4s;
+}
+.neon li:nth-child(18) {
+	animation-delay: 3.6s;
+}
+
+
+.center {
+	top: 90%;
+	left: 85%;
+	position: absolute;
+	/* With position set as absolute, the element is positioned relative to its first 
+	positioned ancestor element.*/
+}
+
+.homePageButton:before {
+	content: "CONTINUE";
+	color: red;
+	text-shadow: 2px 0 0 black;
+	font-size: 20px;
+	font-family: arial;
+	font-weight: 800;
+	position: absolute;
+	padding: 15px 40px;
+	border: 3px solid black;
+	background: white;
+	transition: .5s;
+	transform-origin: right;
+	transform: translateX(-100%) rotateY(90deg);
+}
+
+.homePageButton:after {
+	content: "CONTINUE";
+	text-shadow: 2px 0 0 red;
+	font-size: 20px;
+	font-family: arial;
+	font-weight: 400;
+	position: absolute;
+	border: 3px solid red;	
+	top: 0;
+	left: 0;
+	padding: 15px 40px;
+	background: #000;
+	color: yellow;
+	transition: .5s;
+	transform-origin: left;
+	transform: translateX(0) rotateY(0deg);
+}
+
+.homePageButton:hover:before {
+	transform: translateX(0) rotateY(0deg);
+}
+
+.homePageButton:hover:after {
+	transform: translateX(100%) rotateY(90deg);
+}
+
+/*.center-hidden{
+	opacity: 0;
+}*/

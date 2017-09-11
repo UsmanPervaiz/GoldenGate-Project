@@ -1,0 +1,245 @@
+.hide-about-me-modal-content {
+	display: inline-block;
+	position: relative;
+	top: 50px;
+	width: 500px; /* changed min-width from % to px , so the div can respond to browser zoom. You cannot use % if you want the element to keep the size when zoomed.*/
+	height: auto;	
+	left: 85%;
+	margin-left: -250px;
+	border: 2px solid red;
+	background-color: white;
+	transition: all 0.2s; /* transition time must be the same as animation-delay, because we want to start animation right when transition has finished.*/
+	animation-name: closeAboutMeAnimate;
+	animation-duration: 0.7s;
+	animation-delay: 0.2s;
+}
+
+@keyframes closeAboutMeAnimate {
+	from {left: 85%;}
+	to {left: -50%;}
+}
+
+.about-me-modal-wrapper {
+	position: absolute;
+	min-width: 100%;
+	min-height: 100%;
+	z-index: 1;   /* sit on top of other divs */
+	background-color: rgba(0,0,0,.9); /* you must define background color with opacity for the wrapper div, so other divs inside the wrapper are not affected by opacity and will have full opacity. */
+	/* opacity: .5; if we define opacity separately, it will affect all child divs inside the wrapper, but we do not want that and that is why we set opacity on the background color of the wrapper div, and not on the wrapper div itself. */
+	overflow: auto;
+	box-sizing: border-box;
+}
+
+.about-me-modal-content {
+	position: relative;
+	top: 50px;
+	left: 50%;
+	width: 500px;
+	height: auto;
+	margin-left: -250px; /* set to a negative number 1/2 of width, to center properly. */
+	overflow: auto;
+	align-content: center;
+	border: 2px solid red;
+	background-color: white;
+	box-shadow: 0 0 80px white;
+	animation-name: aboutMeAnimate;
+	animation-duration: 1s;
+	
+}
+
+@keyframes aboutMeAnimate {
+	from {left: -290px; opacity: 0}
+	to {opacity:1; box-shadow: 0 0 0}
+}
+
+#modal-header {
+	height: 50px;
+	line-height: 50px;
+	text-indent: 3%;
+	text-align: center;
+	background-color: black;
+	color: white;
+	border: 2px solid red;
+}
+
+#modal-header span {
+	position: relative;
+	float: right;
+	margin-right: 3%;
+	font-size: 3em;
+}
+
+#user-name-container {
+	overflow: auto;
+}
+
+#edit-first-name {
+	display: inline-block;
+	width: 38%;
+	height: 50px;
+	margin-top: 7%;
+	margin-left: 8%;
+	overflow: auto;
+	border: 2px solid red;
+}
+
+.all-edit-account-labels {
+	position: absolute;
+	text-indent: 3%;
+	padding-top: 1%;
+	font-size: .7em;
+}
+
+
+.all-new-user-data {
+	width:100%;
+	height: 100%;
+	font-size: 1.3em;
+	padding-left: 15px;
+	padding-top: 8px;
+	box-sizing: border-box;
+	border: 2px solid black;
+}
+
+#edit-last-name {
+	display: inline-block;
+	width: 38%;
+	height: 50px;
+	float: right;
+	margin-right: 8%;
+	margin-top: 7%;
+	overflow: auto;
+	border: 2px solid red;
+}
+
+#edit-email {
+	display: block;
+	height: 50px;
+	margin-top: 3%;
+	margin-left: 8%;
+	margin-right: 8%;
+	overflow: auto;
+	border: 2px solid red;
+}
+
+#new-gender {
+	border: 2px solid red;
+	margin-top: 5%;
+	margin-left: 8%;
+	margin-right: 8%;
+	overflow: auto;
+}
+
+
+#new-gender h3 {
+	margin-top: 3%;
+	margin-left: 8%;
+	margin-right: 8%;
+}
+
+#gender-male {
+	display: inline-block;
+	border: 2px solid red;
+	height: 50px;
+	width: 30%;
+	margin-left: 8%;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	text-align: center;
+	line-height: 50px;
+	font-size: 1.3em;
+	overflow: auto;
+	box-sizing: border-box;
+	border: 2px solid black;
+}
+
+#gender-male:hover {
+	background-color: black;
+	color: white;
+}
+
+#gender-female {
+	display: inline-block;
+	border: 2px solid red;
+	height: 50px;
+	width: 30%;
+	float: right;
+	margin-right: 8%;
+	margin-top: 3%;
+	text-align: center;
+	line-height: 50px;
+	font-size: 1.3em;
+	margin-bottom: 3%;
+	overflow: auto;
+	box-sizing: border-box;
+	border: 2px solid black;
+}
+
+#new-dob {
+	border: 2px solid red;
+	margin-top: 5%;
+	margin-left: 8%;
+	margin-right: 8%;
+	overflow: auto;
+}
+
+#new-dob h3 {
+	margin-top: 3%;
+	margin-left: 1.7%;
+	margin-bottom: 3%;
+}
+
+.dob-data {
+	display: inline-block;
+	border: 2px solid red;
+	margin-left: 1.7%;
+	width: 30%;
+	height: 50px;
+	overflow: auto;
+}
+
+.dob-data input {
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	font-size: 1.3em;
+	border: none;
+	padding-top: 8px;
+	box-sizing: border-box;
+	border: 2px solid black;
+	overflow: auto;
+	/*background-color: brown;*/
+}
+
+.all-edit-dob-labels {
+	text-indent: 2%;
+	position: absolute;
+	text-align: center;
+	padding-top: 1%;
+	font-size: .7em;
+	overflow: auto;
+}
+
+#update-button {
+	border: 2px solid black;
+	height: 50px;
+	margin-top: 3%;
+	margin-left: 8%;
+	margin-right: 8%;
+	margin-bottom: 3%;
+	border: 2px solid red;
+	overflow: auto;
+}
+
+#update-button button {
+	width: 100%;
+	height: 100%;
+	font-size: 2em;
+	color: white;
+	overflow: auto;
+	background-color: black;
+}
+
+#update-button button:hover {
+	color: red;
+}

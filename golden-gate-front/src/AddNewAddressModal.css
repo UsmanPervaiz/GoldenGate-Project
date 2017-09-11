@@ -1,0 +1,142 @@
+
+.hide-add-new-address-modal-content {
+	position: relative;
+	top: 80px;
+	left: 85%;
+	width: 500px;
+	height: auto;
+	margin-left: -250px; /* set to a negative number 1/2 of width, to center properly. */
+	overflow: auto;
+	align-content: center;
+	padding-bottom: 3%;
+	border: 2px solid red;
+	background-color: white;
+	box-sizing: border-box;
+	transition: all 0.2s; /* transition time must be the same as animation-delay, because we want to start animation right when transition has finished.*/
+	animation-name: hideNewAddressModal;
+	animation-duration: 0.7s;
+	animation-delay: 0.2s;
+}
+
+@keyframes hideNewAddressModal {
+	from {left: 85%;}
+	to {left: -50%;}
+}
+
+#add-new-address-wrapper {
+	position: absolute;
+	min-width: 100%;
+	min-height: 100%;
+	z-index: 1;   /* sit on top of other divs */
+	background-color: rgba(0,0,0,.9); /* you must define background color with opacity for the wrapper div, so other divs inside the wrapper are not affected by opacity and will have full opacity. */
+	/* opacity: .5; if we define opacity separately, it will affect all child divs inside the wrapper, but we do not want that and that is why we set opacity on the background color of the wrapper div, and not on the wrapper div itself. */
+	overflow: auto;
+	box-sizing: border-box;
+}
+
+.add-new-address-modal-content {
+	background-color: white;
+	position: relative;
+	top: 80px;
+	left: 50%;
+	margin-left: -250px; /* set to a negative number 1/2 of width, to center properly. */
+	overflow: auto;
+	width: 500px;
+	height: auto;
+	align-content: center;
+	border: 2px solid red;
+	box-shadow: 0 0 80px white;
+	animation-name: newAddressModal;
+	animation-duration: 1s;
+	padding-bottom: 3%;
+	box-sizing: border-box;
+}
+
+@keyframes newAddressModal {
+	from {left: -200px; opacity: 0}
+	to {opacity:1; box-shadow: 0 0 0}
+}
+
+#add-new-address-modal-header {
+	height: 50px;
+	line-height: 50px;
+	text-indent: 3%;
+	text-align: center;
+	background-color: black;
+	color: white;
+	border: 2px solid red;
+	box-sizing: border-box;
+} 
+
+#add-new-address-modal-header span {
+	position: relative;
+	float: right;
+	margin-right: 3%;
+	font-size: 3em;
+	box-sizing: border-box;
+}
+
+.new-address-long-fields {
+	display: block;
+	height: 50px;
+	margin-top: 3%;
+	margin-left: 8%;
+	margin-right: 8%;
+	overflow: auto;
+	border: 2px solid red;
+	box-sizing: border-box;
+}
+
+.new-address-short-fields {
+	display: inline-block;
+	width: 38%;
+	height: 50px;
+	margin-top: 3%;
+	margin-left: 8%;
+	overflow: auto;
+	border: 2px solid red;
+	box-sizing: border-box;
+}
+
+.all-new-address-labels {
+	position: absolute;
+	text-indent: 3%;
+	padding-top: 1%;
+	font-size: .7em;
+	box-sizing: border-box;
+}
+
+.all-new-address-input-fields {
+	width:100%;
+	height: 100%;
+	font-size: 1.3em;
+	padding-left: 15px;
+	padding-top: 8px;
+	box-sizing: border-box;
+	border: 2px solid black;
+	box-sizing: border-box;
+}
+
+#save-new-address {
+	margin-top: 7%;
+}
+
+.save-new-address-button {
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	font-size: 1.5em;
+	color: white;
+	background-color: black;
+	box-sizing: border-box;
+}
+
+.save-new-address-button:hover {
+	cursor: pointer;
+	color: red;
+}
+
+/*.all-new-address-input-fields:focus {
+	background-color: black;
+	color: white;
+}*/

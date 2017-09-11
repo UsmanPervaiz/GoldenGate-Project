@@ -1,0 +1,383 @@
+
+#registerPageDiv {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: white;
+}
+
+#signinPage {
+/*	position: absolute;
+	border: 1px solid grey;
+	top: 33%;
+	height: auto;
+	width: 30%;
+	left: 10%;
+	border-radius: 2%;
+	box-shadow: 0 0 80px orange;
+	border-width: thin;
+	padding-bottom: 30px;*/
+
+}
+
+.hide-signin-error-div {
+	display: none;
+}
+
+.show-signin-error-div {
+	position: relative;
+	display: block;
+	height: auto;
+	width: 30%;
+	margin-left: 7%;
+	top: 30px;
+	text-align: center;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	border: 1px solid black;
+	box-sizing: border-box;
+	background-color: #E80000;
+	overflow: auto;
+	animation: signInError 2s linear infinite;
+
+}
+
+@keyframes signInError {
+	50% {
+		background-color: white;
+		/*color: white;*/
+	}
+}
+
+.show-signin-error h4 {
+	position: relative;
+	top: 10%;
+	color: black;
+	padding-bottom: 4%;
+
+}
+
+#signinInfoDiv {
+	position: absolute;
+	display: inline-block;
+	top: 17%;
+	height: auto;
+	width: 30%;
+	left: 7%;
+	/*box-shadow: 0 0 80px orange;*/
+	border-width: thin;
+	padding-bottom: 30px;
+	border: 1px solid black;
+	background-color: #DEB887;
+	overflow: auto;
+	box-sizing: border-box;
+}
+
+#signInHeadingDiv {
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+	font-size: 1.5em;
+	color: white;
+	text-align: center;
+	background-color: black;
+}
+
+#signinEmailLabel {
+	position: relative;
+	display: block;
+	margin: 0 auto ;
+	font-size: 20px;
+	left: 10%;
+	padding-top: 40px;
+	padding-bottom: 6px
+}
+
+#signInEmailErrorDiv {
+	width: 80%;
+	margin: 0 auto;
+	color: red;
+	margin-bottom: 5px;
+}
+
+#signinEmailField {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	text-indent: 3%;
+	width: 80%;
+	height: 40px;
+	color: black;
+	/*border-radius: 6%;*/
+	border: 1px solid black;
+	font-family: Arial, sans-serif;
+	font-size: 100%;
+
+} 
+
+#signinEmailField:focus {
+	background-color: #FFD700;
+}
+
+#signinPagePasswordLabel {
+	position: relative;
+	display: block;
+	margin: 0 auto ;
+	font-size: 20px;
+	left: 10%;
+	padding-bottom: 6px;
+	}
+
+#signInPasswordErrorDiv {
+	/*position: "absolute";*/
+	width: 80%;
+	margin: 0 auto;
+	color: red;
+	top: "-5px";
+	left: "44px";
+	margin-bottom: 5px;
+}
+
+
+#signinPasswordField {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	text-indent: 3%;
+	font-family: Arial, sans-serif;
+	width: 80%;
+	height: 40px;
+	border: 1px solid black;
+	font-size: 100%;
+}
+
+#signinPasswordField:focus {
+	color: black;
+	background-color: #FFD700;
+}
+
+#signinPageButton {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	width: 80%;
+	height: 40px;
+	/*border-radius: 6%;*/
+	font-size: 1.5em;
+	color: white;
+	background-color: black;
+	
+}
+
+#signinPageRadio1, #signinRadioText {
+	position: relative;
+	display: inline-block;
+	left: 11%;
+	padding-left: 2%;
+}
+
+#signinPageForgotPassword {
+	position: relative;
+	display: block;
+	margin-top: 1%;
+	left: 11%;
+}
+
+#createNewAccountDiv {
+	position: absolute;
+	display: inline-block;
+	border: 1px solid black;
+	top: 25px;
+	margin-left: 47%;
+	width: 45%;
+	height: 77%;
+	overflow: auto;
+	box-shadow: 0 0 80px grey;
+	background-color: #FFEFD5;
+}
+
+#create-new-account-header-div {
+ 	position: absolute;
+ 	width: 100%;
+ 	height: 50px;
+ 	line-height: 50px;
+ 	text-align: center;
+ 	color: white;
+ 	font-size: 1.5em;
+ 	overflow: auto;
+ 	background-color: black;
+}
+
+#createNewAccountDiv p {
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+
+#createAccountNameLabel {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	left: 5%;
+}
+
+
+#createAccountFirstNameInputField{
+	width: 42%;
+	height: 38px;
+	margin-left: 4.7%;
+	text-indent: 3%;
+	font-size: 16px;
+	margin-top: 90px;
+	color: black;
+}
+
+#createAccountFirstNameInputField:focus {
+	background-color: #FFD700;
+}
+
+#createAccountLastNameInputField{ 
+	width: 42%;
+	height: 38px;
+	margin-left: 4.7%;
+	text-indent: 3%;
+	font-size: 16px;
+	color: black;
+}
+
+#createAccountLastNameInputField:focus {
+	background-color: #FFD700;
+}
+
+#createAccountEmailField {
+	width: 42%;
+	height: 38px;
+	margin-top: 5%;
+	margin-left: 4.7%;
+	text-indent: 3%;
+	font-size: 16px;
+}
+
+#createAccountEmailField:focus {
+	background-color: #FFD700;
+}
+
+#createAccountConfirmEmailField {
+	width: 42%;
+	height: 38px;
+	margin-left: 4.7%;
+	text-indent: 3%;
+	font-size: 16px;
+}
+
+#createAccountConfirmEmailField:focus {
+	background-color: #FFD700;
+}
+
+#createAccountPasswordField {
+	width: 42%;
+	height: 38px;
+	margin-top: 5%;
+	margin-left: 4.7%;
+	text-indent: 3%;
+	font-size: 16px;
+}
+
+#createAccountPasswordField:focus {
+	background-color: #FFD700;
+}
+
+#createAccountConfirmPasswordField {
+	width: 42%;
+	height: 38px;
+	margin-left: 4.7%;
+	text-indent: 3%;
+	font-size: 16px;
+	font-weight: 100;
+}
+
+#createAccountConfirmPasswordField:focus {
+	background-color: #FFD700;
+}
+
+#passwordRequirement {
+	margin-top: 1%;
+	margin: 0 auto;
+	font-size: 0.8em;
+}
+
+#signinGenderDiv {
+	margin-top: 4%;
+	text-indent: 5%
+}
+
+#signinGenderDiv span {
+	float: right;
+	margin-top: 2%;
+	margin-right: 7%;
+}
+
+#signinGenderSelection {
+	margin-top: 2%;
+	margin-left: 5%;
+
+}
+
+#signinGenderMaleButton {
+	width: 44.5%;
+	height: 38px;
+	box-shadow: 0 0 80px orange;
+	font-size: 20px;
+}
+#signinGenderFemaleButton {
+	width: 44.5%;
+	height: 38px;
+	box-shadow: 0 0 80px orange;
+	font-size: 20px;
+	margin-left: 5%;
+}
+
+#signinBirthdayTextDiv {
+	margin-top: 4%;
+	margin-left: 5%;
+}
+
+#signinBirthdayMonthDiv {
+	margin-top: 2%;
+	margin-left: 6.3%;
+
+}
+
+#signinBirthdayMonthSelect {
+	font-size: 18px;
+}
+
+#signinBirthdayDaySelect {
+	margin-left: 2%;
+	font-size: 18px;
+	
+}
+
+#signinBirthdayYearSelect {
+	margin-left: 2%;
+	font-size: 18px;
+}
+
+#createAccountSubmitDiv {
+	margin-top: 6%;
+}
+
+#createAccountSubmitDiv button { /* to show button text as greyed out and black when button is active, do not give any color to text in button.*/
+	width: 89%;
+	margin-left: 5%;;
+	height: 40px;
+	border-radius: 2%;
+	font-size: 1.6em;
+	/*background-color: #DAA520;	*/
+	
+
+}
+
+
+

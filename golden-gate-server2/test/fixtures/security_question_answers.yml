@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  member: 
+  security_question: 
+
+two:
+  member: 
+  security_question: 

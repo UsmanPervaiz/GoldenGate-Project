@@ -1,0 +1,27 @@
+{
+  "name": "golden-gate-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.2",
+    "classnames": "^2.2.5",
+    "csshake": "^1.5.2",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-fontawesome": "^1.6.1",
+    "react-router-dom": "^4.1.1",
+    "react-validation": "^2.10.9"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.4",
+    "isomorphic-style-loader": "^2.0.0",
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

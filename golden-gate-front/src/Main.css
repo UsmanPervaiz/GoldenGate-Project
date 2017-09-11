@@ -1,0 +1,159 @@
+
+body {
+	background-color: white;
+}
+
+/*#navBar {
+	position: fixed;
+}*/
+
+#hide-main-page {
+	display: none;
+}
+
+#hide-loading-symbol {
+	display: none;
+}
+
+#electronicsData {
+	position: absolute;
+	background-color: #FFE4C4;
+	width: 100%;
+}
+#electronicsData ul {
+	border: 2px solid black;
+	width: 23%;
+	height: 330px;
+	margin-left: 1.3%;
+	margin-top: 1%;
+	list-style: none;
+	display: inline-block;
+	float: left;
+	overflow: auto;
+	 /*overflow is added to keep the text inside the <ul> after the photo is zoomed.*/
+}
+
+#electronicsData ul li  {
+	text-align: center;	
+	padding-top: 0%;
+	font-size: 14px;
+	position: relative;
+
+}
+
+#name, #brand, #msrp, #salePrice {
+	position: relative;
+	
+	display: block;
+}
+
+#electronicsData ul li img {
+	width: 70%;
+	height: 180px;
+	position: relative;
+	padding-top: 3%;
+	box-shadow: 6px 6px 5px black;
+
+}
+
+#electronicsData ul li img:hover {
+	width: 100%;
+	height: 200px;
+	box-shadow: none;
+}
+
+#appMyImg {
+	border-radius: 5px;
+	cursor: pointer;
+	transition: .5s;
+}
+
+#appImageEnlarge{
+	top: -40px;
+	position: relative;
+	color: black;
+	width: 20%;
+	font-size: 12px;
+	left: 1%;
+
+}
+
+.appModal {
+	display: none;
+	position: fixed; /* Stay in Place */
+	z-index: 1; /* Sit on Top */
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto; /* enable scroll if needed.*/
+	background-color: rgb(0,0,0,0); /* Fallback color.*/
+	
+}
+
+.app-modal-content {
+	margin: auto;
+	display: block;
+	width: 90%;
+	max-width: 700px;
+}
+
+.app-modal-content {
+	animation-name: zoom;
+	animation-duration: .4s;
+}
+
+@keyframes zoom {
+	from {transform:scale(0)}
+	to {transform:scale(1)}
+	
+}
+
+
+.appClose {
+	position: absolute;
+	top: 10.5%;
+	right: 26%;
+	color: black;
+	font-size: 40px;
+}
+
+.appClose {
+	animation-name: zoom;
+	animation-duration: 2.0s;
+}
+
+#show-loading-symbol {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(192, 192, 192, 0.7);
+}
+
+#loading-symbol-body {
+	position: absolute;
+	width: 150px;
+	height: 130px;
+	left: 50%;
+	top: 50%;
+	margin-left: -75px;
+    margin-top: -125px;
+    color: red;
+	text-align: center;
+}
+
+/*#appAddToCartButton {
+	position: relative;
+	top: 1%;
+	right: -81%;
+}
+
+#appAddToCartButton button {
+	background-color: #8B4513;
+	border-radius: 120px;
+	color: white;
+	font-size: 8px;
+	width: 17%;
+	height: 20px;
+}*/

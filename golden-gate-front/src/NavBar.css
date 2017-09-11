@@ -1,0 +1,336 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Arial", serif;
+	background-color: white;
+}
+
+#navbardiv {
+
+}
+
+.NavBar {
+	height: 100px;
+	background-color: #A0522D;
+	/*color: #ffffff;*/
+	list-style: none;
+	text-align: center;
+	padding: 20px 0 20px 0;
+	
+}
+
+.NavBar li {
+	display: inline-block;
+	padding-right: 50px;
+
+}
+
+.NavBar li a {
+	text-decoration: none;
+	color: #ffffff;
+	
+}
+
+.NavBar li a:hover {
+	color: #c1c1c1;
+	
+}
+
+.navSearchInput {
+	position: absolute;
+	float: left;
+	top: 60px;
+	left: 260px;
+	
+}
+
+.navSearchInput p {
+	position: relative;
+	top: -50px;
+	color: white;
+}
+
+.navSearchInput input {
+	height: 40px;
+	width: 500px;
+	float: left;
+	font-size: 1.5em;
+	border-radius: 6px;
+	border: none;
+	outline: 0;
+	text-indent: 1em;
+	
+}
+
+.searchButton {
+	width: 50px;
+	float: right;
+	
+}
+
+.searchButton button {
+	float: right;
+	position: relative;
+	width: 120%;
+	height: 40px;
+	left: 0%;
+	font-size: 16px;
+	border: none;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	outline: 0;
+	background-color: #696969;
+	
+}
+
+.navBrandNameLogo a:nth-child(1) {
+	position: absolute;
+	color: orange;
+	top: 3%;
+	font-size: 2.5em;
+	font-weight: bold;
+	left: 10px;
+	text-decoration: none;
+	font-family: fantasy;
+	
+}
+
+.navBrandNameLogo a:nth-child(2) {
+	position: absolute;
+	top: 8%;
+	font-size: 12px;
+	color: white;
+	left: 110px;
+	font-family: arial, sans-serif;
+	
+}
+
+.navDepartments {
+	position: absolute;
+	top: 12%;
+	left: 1%;
+
+}
+
+.navDepartments ul {
+	position: relative;
+	list-style: none;
+	/*line-height: 0px;*/
+	
+}
+
+#department {
+	box-shadow: 0 0 60px red, 0 0 60px red;
+	color: white;
+}
+
+.navDepartments ul li {
+	width: 140%;
+	height: 30px;
+	background-color: #696969;
+	border-radius: 10px;
+	border: 2px solid red;
+	text-align: center;
+	line-height: 30px;
+	position: relative;
+	z-index: 1000;
+	
+}
+
+.navDepartments ul li:hover > ul {
+	/* by mentioning ">" we are selecting only the child of the <li> we hover upon.
+	if we do not mention ">", all <ul>s following "ul li:hover" will be selected.*/
+	display: block;
+
+}
+
+.navDepartments ul li ul {
+	top: 6%;
+	left: -3%;
+}
+
+
+.navDepartments ul ul {
+	/* here we are hiding all <ul>s that are children of ".navDepartments ul"*/
+	display: none;
+	
+}
+
+
+.navDepartments ul ul li:hover {
+	/* if we define ".navDepartments > ul > li:hover", it will then only select
+	the direct <ul> children of ".navDepartments", and not all <ul>*/
+	background-color: yellow;
+}
+
+.navDepartments ul ul li {
+	/* here we are selecting all the <ul>s that are children of ".navDepartments ul ul"*/
+	width: 105%;
+	background-color: red;
+	border: 2px solid black;
+	
+}
+
+.navDepartments ul ul li:nth-child(1) ul {
+	/* here we are selecting all the <ul>s that are children of ".navDepartments ul ul"*/
+	top: 0%;
+	margin-left: 104%;
+	width: 100%; 
+	position: absolute;
+}
+
+.navDepartments ul ul li:nth-child(2) ul {
+	/* here we are selecting all the <ul>s that are children of ".navDepartments ul ul"*/
+	top: 0%;
+	width: 100%;	
+	margin-left: 104%;
+	position: absolute;
+}
+
+/*.navShoppingCartDiv {
+	display: inline-block
+}*/
+
+#navCartName {
+	position: absolute;
+	top: 12.2%;
+	color: white;
+	right: 1%;
+	font-size: 24px;
+	font-family: Ariel;
+}
+
+#cartCount {
+	position: absolute;
+	right: 0.2%;
+	margin-right: 4.6%;
+	top: 11.9%;
+	color: black;
+	font-size: 20px;
+	text-align: center;
+	border-radius: 50%;
+	min-width: 23px;
+	text-align: center;
+	color: white;
+}
+
+#cartCount button {
+
+}
+
+.navSignIn.hidden {
+	display: none;
+}
+
+.navSignIn.show button:nth-child(1) {
+	position: absolute;
+	top: 13%;
+	right: 223px;
+	width: 5.5%;
+	height: 27px;
+	border: none;
+	background-color: #696969;
+	border-radius: 4px;
+	outline: none;
+	font-size: 17px;
+	color: white;
+	
+}
+
+.navSignIn.show button:nth-child(2) {
+	position: absolute;
+	top: 13%;
+	font-size: 17px;
+	right: 9.5%;
+	width: 5.5%;
+	height: 27px;
+	border: none;
+	background-color: #696969;
+	border-radius: 4px;
+	outline: none;
+	padding-left: 2px;
+	color: white;
+}
+
+.navCustomerService {
+	position: absolute;
+	right: 85px;
+	top: 30px;
+	color: white;
+	font-size: 18px;
+	
+}
+
+.navMembership {
+	position: absolute;
+	right: 255px;
+	top: 30px;
+	color: white;
+	font-size: 18px;
+	
+}
+
+.navFeedback {
+	position: absolute;
+	right: 390px;
+	top: 30px;
+	color: white;
+	font-size: 18px;
+	
+}
+
+.nav-my-account-button.show button {
+	position: absolute;
+	margin-top: -.6%;
+	right: 11.5%;
+	width: 9%;
+	height: 34px;
+	top: 13%;
+	color: black;
+	font-size: 18px;
+	background-color: red;
+	border-radius: 10px;
+	
+	border: 2px solid red;
+	line-height: 30px;
+	
+}
+
+#navBarSignout {
+	background-color: white;
+	position: absolute;
+	right: 8%;
+	width: 3%;
+	height: 3%;
+	font-size: 8px;
+	border-radius: 10px;
+	line-height: 10%;
+	color: red;
+	top: 13.5%;
+
+}
+
+.nav-my-account-button.hidden {
+	display: none;
+}
+
+.nav-favorites {
+	position: absolute;
+	right: 320px;
+	top: 120px;
+	color: white;
+	font-size: 18px;
+
+}
+
+.nav-favorites.hidden {
+	visibility: hidden;
+}
+
+.navFriendship.hidden button {
+	width: 50px;
+	height: 30px;
+	background-color:  orange;
+
+}

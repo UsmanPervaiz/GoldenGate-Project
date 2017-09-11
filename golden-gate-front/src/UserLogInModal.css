@@ -1,0 +1,299 @@
+
+.user-sign-in-modal-wrapper {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	z-index: 1;
+	background-color: rgba(0,0,0,.5);
+}
+
+
+#user-sign-in-modal-close {
+	position: absolute;
+	width: 100px;
+	float: right;
+	margin-right: 5%;
+	font-size: 2em;
+	border: 2px solid black;
+	box-sizing: border-box;
+}
+
+.hide-user-signin-modal-error-div {
+	display: none;
+}
+
+.show-user-signin-modal-error-div {
+	position: absolute;
+	display: block;
+	height: auto;
+	width: 350px;
+	left: 550px;
+	top: 20px;
+	text-align: center;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	border: 1px solid black;
+	box-sizing: border-box;
+	background-color: #E80000;
+	overflow: auto;
+	box-sizing: border-box;
+	animation: signInErrorModal 2s linear infinite;
+
+}
+
+@keyframes signInErrorModal {
+	50% {
+		background-color: white;
+		/*color: white;*/
+	}
+}
+
+.show-user-signin-modal-error-div h4 {
+	position: relative;
+	top: 10%;
+	color: black;
+	padding-bottom: 4%;
+
+}
+
+.user-sign-in-modal-back-face {
+	position: relative;
+	width: 350px;
+	height: 350px;
+	left: 550px;
+	top: 150px;
+	/*transform: translateX(-50%) translateY(-85%);*/
+	/* CSS transforms property applies a 2D or 3D transformation to an element. This property allows you to rotate, scale, move, translate, etc.
+	   The translate() method moves an element from its current position. If the translate cordinates are given in px, then it will move
+	   the element only the px defined, but if the cordinates are given in %, then it will move the element according to the percentage 
+	   of its width and height. Here we are moving th eelement -50% of width: 300px. */
+	background-color: white;
+	padding: 20px;
+	border: 20px solid white;
+	/*overflow: hidden;*/
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+
+.user-sign-in-modal-back-face:hover .user-sign-in-modal-front-face, .user-sign-in-modal-back-face.focused .user-sign-in-modal-front-face {
+	width: 30px;
+	background-color: black;
+}
+
+.user-sign-in-modal-back-face:hover .front-face-text, .front-face-text.focused {
+	font-size: 1em; /* when the className is .front-face-text, it will apply all these three settings, once the back face has received focus
+					we are adding class .focused and then it will apply these three seetings permanently in addition to whatever settings we 
+					initially set for .front-face-text class below. When the same element has multiple classes, whichever class appears
+					last takes precedence, in other words is applied to the element. */
+	color: white;
+	transform: rotate(-90deg);
+}
+
+.user-sign-in-modal-back-face.loading .front-face-text {
+	display: none;
+}
+
+.user-sign-in-modal-back-face.loading .sign-in-loader1 {
+	display: block;
+}
+
+.user-sign-in-modal-back-face.loading .sign-in-loader2 {
+	display: block;
+}
+
+.user-sign-in-modal-back-face.loading .user-sign-in-modal-front-face {
+	width: 100%;
+	background-color: #3b5998;
+}
+
+.user-sign-in-modal-back-face.loading .sign-in-modal-submit-button {
+	display: none;
+}
+
+.user-sign-in-modal-back-face.loading .loader-text {
+	display: block;
+}
+
+.user-sign-in-modal-front-face {
+	position: absolute;
+	/*display: block;*/
+	width: 100%;
+	height: 100%;
+	left: 0; /* we use left and top to hide the padding given on modal-content-div */
+	top: 0;
+	z-index: 2;
+	transition: width 0.4s ease-in-out;
+	background-color: #3b5998;
+}
+
+.front-face-text {
+	display: block; /* to display the text in the center, text-align:center; alone won't center the text.*/
+	font-size: 5em;
+	font-family: sans-serif, Arial;
+	color: white;
+	text-align: center;
+	line-height: 300px;
+	transition: all 0.4s ease-in-out;
+}
+
+.user-sign-in-modal-back-face > form {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.sign-in-modal-input-field {
+	width: 100%;
+	height: 50px;
+	outline: none;
+	font-size: 20px;
+	color: #3b5998;
+	font-family: sans-serif, Arial;
+	text-indent: 10px;
+	border: 0px;
+	border-bottom: 2px solid black;
+}
+
+.sign-in-modal-submit-button {
+	position: absolute;
+	width: 70px;
+	height: 70px;
+	bottom: 15px;
+	right: 15px;
+	z-index: 3;
+	outline: none;
+	cursor: pointer;
+	border-radius: 50%;
+	border: 5px solid transparent;
+	transition: all 0.4s ease-in-out;
+	background-color: #3b5998;
+}
+
+.sign-in-modal-submit-button:after {
+	position: absolute;
+	content:"";
+	top: 5px;
+	width: 0;
+	height: 0;
+	left: -15px;
+	transform: rotate(45deg);
+	border-left: 30px solid transparent;
+	border-right: 30px solid #fff;
+	transition: all 0.4s ease-in-out;
+	border-bottom: 30px solid transparent;
+}
+
+.sign-in-modal-submit-button:hover, .sign-in-modal-submit-button:focus  {
+	border: 5px solid #3b5998;
+	background-color: white;
+}
+
+.sign-in-modal-submit-button:hover:after, .sign-in-modal-submit-button:focus:after {
+	border-right: 30px solid #3b5998;
+}
+
+.sign-in-loader1 {
+	display: none;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	border: 2px solid white;
+	border-radius: 50%;
+	margin: 75px 75px;
+	animation: signInLoaderX 2s linear infinite;
+}
+
+@keyframes signInLoaderX {
+	50% {
+		background-color: red;
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.sign-in-loader1:after {
+	position: absolute;
+	content: "";
+	width: 15px;
+	height: 15px;
+	left: 65px;
+	top: -7.5px;
+	z-index: 2;
+	background-color: white;
+	border-radius: 50%;
+}
+
+.sign-in-loader2 {
+	display: none;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	border: 2px solid white;
+	border-radius: 50%;
+	margin: 75px 75px;
+	animation: signInLoaderY 2s linear infinite;
+}
+
+.sign-in-loader2:before {
+	position: absolute;
+	content: "";
+	width: 15px;
+	height: 15px;
+	left: 65px;
+	top: -7.5px;
+	z-index: 2;
+	background-color: white;
+	border-radius: 50%;
+
+}
+
+@keyframes signInLoaderY {
+	50% {
+		
+	}
+	100% {
+		transform: rotate(-360deg);
+	}
+}
+
+.loader-text {
+	position: absolute;
+	display: none;
+	top: 46%;
+	left: 34%;
+	font-size: 1.4em;
+	animation: signInText 2s linear infinite;
+
+}
+
+@keyframes signInText {
+	55% {
+		opacity: .1;
+	}
+	100% {
+		
+	}
+}
+
+#sign-in-modal-checkbox {
+	position: relative;
+	display: inline-block;
+	left: 8%;
+	margin-top: 10%;
+	padding-left: 3%;
+}
+
+#forgot-password {
+	display: block;
+	/*position: absolute;*/
+	margin-left: 8%;
+	padding-top: 2%;
+}
+
+
+
+
+
+
+
