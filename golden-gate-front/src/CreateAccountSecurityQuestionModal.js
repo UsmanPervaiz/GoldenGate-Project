@@ -6,15 +6,15 @@ export default class CreateAccountSecurityQuestionModal extends React.Component 
 	constructor() {
 		super()
 		this.state = {
-			selectHeading1: "Click to select a security question...",
-			selectHeading2: "Click to select a security question...",
-			selectHeading3: "Click to select a security question...",
-			showSecurityQuestions1: "",
-			showSecurityQuestions2: "",
-			showSecurityQuestions3: "",
-			securityQuestionAnswer1: "",
-			securityQuestionAnswer2: "",
-			securityQuestionAnswer3: "",
+			divHeading1: "Click to select a security question...",
+			divHeading2: "Click to select a security question...",
+			divHeading3: "Click to select a security question...",
+			showSecurityQuestions1: false,
+			showSecurityQuestions2: false,
+			showSecurityQuestions3: false,
+			securityQuestionAnswer1: false,
+			securityQuestionAnswer2: false,
+			securityQuestionAnswer3: false,
 			showSecurityQuestionSubmitButton: false
 		}
 	}
@@ -22,14 +22,14 @@ export default class CreateAccountSecurityQuestionModal extends React.Component 
 	selectSecurityQuestionClicked(num, e) {
 		var showTheseSecurityQuestions = `showSecurityQuestions${num}`
 		var newObject = {}
-		newObject[showTheseSecurityQuestions] = "show"
 		
 		if(this.state[showTheseSecurityQuestions]) {
-			newObject[showTheseSecurityQuestions] = ""
+			newObject[showTheseSecurityQuestions] = false
 			this.setState(
 				newObject
 			, () => { var spanArrow = this.refs[`security-question-select-heading-arrow${num}`]; spanArrow.className = "security-question-select-heading-arrow" })
 		} else {
+			newObject[showTheseSecurityQuestions] = true
 			this.setState(
 				newObject
 			, () => { var spanArrow = this.refs[`security-question-select-heading-arrow${num}`]; spanArrow.className = "security-question-select-heading-arrow up" })
@@ -37,12 +37,12 @@ export default class CreateAccountSecurityQuestionModal extends React.Component 
 	}
 
 	securityQuestionSelected(question, num) {
-		console.log(question)
-		var hideTheseSecurityQUestions = `showSecurityQuestions${num}`
-		var selectThisHeading = `selectHeading${num}`
+		
+		var showTheseSecurityQUestions = `showSecurityQuestions${num}`
+		var selectThisDivHeading = `divHeading${num}`
 		var newObject = {}
-		newObject[selectThisHeading] = question
-		newObject[hideTheseSecurityQUestions] = ""
+		newObject[selectThisDivHeading] = question
+		newObject[showTheseSecurityQUestions] = false
 		this.setState(
 			newObject
 		, () => { var changeArrow = this.refs[`security-question-select-heading-arrow${num}`]; changeArrow.className = "security-question-select-heading-arrow" })
@@ -52,17 +52,32 @@ export default class CreateAccountSecurityQuestionModal extends React.Component 
 		var securityQuestionAnswer = `securityQuestionAnswer${num}`
 		var newObject = {}
 		newObject[securityQuestionAnswer] = e.target.value
-		if(this.state.securityQuestionAnswer1 && this.state.securityQuestionAnswer2 && this.state.securityQuestionAnswer3 && this.state.selectHeading1 !== "Click to select a security question..." && this.state.selectHeading2 !== "Click to select a security question..." && this.state.selectHeading3 !== "Click to select a security question...") {
-			newObject.showSecurityQuestionSubmitButton = true
-			this.setState(
-				newObject 
-				, ()=> console.log(this.state.securityQuestionAnswer3))
-		} else {
-			newObject.showSecurityQuestionSubmitButton = false
-			this.setState(
-				newObject 
-				, ()=> console.log("mummy",this.state.securityQuestionAnswer3))
+		this.setState (
+			newObject
+			, () => { 
+					if (this.state.securityQuestionAnswer1 && this.state.securityQuestionAnswer2 
+						&& this.state.securityQuestionAnswer3 
+						&& this.state.divHeading1 !== "Click to select a security question..." 
+						&& this.state.divHeading2 !== "Click to select a security question..." 
+						&& this.state.divHeading3 !== "Click to select a security question...") {
+						this.setState({
+							showSecurityQuestionSubmitButton : true })
+					} else {
+						this.setState({
+							showSecurityQuestionSubmitButton : false })
+					}
+				})
+	}
+
+	createAccountSecurityQuestionSubmitButtonClicked(e) {
+		e.preventDefault()
+		// var questionsAndAnswers = this.state.divHeading1
+		var questionsAndAnswers = {
+								[this.state.divHeading1]: this.state.securityQuestionAnswer1,
+								[this.state.divHeading2]: this.state.securityQuestionAnswer2,
+								[this.state.divHeading3]: this.state.securityQuestionAnswer3
 		}
+		this.props.createAccountSecurityQuestionModalSubmitButtonClicked(questionsAndAnswers)
 	}
 
 
@@ -76,9 +91,9 @@ export default class CreateAccountSecurityQuestionModal extends React.Component 
 					
 					<div id="create-account-security-question-modal-header" className="create-account-security-question-modal-header" >
 						<h2>ACCOUNT SECURITY QUESTION</h2>
-						<h4>Please choose a security question to recover</h4>
+						<h4>Please answer any three security questions to finish creating your account (required).</h4>
 					</div>
-
+					<form>
 
 					{ repeatDiv.map((num, i) => { 
 						var a = 0
@@ -98,14 +113,13 @@ export default class CreateAccountSecurityQuestionModal extends React.Component 
 							<div className="create-account-security-question-and-answer-div">
 
 								<div className="security-question-select-heading-div" onClick={this.selectSecurityQuestionClicked.bind(this, num)} >
-									{ this.state[`selectHeading${num}`]}
+									{ this.state[`divHeading${num}`]}
 									<span className="security-question-select-heading-arrow" ref={`security-question-select-heading-arrow${num}`}></span>
 								</div>
 								{ this.state[`showSecurityQuestions${num}`] ? <div className="list-security-questions-div" >{this.props.securityQuestions.slice(a,b).map((question) => {
-																		return ( <div onClick={this.securityQuestionSelected.bind(this, question, num)} > 
-																					{question}
-																				</div> )
-								}) }</div> : null }
+																			return ( <div onClick={this.securityQuestionSelected.bind(this, question, num)} >{question}</div> ) }) 
+																			} </div> : null 
+								}
 								
 								<input type="text" placeholder="type your answer here" required className="security-answer-input-field" onChange={this.securityQuestionAnswerFieldChanged.bind(this, num)} />
 							</div>
@@ -113,8 +127,8 @@ export default class CreateAccountSecurityQuestionModal extends React.Component 
 					}  
 					) }
 
-					{ this.state.showSecurityQuestionSubmitButton ? <button type="submit" className="security-answer-input-field button">FINISH CREATING YOUR ACCOUNT</button> : null }
-					
+					{ this.state.showSecurityQuestionSubmitButton ? <button type="submit" className="security-answer-input-field button" onClick={this.createAccountSecurityQuestionSubmitButtonClicked.bind(this)} >FINISH CREATING YOUR ACCOUNT</button> : null }
+					</form>
 				</div>
 			</div>
 			)

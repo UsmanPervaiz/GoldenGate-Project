@@ -36,7 +36,7 @@ export default class Register extends React.Component{ c
 			createAccountPasswordErrorDisplay: { display: "none"}, 
 			createAccountPasswordConfirmError: "Typo! passwords did not match.",
 			createAccountPasswordConfirmErrorDisplay: { display: "none" },
-			gender: "",
+			gender: "Unknown",
 			maleButtonColor: { background: 'white', color: "black" },
 			femaleButtonColor: { background: 'white', color: "black"},
 			birthdayMonth: "",
@@ -424,38 +424,24 @@ export default class Register extends React.Component{ c
 
 	createAccountButtonClicked(e) {
 		e.preventDefault()
-		var genderSelectedOrNot = ""
-		if(!this.state.gender) {
-			genderSelectedOrNot = "Not Provided"
-		} else {
-			genderSelectedOrNot = this.state.gender
-		}
 		var birthDate = `${this.state.birthdayYear}/${this.state.birthdayMonth}/${this.state.birthdayDay}`
 		var member = {
 			first_name: this.state.createAccountFirstName,
 			last_name: this.state.createAccountLastName,
-			gender: genderSelectedOrNot,
+			gender: this.state.gender,
 			birthday: birthDate,
 			email: this.state.createAccountEmailConfirm,
 			password: this.state.createAccountPassword,
 	    }
-	    // axios.post('http://localhost:3000/api/v1/create_new_account',
-	    axios.post('http://localhost:3000/api/v1/check_validity', 
+	    axios.post('http://localhost:3000/api/v1/check_validity', {
     		member: member
-  		)
+	    })
   		.then((resp)=> {
-			console.log("RESP", resp)
-			console.log("DATA, resp.data")
-			// this.setState({
-			// 	securityQuestions: resp.data,
-			// 	createAccountSecurityQuestionModal: "show"
-			// }, ()=> console.log(this.state.securityQuestions, "oooOOOooO"))
+			this.setState({
+				securityQuestions: resp.data,
+				createAccountSecurityQuestionModal: "show"
+			})
 		})
-		
-  		// .then((resp)=> localStorage.setItem("token", resp.data.token))
-  		// .then(()=> this.props.history.push("/main"))
-  		// .then(()=> this.createAccountSecurityQuestionModal.bind(this))
-  		// .then(()=> this.props.accountCreatedMessageModal())
   		.catch((error)=> {
   			this.setState({
   				createAccountErrorResponseData: error.response.data,
@@ -464,17 +450,30 @@ export default class Register extends React.Component{ c
   		})
 	}
 
-	// createAccountButtonClicked(e) {
-	// 	e.preventDefault()
-	// 	axios.get("http://localhost:3000/api/v1/security_questions")
-	// 	.then((resp)=> {
-			
-	// 		this.setState({
-	// 			securityQuestions: resp.data,
-	// 			createAccountSecurityQuestionModal: "show"
-	// 		}, ()=> console.log(this.state.securityQuestions, "oooOOOooO"))
-	// 	})
-	// }
+	createAccountSecurityQuestionModalSubmitButtonClicked(questionsAndAnswers) {
+
+		var birthDate = `${this.state.birthdayYear}/${this.state.birthdayMonth}/${this.state.birthdayDay}`
+	  	var member = {
+			first_name: this.state.createAccountFirstName,
+			last_name: this.state.createAccountLastName,
+			gender: this.state.gender,
+			birthday: birthDate,
+			email: this.state.createAccountEmailConfirm,
+			password: this.state.createAccountPassword,
+	    	}
+	    axios.post('http://localhost:3000/api/v1/create_new_account', {
+	    	member: member
+	    	}).then((resp) => localStorage.setItem("token", resp.data.token))
+	    .then(() => this.props.history.push("/main"))
+	    .then(() => this.props.accountCreatedMessageModal())
+	    .then(() => {
+	    	axios.post('http://localhost:3000/api/v1/security_questions', {
+	    		questionsAndAnswers: questionsAndAnswers }, {
+	    		headers: {'TOKEN': localStorage.token}}
+	    		)
+	    })
+
+	  }
 
 	createAccountErrorModalCloseClicked() {
 		this.setState({
@@ -482,9 +481,6 @@ export default class Register extends React.Component{ c
 		})
 	}
 
-	 createAccountSecurityQuestionModal() {
-
-	  }
 
 	render () {
 		console.log(this.props, "state-register")
@@ -497,7 +493,7 @@ export default class Register extends React.Component{ c
 		
 		<div id="registerPageDiv">
 			{ this.state.createAccountErrorModal ===  "show-create-account-error-modal" ? <CreateAccountErrorModal createAccountErrorResponseData={this.state.createAccountErrorResponseData} createAccountErrorModalCloseClicked={this.createAccountErrorModalCloseClicked.bind(this)}/> : null }
-		 	{ this.state.createAccountSecurityQuestionModal ? <CreateAccountSecurityQuestionModal securityQuestions={this.state.securityQuestions} /> : null }
+		 	{ this.state.createAccountSecurityQuestionModal ? <CreateAccountSecurityQuestionModal securityQuestions={this.state.securityQuestions} createAccountSecurityQuestionModalSubmitButtonClicked={this.createAccountSecurityQuestionModalSubmitButtonClicked.bind(this)} /> : null }
 		<div id="signinPage">
 
 			<div id="signinError" className="hide-signin-error-div" ref="signin-error-div">
