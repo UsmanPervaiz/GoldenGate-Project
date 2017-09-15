@@ -11,7 +11,7 @@ private
 
 	def authorize_account(token)
 		begin
-		decoded_token = JWT.decode(token, ENV['JWT_SECRET'], true, {algorithm: "HS256"})
+		decoded_token = JWT.decode(token, ENV['JWT_SECRET'], true, { algorithm: ENV['JWT_ALGORITHM'] })
 		decoded_token
     	rescue JWT::DecodeError
       	 nil

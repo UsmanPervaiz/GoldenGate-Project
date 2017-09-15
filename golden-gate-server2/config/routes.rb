@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   		resources :order_details, only: [:create, :update, :destroy]
   		resources :products, only: [:index]
   		get 'carts/show', to: "carts#show"
-  		get 'security_questions', to: "security_questions#show"
+  		post 'security_questions', to: "security_questions#create"
   	  
     end
   end

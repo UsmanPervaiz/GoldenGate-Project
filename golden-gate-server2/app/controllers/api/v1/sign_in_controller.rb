@@ -4,7 +4,7 @@ class Api::V1::SignInController < ApplicationController
   def create
   	downcased_email = params[:email].downcase
   	member = Member.find_by(email: downcased_email)
-  	 
+  	
   		if(member.present?) 
 
 			if (member.valid_password?(params[:sign_in][:password]))
