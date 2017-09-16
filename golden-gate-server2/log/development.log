@@ -2740,3 +2740,929 @@ Processing by Api::V1::SecurityQuestionsController#create as HTML
   [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "security_question_answers" ("member_id", "security_question_id", "answer", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["member_id", 25], ["security_question_id", 11], ["answer", "muni"], ["created_at", "2017-09-15 01:44:30.255875"], ["updated_at", "2017-09-15 01:44:30.255875"]]
   [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mSecurityQuestionAnswer Load (0.2ms)[0m  [1m[34mSELECT "security_question_answers".* FROM "security_question_answers"[0m
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:16:51 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 55ms (Views: 0.3ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:18:37 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-09-14 22:18:46 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/railties-5.0.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/railties-5.0.3/lib/rails/templates/rails/welcome/index.html.erb (3.3ms)
+Completed 200 OK in 17ms (Views: 9.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:18:51 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:19:03 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:19:03 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/products" for 127.0.0.1 at 2017-09-14 22:19:07 -0400
+Processing by Api::V1::ProductsController#index as HTML
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+Completed 200 OK in 6ms (Views: 1.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:19:07 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:19:19 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:20:06 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:20:50 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:21:23 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-14 22:21:31 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-15 20:48:11 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 25], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 25], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-15 20:49:42 -0400
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"umer", "last_name"=>"javed", "gender"=>"Male", "birthday"=>"2017/09/16", "email"=>"umer@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "umer@yahoo.com"], ["LIMIT", 1]]
+Completed 422 Unprocessable Entity in 145ms (Views: 0.2ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-15 20:49:55 -0400
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"umer", "last_name"=>"javed", "gender"=>"Male", "birthday"=>"2017/09/20", "email"=>"umer@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "umer@yahoo.com"], ["LIMIT", 1]]
+Completed 422 Unprocessable Entity in 128ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-15 20:50:03 -0400
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"umer", "last_name"=>"javed", "gender"=>"Male", "birthday"=>"2017/09/05", "email"=>"umer@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "umer@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 141ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-15 20:50:33 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"umer", "last_name"=>"javed", "gender"=>"Male", "birthday"=>"2017/09/05", "email"=>"umer@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "umer@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Umer"], ["last_name", "Javed"], ["gender", "Male"], ["birthday", "2017-09-05"], ["email", "umer@yahoo.com"], ["encrypted_password", "$2a$11$np3eo1sXly3p1Dz3EEx7PuYsG8vr6Jc6/CVTzsCsq9aAl4RGRtZx6"], ["created_at", "2017-09-16 00:50:33.792846"], ["updated_at", "2017-09-16 00:50:33.792846"], ["signed_up_on", "2017-09-15"]]
+  [1m[35m (6.7ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 140ms (Views: 0.2ms | ActiveRecord: 7.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-15 20:50:33 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 26], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-15 20:50:33 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"aa", "What is your favorite team?"=>"aaa", "What is your favorite number?"=>"ss"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "security_question_answers" ("member_id", "security_question_id", "answer", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["member_id", 26], ["security_question_id", 1], ["answer", "aa"], ["created_at", "2017-09-16 00:50:33.844148"], ["updated_at", "2017-09-16 00:50:33.844148"]]
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "security_question_answers" ("member_id", "security_question_id", "answer", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["member_id", 26], ["security_question_id", 6], ["answer", "aaa"], ["created_at", "2017-09-16 00:50:33.850521"], ["updated_at", "2017-09-16 00:50:33.850521"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.0ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "security_question_answers" ("member_id", "security_question_id", "answer", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["member_id", 26], ["security_question_id", 12], ["answer", "ss"], ["created_at", "2017-09-16 00:50:33.854757"], ["updated_at", "2017-09-16 00:50:33.854757"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+No template found for Api::V1::SecurityQuestionsController#create, rendering head :no_content
+Completed 204 No Content in 117ms (ActiveRecord: 5.6ms)
+
+
+Started GET "/api/v1/products" for 127.0.0.1 at 2017-09-15 20:50:39 -0400
+Processing by Api::V1::ProductsController#index as HTML
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-15 20:50:39 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 26], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-15 20:50:48 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 26], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-15 20:51:01 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 26], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 26], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/api/v1/sign_in" for 127.0.0.1 at 2017-09-15 20:52:07 -0400
+Processing by Api::V1::SignInController#create as HTML
+  Parameters: {"email"=>"umer@yahoo.com", "password"=>"[FILTERED]", "sign_in"=>{"email"=>"umer@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Load (0.3ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "umer@yahoo.com"], ["LIMIT", 1]]
+Completed 422 Unprocessable Entity in 126ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/api/v1/sign_in" for 127.0.0.1 at 2017-09-15 20:52:17 -0400
+Processing by Api::V1::SignInController#create as HTML
+  Parameters: {"email"=>"um@yahoo.com", "password"=>"[FILTERED]", "sign_in"=>{"email"=>"um@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "um@yahoo.com"], ["LIMIT", 1]]
+Completed 422 Unprocessable Entity in 1ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/api/v1/sign_in" for 127.0.0.1 at 2017-09-15 20:52:39 -0400
+Processing by Api::V1::SignInController#create as HTML
+  Parameters: {"email"=>"umer@yahoo.com", "password"=>"[FILTERED]", "sign_in"=>{"email"=>"umer@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "umer@yahoo.com"], ["LIMIT", 1]]
+Completed 422 Unprocessable Entity in 125ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/products" for 127.0.0.1 at 2017-09-15 20:55:35 -0400
+Processing by Api::V1::ProductsController#index as HTML
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products"[0m
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/api/v1/sign_in" for 127.0.0.1 at 2017-09-16 15:16:06 -0400
+Processing by Api::V1::SignInController#create as HTML
+  Parameters: {"email"=>"umer@yahoo.com", "password"=>"[FILTERED]", "sign_in"=>{"email"=>"umer@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "umer@yahoo.com"], ["LIMIT", 1]]
+Completed 422 Unprocessable Entity in 124ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/api/v1/sign_in" for 127.0.0.1 at 2017-09-16 15:17:15 -0400
+Processing by Api::V1::SignInController#create as HTML
+  Parameters: {"email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]", "sign_in"=>{"email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "de.usman@yahoo.com"], ["LIMIT", 1]]
+Completed 200 OK in 122ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 15:17:15 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.0ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 23], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+  [1m[36mSecurityQuestionAnswer Load (1.8ms)[0m  [1m[34mSELECT "security_question_answers".* FROM "security_question_answers"[0m
+  [1m[36mSecurityQuestionAnswer Load (0.1ms)[0m  [1m[34mSELECT "security_question_answers".* FROM "security_question_answers"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "security_question_answers" WHERE "security_question_answers"."id" = ?[0m  [["id", 1]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "security_question_answers" WHERE "security_question_answers"."id" = ?[0m  [["id", 2]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "security_question_answers" WHERE "security_question_answers"."id" = ?[0m  [["id", 3]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "security_question_answers" WHERE "security_question_answers"."id" = ?[0m  [["id", 4]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "security_question_answers" WHERE "security_question_answers"."id" = ?[0m  [["id", 5]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "security_question_answers" WHERE "security_question_answers"."id" = ?[0m  [["id", 6]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSecurityQuestionAnswer Load (0.1ms)[0m  [1m[34mSELECT "security_question_answers".* FROM "security_question_answers"[0m
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 23]]
+  [1m[35m (6.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 24]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 25]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 26]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:03:43 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"usman", "last_name"=>"pervaiz", "gender"=>"Male", "birthday"=>"1980/05/11", "email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "de.usman@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 184ms (Views: 0.3ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:04:07 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"usman", "last_name"=>"pervaiz", "gender"=>"Male", "birthday"=>"1980/05/11", "email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "de.usman@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Usman"], ["last_name", "Pervaiz"], ["gender", "Male"], ["birthday", "1980-05-11"], ["email", "de.usman@yahoo.com"], ["encrypted_password", "$2a$11$Jt.Je6OH81RKV1UK617Q.eDkyJKEh6V1OvAIKZjjlvaL9Wlds7dHG"], ["created_at", "2017-09-16 20:04:07.477753"], ["updated_at", "2017-09-16 20:04:07.477753"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.5ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 142ms (Views: 0.3ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:04:07 -0400
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:04:07 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 27], ["LIMIT", 1]]
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What was the make and model of your first car?"=>"camry", "What is your pet's name?"=>"muni"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.5ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[36mOrder Load (0.2ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 27], ["order_status", "incart"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Completed 200 OK in 32ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 27], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 500 Internal Server Error in 39ms (ActiveRecord: 1.6ms)
+
+
+  
+ArgumentError (key must be 32 bytes):
+  
+app/models/security_question_answer.rb:11:in `encrypt_security_question_answer'
+app/controllers/api/v1/security_questions_controller.rb:18:in `block (2 levels) in create'
+app/controllers/api/v1/security_questions_controller.rb:15:in `block in create'
+app/controllers/api/v1/security_questions_controller.rb:14:in `create'
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (4.1ms)
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (58.7ms)
+  [1m[36mMember Load (1.3ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 27]]
+  [1m[35m (6.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSecurityQuestionAnswer Load (0.2ms)[0m  [1m[34mSELECT "security_question_answers".* FROM "security_question_answers"[0m
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:08:20 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"usman", "last_name"=>"pervaiz", "gender"=>"Male", "birthday"=>"1980/05/11", "email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "de.usman@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 180ms (Views: 0.3ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:08:42 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"usman", "last_name"=>"pervaiz", "gender"=>"Male", "birthday"=>"1980/05/11", "email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "de.usman@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Usman"], ["last_name", "Pervaiz"], ["gender", "Male"], ["birthday", "1980-05-11"], ["email", "de.usman@yahoo.com"], ["encrypted_password", "$2a$11$I81lfuoZyBUD4echdb.JVuYjIX9fQ1J6tAFCr/JJhTB8vlZEdEtiW"], ["created_at", "2017-09-16 20:08:42.483448"], ["updated_at", "2017-09-16 20:08:42.483448"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (7.0ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 148ms (Views: 0.3ms | ActiveRecord: 7.6ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:08:42 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 28], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.2ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 28], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 13ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:08:42 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What was the make and model of your first car?"=>"camry", "What is your pet's name?"=>"muni"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 28], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+Completed 500 Internal Server Error in 29ms (ActiveRecord: 0.9ms)
+
+
+  
+ArgumentError (key must be 32 bytes):
+  
+app/models/security_question_answer.rb:11:in `encrypt_security_question_answer'
+app/controllers/api/v1/security_questions_controller.rb:18:in `block (2 levels) in create'
+app/controllers/api/v1/security_questions_controller.rb:15:in `block in create'
+app/controllers/api/v1/security_questions_controller.rb:14:in `create'
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (4.3ms)
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.8ms)
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (70.6ms)
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:12:07 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"djo", "last_name"=>"djo", "gender"=>"Male", "birthday"=>"2014/04/05", "email"=>"djo@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "djo@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (7.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 187ms (Views: 0.4ms | ActiveRecord: 8.4ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:12:32 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"djo", "last_name"=>"djo", "gender"=>"Male", "birthday"=>"2014/04/05", "email"=>"djo@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "djo@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Djo"], ["last_name", "Djo"], ["gender", "Male"], ["birthday", "2014-04-05"], ["email", "djo@yahoo.com"], ["encrypted_password", "$2a$11$jN8dtcpZF1.nzQRJXreru.VQzoyiRZ12eXZTTDdoFdXuzdcJ4qfLS"], ["created_at", "2017-09-16 20:12:32.728434"], ["updated_at", "2017-09-16 20:12:32.728434"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.8ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 142ms (Views: 0.3ms | ActiveRecord: 7.3ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:12:32 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 29], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 29], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:12:32 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What was the make and model of your first car?"=>"camry", "What is your pet's name?"=>"muni"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 29], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:20:44 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"ab", "last_name"=>"ab", "gender"=>"Male", "birthday"=>"2015/03/03", "email"=>"ab@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "ab@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 202ms (Views: 0.3ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:20:53 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"ab", "last_name"=>"ab", "gender"=>"Male", "birthday"=>"2015/03/03", "email"=>"ab@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "ab@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Ab"], ["last_name", "Ab"], ["gender", "Male"], ["birthday", "2015-03-03"], ["email", "ab@yahoo.com"], ["encrypted_password", "$2a$11$Nu2sQFqbPysOSwa2L/lf4.v7.OnQRmZYGNxbjYIDso1zn64Unaa7O"], ["created_at", "2017-09-16 20:20:53.303455"], ["updated_at", "2017-09-16 20:20:53.303455"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.7ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 144ms (Views: 0.3ms | ActiveRecord: 7.3ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:20:53 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:20:53 -0400
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"aa", "What is your favorite number?"=>"aa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Processing by Api::V1::CartsController#show as HTML
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.4ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]]
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 500 Internal Server Error in 43ms (ActiveRecord: 1.5ms)
+
+
+  
+ArgumentError (key must be 32 bytes):
+  
+app/models/security_question_answer.rb:12:in `encrypt_security_question_answer'
+app/controllers/api/v1/security_questions_controller.rb:18:in `block (2 levels) in create'
+app/controllers/api/v1/security_questions_controller.rb:15:in `block in create'
+app/controllers/api/v1/security_questions_controller.rb:14:in `create'
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (4.0ms)
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (57.6ms)
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 30], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 347ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:20:54 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 30], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:20:58 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 30], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:21:43 -0400
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"aa", "last_name"=>"aa", "gender"=>"Male", "birthday"=>"2012/03/03", "email"=>"aa@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "aa@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 152ms (Views: 0.2ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:21:51 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"aa", "last_name"=>"aa", "gender"=>"Male", "birthday"=>"2012/03/03", "email"=>"aa@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "aa@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Aa"], ["last_name", "Aa"], ["gender", "Male"], ["birthday", "2012-03-03"], ["email", "aa@yahoo.com"], ["encrypted_password", "$2a$11$oO3T8YEoR1qKdPUIoIs/zuhtXubv9N.5n7BwS44jt6IUPXhaHZV4K"], ["created_at", "2017-09-16 20:21:51.169965"], ["updated_at", "2017-09-16 20:21:51.169965"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (7.0ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 151ms (Views: 0.2ms | ActiveRecord: 7.4ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:21:51 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 31], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 31], ["order_status", "incart"], ["LIMIT", 1]]
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:21:51 -0400
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+
+
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"aa", "What is your favorite number?"=>"aa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.6ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 31], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:23:52 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"bb", "last_name"=>"bb", "gender"=>"Male", "birthday"=>"2015/02/03", "email"=>"bb@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "bb@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (8.4ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 198ms (Views: 0.4ms | ActiveRecord: 9.7ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:24:03 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"bb", "last_name"=>"bb", "gender"=>"Male", "birthday"=>"2015/02/03", "email"=>"bb@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "bb@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Bb"], ["last_name", "Bb"], ["gender", "Male"], ["birthday", "2015-02-03"], ["email", "bb@yahoo.com"], ["encrypted_password", "$2a$11$9CryicXzgZGzIi0zoQ6aRes2oXbOG580uO21FEudgPyAPTOlOchVS"], ["created_at", "2017-09-16 20:24:03.821386"], ["updated_at", "2017-09-16 20:24:03.821386"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.8ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 153ms (Views: 0.3ms | ActiveRecord: 7.3ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:24:03 -0400
+Processing by Api::V1::CartsController#show as HTML
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:24:03 -0400
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 32], ["LIMIT", 1]]
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  [1m[36mOrder Load (0.4ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 32], ["order_status", "incart"], ["LIMIT", 1]]
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"pakistan", "What is your pet's name?"=>"mm"}, "security_question"=>{}}
+Completed 200 OK in 21ms (Views: 0.4ms | ActiveRecord: 1.0ms)
+
+
+  [1m[36mSecurityQuestion Load (0.7ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 32], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:32:08 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"cc", "last_name"=>"cc", "gender"=>"Male", "birthday"=>"2011/05/04", "email"=>"cc@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "cc@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 180ms (Views: 0.4ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:32:19 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"cc", "last_name"=>"cc", "gender"=>"Male", "birthday"=>"2011/05/04", "email"=>"cc@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "cc@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Cc"], ["last_name", "Cc"], ["gender", "Male"], ["birthday", "2011-05-04"], ["email", "cc@yahoo.com"], ["encrypted_password", "$2a$11$YSpAM4YTI5JMAB3joNy3KuKp9Jl0MIoHhO5C4X0ckqXUhcq2/DpnO"], ["created_at", "2017-09-16 20:32:19.808128"], ["updated_at", "2017-09-16 20:32:19.808128"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.6ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 144ms (Views: 0.2ms | ActiveRecord: 7.1ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:32:19 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"pakistan", "What is your pet's name?"=>"muni"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:32:19 -0400
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 33], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:40:35 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"dd", "last_name"=>"dd", "gender"=>"Male", "birthday"=>"2011/03/05", "email"=>"dd@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "dd@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 171ms (Views: 0.3ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:40:43 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"dd", "last_name"=>"dd", "gender"=>"Male", "birthday"=>"2011/03/05", "email"=>"dd@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "dd@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Dd"], ["last_name", "Dd"], ["gender", "Male"], ["birthday", "2011-03-05"], ["email", "dd@yahoo.com"], ["encrypted_password", "$2a$11$jZyhjOenH0odkHgaYDXAy.sG5jXGZRoGHpk.dRKXmu142TEk7TPMG"], ["created_at", "2017-09-16 20:40:43.717835"], ["updated_at", "2017-09-16 20:40:43.717835"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.6ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 149ms (Views: 0.3ms | ActiveRecord: 7.0ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:40:43 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 34], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 34], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 11ms (Views: 0.4ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:40:43 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"aa", "What is your pet's name?"=>"aa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.7ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 34], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:45:46 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"ac", "last_name"=>"ac", "gender"=>"Male", "birthday"=>"2011/04/04", "email"=>"ac@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "ac@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 178ms (Views: 0.3ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:45:57 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"ac", "last_name"=>"ac", "gender"=>"Male", "birthday"=>"2011/04/04", "email"=>"ac@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "ac@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Ac"], ["last_name", "Ac"], ["gender", "Male"], ["birthday", "2011-04-04"], ["email", "ac@yahoo.com"], ["encrypted_password", "$2a$11$mFsH8HYkTtI5UeLDFT3AtesZr7kC7UTIrqASDogvk1t8ZvHqbpY3y"], ["created_at", "2017-09-16 20:45:57.287935"], ["updated_at", "2017-09-16 20:45:57.287935"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (5.9ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 145ms (Views: 0.2ms | ActiveRecord: 7.4ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:45:57 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"aa", "What is your pet's name?"=>"aa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:45:57 -0400
+  [1m[36mMember Load (0.3ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 35], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 16:48:00 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"cd", "last_name"=>"cd", "gender"=>"Male", "birthday"=>"2011/03/04", "email"=>"cd@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "cd@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (7.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 200ms (Views: 0.4ms | ActiveRecord: 8.0ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 16:48:11 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"cd", "last_name"=>"cd", "gender"=>"Male", "birthday"=>"2011/03/04", "email"=>"cd@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "cd@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Cd"], ["last_name", "Cd"], ["gender", "Male"], ["birthday", "2011-03-04"], ["email", "cd@yahoo.com"], ["encrypted_password", "$2a$11$1cARInqNilnGDTIbdcZ.D.qLpujI.wt5uPm/nJiTXp8KLK4Zd1UMS"], ["created_at", "2017-09-16 20:48:11.783982"], ["updated_at", "2017-09-16 20:48:11.783982"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.8ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 151ms (Views: 0.3ms | ActiveRecord: 7.3ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 16:48:11 -0400
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 16:48:11 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"aa", "What is your pet's name?"=>"aa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.4ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 36], ["LIMIT", 1]]
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 36], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 17:05:55 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"ww", "last_name"=>"ww", "gender"=>"Male", "birthday"=>"2012/04/04", "email"=>"ww@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "ww@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 171ms (Views: 0.3ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 17:06:03 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"ww", "last_name"=>"ww", "gender"=>"Male", "birthday"=>"2012/04/04", "email"=>"ww@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "ww@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Ww"], ["last_name", "Ww"], ["gender", "Male"], ["birthday", "2012-04-04"], ["email", "ww@yahoo.com"], ["encrypted_password", "$2a$11$.bPJqSYCbQ38ejcpWYZ7Ou4sZRzRQj0quFujEaPV3bndkp6Hezd1K"], ["created_at", "2017-09-16 21:06:04.132544"], ["updated_at", "2017-09-16 21:06:04.132544"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.8ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 154ms (Views: 0.3ms | ActiveRecord: 7.3ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 17:06:04 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 17:06:04 -0400
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite movie?"=>"aa", "What is your favorite number?"=>"aa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Processing by Api::V1::CartsController#show as HTML
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.4ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 37], ["LIMIT", 1]]
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 37], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 17:08:08 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"q", "last_name"=>"q", "gender"=>"Male", "birthday"=>"2013/03/06", "email"=>"q@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "q@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 192ms (Views: 0.4ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 17:08:19 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"q", "last_name"=>"q", "gender"=>"Male", "birthday"=>"2013/03/06", "email"=>"q@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "q@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Q"], ["last_name", "Q"], ["gender", "Male"], ["birthday", "2013-03-06"], ["email", "q@yahoo.com"], ["encrypted_password", "$2a$11$PF4g46cFs0RyfqKZ.fd1uetro3bUmxAp4XrUMQdjAFTxntiXwlltW"], ["created_at", "2017-09-16 21:08:19.488269"], ["updated_at", "2017-09-16 21:08:19.488269"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.9ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 152ms (Views: 0.3ms | ActiveRecord: 7.4ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 17:08:19 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 38], ["LIMIT", 1]]
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 17:08:19 -0400
+  [1m[36mOrder Load (0.2ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 38], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 1.0ms)
+
+
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite movie?"=>"aa", "What is your pet's name?"=>"aa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.6ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 38], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 17:14:09 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"r", "last_name"=>"r", "gender"=>"Male", "birthday"=>"2011/03/05", "email"=>"r@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "r@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 191ms (Views: 0.3ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 17:14:18 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"r", "last_name"=>"r", "gender"=>"Male", "birthday"=>"2011/03/05", "email"=>"r@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "r@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "R"], ["last_name", "R"], ["gender", "Male"], ["birthday", "2011-03-05"], ["email", "r@yahoo.com"], ["encrypted_password", "$2a$11$Fei3y.LHw25SZMZ59HwInOQmVIrpbRIlQh6fiLLTY8vfSqfHLzQJO"], ["created_at", "2017-09-16 21:14:18.668388"], ["updated_at", "2017-09-16 21:14:18.668388"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.7ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 151ms (Views: 0.2ms | ActiveRecord: 7.2ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 17:14:18 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 39], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.2ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 39], ["order_status", "incart"], ["LIMIT", 1]]
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 17:14:18 -0400
+Completed 200 OK in 19ms (Views: 0.4ms | ActiveRecord: 0.7ms)
+
+
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"aa", "What is your pet's name?"=>"aa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.8ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 39], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+Completed 500 Internal Server Error in 42ms (ActiveRecord: 6.6ms)
+
+
+  
+NameError (undefined local variable or method `salt' for #<SecurityQuestionAnswer:0x007fff264e78c0>):
+  
+app/models/security_question_answer.rb:8:in `encrypt_security_question_answer'
+app/controllers/api/v1/security_questions_controller.rb:18:in `block (2 levels) in create'
+app/controllers/api/v1/security_questions_controller.rb:15:in `block in create'
+app/controllers/api/v1/security_questions_controller.rb:14:in `create'
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (4.3ms)
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendering /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.1ms)
+  Rendered /Users/deusman/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (64.1ms)
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 17:15:16 -0400
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"h", "last_name"=>"h", "gender"=>"Male", "birthday"=>"2015/04/04", "email"=>"h@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "h@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 150ms (Views: 0.2ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 17:15:23 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"h", "last_name"=>"h", "gender"=>"Male", "birthday"=>"2015/04/04", "email"=>"h@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "h@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "H"], ["last_name", "H"], ["gender", "Male"], ["birthday", "2015-04-04"], ["email", "h@yahoo.com"], ["encrypted_password", "$2a$11$/TFE9umynJ4vnlNTPxifeuDeeq6m8/mUv2JFx5VPS78YpquTx0hV6"], ["created_at", "2017-09-16 21:15:23.959080"], ["updated_at", "2017-09-16 21:15:23.959080"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.9ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 147ms (Views: 0.2ms | ActiveRecord: 7.2ms)
+
+
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 17:15:23 -0400
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 40], ["LIMIT", 1]]
+  [1m[36mOrder Load (0.3ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 40], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 17:15:23 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What is your favorite team?"=>"aaa", "What is your pet's name?"=>"aaa"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.6ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.3ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 40], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mMember Load (0.3ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 28]]
+  [1m[35mSQL (0.1ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 29]]
+  [1m[35mSQL (0.1ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 30]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 31]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 32]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 33]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 34]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 35]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 36]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 37]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 38]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 39]]
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 40]]
+  [1m[36mSecurityQuestionAnswer Load (0.2ms)[0m  [1m[34mSELECT "security_question_answers".* FROM "security_question_answers"[0m
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 17:17:21 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"usman", "last_name"=>"pervaiz", "gender"=>"Male", "birthday"=>"1980/05/11", "email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "de.usman@yahoo.com"], ["LIMIT", 1]]
+Completed 422 Unprocessable Entity in 188ms (Views: 0.3ms | ActiveRecord: 1.0ms)
+
+
+  [1m[36mMember Load (1.7ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m
+  [1m[36mMember Load (0.3ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 28]]
+  [1m[35m (6.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 29]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 30]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 31]]
+  [1m[35m (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 32]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 33]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 34]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 35]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 36]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 37]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 38]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 39]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[31mDELETE FROM "members" WHERE "members"."id" = ?[0m  [["id", 40]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m
+Started POST "/api/v1/check_validity" for 127.0.0.1 at 2017-09-16 17:17:57 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::MembersController#check_validity as HTML
+  Parameters: {"member"=>{"first_name"=>"usman", "last_name"=>"pervaiz", "gender"=>"Male", "birthday"=>"1980/05/11", "email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "de.usman@yahoo.com"], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+Completed 200 OK in 193ms (Views: 0.4ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/api/v1/create_new_account" for 127.0.0.1 at 2017-09-16 17:18:15 -0400
+Processing by Api::V1::MembersController#create as HTML
+  Parameters: {"member"=>{"first_name"=>"usman", "last_name"=>"pervaiz", "gender"=>"Male", "birthday"=>"1980/05/11", "email"=>"de.usman@yahoo.com", "password"=>"[FILTERED]"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "members" WHERE "members"."email" = ? LIMIT ?[0m  [["email", "de.usman@yahoo.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "members" ("first_name", "last_name", "gender", "birthday", "email", "encrypted_password", "created_at", "updated_at", "signed_up_on") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["first_name", "Usman"], ["last_name", "Pervaiz"], ["gender", "Male"], ["birthday", "1980-05-11"], ["email", "de.usman@yahoo.com"], ["encrypted_password", "$2a$11$aGNVEb4W1oKZ/ajkc94cNuk5ArYoK70MsdfpHY7DmeU94o5Gu3nWm"], ["created_at", "2017-09-16 21:18:15.262413"], ["updated_at", "2017-09-16 21:18:15.262413"], ["signed_up_on", "2017-09-16"]]
+  [1m[35m (6.9ms)[0m  [1m[36mcommit transaction[0m
+Completed 200 OK in 152ms (Views: 0.3ms | ActiveRecord: 7.4ms)
+
+
+Started POST "/api/v1/security_questions" for 127.0.0.1 at 2017-09-16 17:18:15 -0400
+Started GET "/api/v1/carts/show" for 127.0.0.1 at 2017-09-16 17:18:15 -0400
+Processing by Api::V1::SecurityQuestionsController#create as HTML
+  Parameters: {"questionsAndAnswers"=>{"What was your childhood nickname?"=>"mani", "What was the make and model of your first car?"=>"camry", "What is your pet's name?"=>"muni"}, "security_question"=>{}}
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+Processing by Api::V1::CartsController#show as HTML
+  [1m[36mMember Load (0.4ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 41], ["LIMIT", 1]]
+  [1m[36mMember Load (0.2ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 41], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.1ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "security_question_answers" ("member_id", "security_question_id", "answer", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["member_id", 41], ["security_question_id", 1], ["answer", "Tkc0UEtxL0NLYTlaK05sUzdPQWVyUT09LS0wcHJUWlViNHVxUGQ0RHYzYTd2SmhnPT0=--5dc061b0064201a00fe9690786cc64f7e219ffea"], ["created_at", "2017-09-16 21:18:15.462155"], ["updated_at", "2017-09-16 21:18:15.462155"]]
+  [1m[35m (6.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSecurityQuestion Load (0.2ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 41], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.0ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "security_question_answers" ("member_id", "security_question_id", "answer", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["member_id", 41], ["security_question_id", 9], ["answer", "ZUUrYWFIaXFsa1FyY1ZxSnV0SmIrUT09LS1nN0k4MFhFREw2RFkrQm14QUZtaml3PT0=--2c2aec999ebc6e38972f666294198aae0d4c7eae"], ["created_at", "2017-09-16 21:18:15.603261"], ["updated_at", "2017-09-16 21:18:15.603261"]]
+  [1m[35m (6.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSecurityQuestion Load (0.3ms)[0m  [1m[34mSELECT "security_questions".* FROM "security_questions"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mMember Load (0.1ms)[0m  [1m[34mSELECT  "members".* FROM "members" WHERE "members"."id" = ? LIMIT ?[0m  [["id", 41], ["LIMIT", 1]]
+  [1m[36mSecurityQuestion Load (0.0ms)[0m  [1m[34mSELECT  "security_questions".* FROM "security_questions" WHERE "security_questions"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "security_question_answers" ("member_id", "security_question_id", "answer", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["member_id", 41], ["security_question_id", 11], ["answer", "cVNXa2pERk9XYlgzalFSREJnRXl5UT09LS1sd0hhblI5ZmVRY2lCNE1ncmhSeEl3PT0=--d74e03b1a6c6c7b0241d0f89f86932cfd68bc48f"], ["created_at", "2017-09-16 21:18:15.747503"], ["updated_at", "2017-09-16 21:18:15.747503"]]
+  [1m[35m (5.9ms)[0m  [1m[36mcommit transaction[0m
+No template found for Api::V1::SecurityQuestionsController#create, rendering head :no_content
+Completed 204 No Content in 557ms (ActiveRecord: 22.0ms)
+
+
+  [1m[36mOrder Load (0.1ms)[0m  [1m[34mSELECT  "orders".* FROM "orders" WHERE "orders"."member_id" = ? AND "orders"."order_status" = ? LIMIT ?[0m  [["member_id", 41], ["order_status", "incart"], ["LIMIT", 1]]
+Completed 200 OK in 548ms (Views: 0.4ms | ActiveRecord: 0.9ms)
+
+
+  [1m[36mSecurityQuestionAnswer Load (1.6ms)[0m  [1m[34mSELECT "security_question_answers".* FROM "security_question_answers"[0m
