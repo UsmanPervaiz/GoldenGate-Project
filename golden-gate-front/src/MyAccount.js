@@ -1,5 +1,5 @@
 import React from "react";
-import "./Account.css";
+import "./MyAccount.css";
 import AboutMeModal from "./AboutMeModal";
 import UpdatePasswordModal from "./UpdatePasswordModal";
 import AddNewAddressModal from "./AddNewAddressModal"
@@ -12,6 +12,9 @@ export default class Account extends React.Component {
 		this.state = {
 			aboutMeModal: "hide-about-me-modal",
 			updatePasswordModal: "hide-update-password-modal",
+			currentPassword: "",
+			newPassword: "",
+			confirmNewPassword: "",
 			addNewAddressModal: "hide-add-new-address-modal"
 		}
 
@@ -33,6 +36,28 @@ export default class Account extends React.Component {
 		this.setState({
 			updatePasswordModal: "show-update-password-modal"
 		})
+	}
+
+	currentPasswordChanged(e) {
+			this.setState({
+			currentPassword: e.target.value
+		}, () => console.log("currentPassword", this.state.currentPassword))
+	}
+
+	newPasswordChanged(e) {
+		this.setState({
+			newPassword: e.target.value
+		}, () => console.log("newPassword", this.state.newPassword))
+	}
+
+	confirmNewPasswordChanged(e) {
+		this.setState({
+			confirmNewPassword: e.target.value
+		}, () => console.log("ConfirmPassword", this.state.confirmNewPassword))
+	}
+
+	saveNewPasswordClicked(e) { //////////////////
+		this.props.saveNewPassword(e)
 	}
 
 	updatePasswordModalCloseClicked() {
@@ -60,7 +85,7 @@ export default class Account extends React.Component {
 			<div>
 
 				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <AboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} /> : null }
-				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} /> : null }
+				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} /> : null }
 				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
 
 			<div id="account-container">
@@ -91,10 +116,10 @@ export default class Account extends React.Component {
 									Name:
 								</div>
 								<div id="user-first-name">
-									Usman
+									{this.props.memberInfo.firstName}
 								</div>
 								<div id="user-last-name">
-									Pervaiz
+									{this.props.memberInfo.lastName}
 								</div>
 							</div>
 
@@ -103,7 +128,7 @@ export default class Account extends React.Component {
 									Email:
 								</div>
 								<div id="user-email">
-									de.usman@yahoo.com
+									{this.props.memberInfo.email}
 								</div>
 							</div>
 
@@ -112,7 +137,7 @@ export default class Account extends React.Component {
 									Gender:
 								</div>
 								<div id="user-gender">
-									Male
+									{this.props.memberInfo.gender}
 								</div>
 							</div>
 
@@ -121,7 +146,7 @@ export default class Account extends React.Component {
 									DOB:
 								</div>
 								<div id="user-dob">
-									05/11/1980
+									{this.props.memberInfo.dob}
 								</div>
 							</div>
 

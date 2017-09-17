@@ -4,10 +4,6 @@ import "./UpdatePasswordModal.css"
 export default class UpdatePasswordModal extends React.Component {
 
 
-	updatePasswordClicked() {
-
-	}
-
 	updatePasswordModalCloseClicked() {
 		var a = this.refs["update-password-modal-content"]
 		a.className = "hide-update-password-modal-content"
@@ -29,19 +25,19 @@ export default class UpdatePasswordModal extends React.Component {
 
 						<div id="current-password-container" className="current-password-container">
 							<label className="update-password-input-field-labels" htmlFor="current-password-input-field">Current Password</label>
-							<input type="password" id="current-password-input-field" className="update-password-input-fields" defaultValue="abc123" />
+							<input type="password" id="current-password-input-field" className="update-password-input-fields" defaultValue="" onChange={(event) => this.props.currentPasswordChanged(event)} />
 							
 						</div>
 						<div id="new-password" className="update-password-container">
 							<label className="update-password-input-field-labels" htmlFor="current-password-input-field">New Password</label>
-							<input type="text" id="current-password-input-field" className="update-password-input-fields" defaultValue="abc123" />
+							<input type="text" id="current-password-input-field" className="update-password-input-fields" defaultValue="" onChange={(event) => this.props.newPasswordChanged(event)} />
 						</div>
 						<div id="confirm-new-password" className="update-password-container">
 							<label className="update-password-input-field-labels" htmlFor="current-password-input-field">Confirm Password</label>
-							<input type="text" id="current-password-input-field" className="update-password-input-fields" defaultValue="abc123" />
+							<input type="text" id="current-password-input-field" className="update-password-input-fields" defaultValue="" onChange={(event) => this.props.confirmNewPasswordChanged(event)} />
 						</div>
 						<div id="save-new-password" className="update-password-container">
-							<button className="update-password-button">UPDATE</button>
+							<button className="update-password-button" onClick={(event) => this.props.saveNewPasswordClicked(event)} >UPDATE</button>
 						</div>
 					</div>
 				</div>

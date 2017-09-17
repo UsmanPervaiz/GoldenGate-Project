@@ -12,7 +12,7 @@ import SigninPopUp from "./SigninPopUp"
 import "./csshake/dist/csshake-crazy.css";
 import FontAwesome from "react-fontawesome";
 import Checkout from "./Checkout.js";
-import Account from "./Account.js";
+import MyAccount from "./MyAccount.js";
 import UserLoggedOutMessageModal from "./UserLoggedOutMessageModal.js";
 import UserSignedInMessageModal from "./UserSignedInMessageModal.js"
 import AccountCreatedMessageModal from "./AccountCreatedMessageModal.js";
@@ -30,7 +30,7 @@ class Main extends React.Component {
 			temporaryCart: [],
 			memberCart: [],
 			memberOrder: {},
-			memberName: "",
+			memberInfo: "",
 			showMainPage: "show-main-page",
 			showLoadingSymbol: "show-loading-symbol",
 			signInAjaxErrorMessage: "",
@@ -245,6 +245,11 @@ class Main extends React.Component {
 		  	  })
 	}
 
+	saveNewPassword(event) {
+		event.preventDefault()
+		console.log("TIPU")
+	}
+
 	componentWillReceiveProps() {
 
 		if(localStorage.token) {
@@ -285,12 +290,14 @@ class Main extends React.Component {
 		if(localStorage.token) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
 				headers: { token: localStorage.token }
-			}).then((resp)=> this.setState({
+			}).then((resp)=>  { this.setState({
 								memberCart: resp.data.currentOrderDetails,
 								memberOrder: resp.data.order,
 								userSignedIn: true,
-								memberName: resp.data.memberName
+								memberInfo: resp.data.memberInfo
 			    			})
+			console.log("XXXXX", resp.data)
+		        }
 			).catch((error)=> console.log(error.response))
 		} else {
 			this.setState({
@@ -337,7 +344,7 @@ class Main extends React.Component {
 			      <Route exact path="/electronics" render={(props)=> <Electronics {...props} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
 	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  <Route exact path="/checkout" component={Checkout} />
-			  	  <Route exact path="/myaccount" render={(props)=> <Account {...props} userSignedIn={this.state.userSignedIn} /> }/>
+			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} saveNewPassword={this.saveNewPassword.bind(this)} /> }/>
 			  	</Switch>
 				</div>
 
