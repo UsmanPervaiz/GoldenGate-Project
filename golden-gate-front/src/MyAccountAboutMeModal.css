@@ -148,7 +148,6 @@
 	text-align: center;
 	line-height: 50px;
 	font-size: 1.3em;
-	overflow: auto;
 	box-sizing: border-box;
 	border: 2px solid black;
 }
@@ -170,9 +169,13 @@
 	line-height: 50px;
 	font-size: 1.3em;
 	margin-bottom: 3%;
-	overflow: auto;
 	box-sizing: border-box;
 	border: 2px solid black;
+}
+
+#gender-female:hover {
+	background-color: black;
+	color: white;
 }
 
 #new-dob {

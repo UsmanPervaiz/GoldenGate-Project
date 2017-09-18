@@ -250,8 +250,21 @@ class Main extends React.Component {
 		console.log("TIPU")
 	}
 
-	componentWillReceiveProps() {
+	updateMemberInfo() {
+		axios.get("http://localhost:3000/api/v1/members/0", {
+			headers: {"token": localStorage.token}
+		}).then((resp) => this.setState({
+								memberInfo: resp.data.memberInfo
+							})
+		)
+	}
 
+	componentDidUpdate(prevProps, prevState) {
+		console.log("PREVSTATE", prevState, "THISSTATE", this.state)
+	}
+
+	componentWillReceiveProps() {
+		console.log("mainWillReceiveProps")
 		if(localStorage.token) {
 			this.setState({
 				userSignedIn: true,
@@ -264,7 +277,7 @@ class Main extends React.Component {
 								memberCart: resp.data.currentOrderDetails,
 								memberOrder: resp.data.order,
 								userSignedIn: true,
-								memberName: resp.data.memberName
+								memberInfo: resp.data.memberInfo
 			    			})
 			).catch((error)=> console.log(error.response))
 		} else {
@@ -285,6 +298,22 @@ class Main extends React.Component {
 		}), 1000)
 	}
 
+	// componentDidUpdate(prevProps, prevState) {
+	// 	console.log("mainDidUpdate", "thisState",this.state, "PREVSTATE", prevState)
+	// 	axios.get("http://localhost:3000/api/v1/carts/show", {
+	// 			headers: { token: localStorage.token }
+	// 		}).then((resp)=> {
+	// 			if(resp.data.currentOrderDetails !== this.state.memberCart || resp.data.order !== this.state.memberOrder || resp.data.memberInfo !== this.state.memberInfo) {
+	// 				this.setState({
+	// 						memberCart: resp.data.currentOrderDetails,
+	// 						memberOrder: resp.data.order,
+	// 						userSignedIn: true,
+	// 						memberInfo: resp.data.memberInfo
+	// 		    	})
+	// 			}
+	// 		}
+	// 		).catch((error)=> console.log(error.response))
+	// }
 
 	componentDidMount() {
 		if(localStorage.token) {
@@ -318,7 +347,7 @@ class Main extends React.Component {
 
 
 	render () {
-		console.log(this.state, "state-MAIN")
+		console.log("FORCED MAIN")
 		return (
 			<div >
 				
@@ -344,7 +373,7 @@ class Main extends React.Component {
 			      <Route exact path="/electronics" render={(props)=> <Electronics {...props} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
 	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  <Route exact path="/checkout" component={Checkout} />
-			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} saveNewPassword={this.saveNewPassword.bind(this)} /> }/>
+			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} saveNewPassword={this.saveNewPassword.bind(this)} updateMemberInfo={this.updateMemberInfo.bind(this)} /> }/>
 			  	</Switch>
 				</div>
 

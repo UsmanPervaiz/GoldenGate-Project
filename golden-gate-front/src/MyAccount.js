@@ -1,6 +1,7 @@
 import React from "react";
+import axios from "axios"
 import "./MyAccount.css";
-import AboutMeModal from "./AboutMeModal";
+import MyAccountAboutMeModal from "./MyAccountAboutMeModal";
 import UpdatePasswordModal from "./UpdatePasswordModal";
 import AddNewAddressModal from "./AddNewAddressModal"
 
@@ -11,6 +12,13 @@ export default class Account extends React.Component {
 		super()
 		this.state = {
 			aboutMeModal: "hide-about-me-modal",
+			newFirstName: "",
+			newLastName: "",
+			newEmail: "",
+			newGender: "",
+			newDobMonth: "",
+			newDobDay: "",
+			newDobYear: "",
 			updatePasswordModal: "hide-update-password-modal",
 			currentPassword: "",
 			newPassword: "",
@@ -20,10 +28,116 @@ export default class Account extends React.Component {
 
 	}
 
+	////////////////////////////////////////////////// AboutMeModal
+
 	aboutMeEditClicked() {
 		this.setState({
 			aboutMeModal: "show-about-me-modal"
 		})
+	}
+
+	aboutMeFirstNameChanged(event) {
+		var newFirstName = event.target.value
+		this.setState({
+			newFirstName: newFirstName
+		})
+	}
+
+	aboutMeLastNameChanged(event) {
+		var newLastName = event.target.value
+		this.setState({
+			newLastName: event.target.value
+		})
+	}
+
+	aboutMeEmailChanged(event) {
+		var newEmail = event.target.value
+		this.setState({
+			newEmail: newEmail
+		})
+	}
+
+	aboutMeGenderClicked(event, gender) {
+		var newGender = gender
+		this.setState({
+			newGender: newGender
+		}, () => console.log("GENDERRRRRRR", this.state.newGender))
+	}
+
+	aboutMeDateOfBirthMonthOrDayChanged(event, arg) {
+		var valueToChange = {} // we are going to pass an object to "setState", so it is not explicit to either month or day
+		if(event.target.value.length > 2) {
+			valueToChange[arg] = event.target.value.slice(0,2)
+			event.target.value = event.target.value.slice(0,2)
+			this.setState(
+				valueToChange
+			)
+		} else {
+			valueToChange[arg] = event.target.value
+			this.setState(
+				valueToChange
+			, () => { 
+					if(this.state[arg].length < 2) {
+						valueToChange[arg] = "0" + this.state[arg]
+						this.setState(
+							valueToChange
+						)
+					}
+				})
+		}
+	}
+
+	aboutMeDateOfBirthYearChanged(event) {
+		var newDobYear = event.target.value
+		if(newDobYear.length > 4) {
+			event.target.value = newDobYear.slice(0,4)
+			this.setState({
+				newDobYear: newDobYear.slice(0,4)
+			}, () => console.log(this.state.newDobYear))
+		} else {
+			this.setState({
+				newDobYear: newDobYear
+			})
+		}
+	}
+
+	aboutMeModalUpdateButtonClicked(event, closeModal) {	
+		// var birthDate = `${this.state.newDobYear}/${this.state.newDobMonth}/${this.state.newDobDay}`
+		var newDob = ""
+		if(this.state.newDobYear && this.state.newDobMonth && this.state.newDobDay) {
+			newDob = `${this.state.newDobYear}-${this.state.newDobMonth}-${this.state.newDobDay}`
+			// newDOB = this.state.newDobYear + this.props.memberInfo.dob.slice(4,-1) 
+		} else if (this.state.newDobYear && this.state.newDobMonth) {
+			newDob = this.state.newDobYear + "-" + this.state.newDobMonth + "-" + this.props.memberInfo.dob.slice(-2)
+		} else if (this.state.newDobYear && this.state.newDobDay){
+			newDob = this.state.newDobYear + "-" + this.props.memberInfo.dob.slice(5,7) + "-" + this.state.newDobDay
+		} else if(this.state.newDobMonth && this.state.newDobDay){
+			newDob = this.props.memberInfo.dob.slice(0,4) + "-" + this.state.newDobMonth + "-" + this.state.newDobDay
+		} else if(this.state.newDobYear) {
+			newDob = this.state.newDobYear + this.props.memberInfo.dob.slice(4,-1) 
+		} else if(this.state.newDobMonth) {
+			newDob = this.props.memberInfo.dob.slice(0,4) + "-" + this.state.newDobMonth + this.props.memberInfo.dob.slice(7,-1)
+		} else if(this.state.newDobDay){
+			newDob = this.props.memberInfo.dob.slice(0,8) + this.state.newDobDay
+		}
+
+		console.log("BIRTHDAY", newDob)
+		if(this.state.newFirstName || this.state.newLastName || this.state.newEmail || this.state.newGender || this.state.newDobMonth || this.state.newDobDay || this.state.newDobYear) {
+			var member = {
+				first_name: this.state.newFirstName,
+				last_name: this.state.newtLastName,
+				email: this.state.newEmail,
+				gender: this.state.newGender,
+				birthday: newDob
+	    	}
+			axios.put("http://localhost:3000/api/v1/members/0", 
+						{ member: member },
+						{ headers: {token: localStorage.token} } 
+			).then(() => this.props.updateMemberInfo())
+			.then(() => closeModal())
+		} else {
+			closeModal()
+		}
 	}
 
 	aboutMeEditCloseClicked() {
@@ -31,6 +145,8 @@ export default class Account extends React.Component {
 			aboutMeModal: "hide-about-me-modal"
 		})
 	}
+
+	///////////////////////////////////////////////////// AboutMeModal
 
 	updatePasswordClicked() {
 		this.setState({
@@ -80,11 +196,11 @@ export default class Account extends React.Component {
 	}
 
 	render() {
-
+		console.log("FORCEEED myaccount" ,"memberInfo", this.props)
 		return (
 			<div>
 
-				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <AboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} /> : null }
+				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
 				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} /> : null }
 				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
 
