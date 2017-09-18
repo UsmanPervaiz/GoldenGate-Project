@@ -70,7 +70,7 @@
 	padding-bottom: 30px;
 	border: 1px solid black;
 	background-color: #DEB887;
-	overflow: auto;
+
 	box-sizing: border-box;
 }
 
@@ -225,7 +225,7 @@
 
 #createAccountFirstNameInputField{
 	width: 42%;
-	height: 38px;
+	height: 45px;
 	margin-left: 4.7%;
 	text-indent: 3%;
 	font-size: 16px;
@@ -239,7 +239,7 @@
 
 #createAccountLastNameInputField{ 
 	width: 42%;
-	height: 38px;
+	height: 45px;
 	margin-left: 4.7%;
 	text-indent: 3%;
 	font-size: 16px;
@@ -252,7 +252,7 @@
 
 #createAccountEmailField {
 	width: 42%;
-	height: 38px;
+	height: 45px;
 	margin-top: 5%;
 	margin-left: 4.7%;
 	text-indent: 3%;
@@ -265,7 +265,7 @@
 
 #createAccountConfirmEmailField {
 	width: 42%;
-	height: 38px;
+	height: 45px;
 	margin-left: 4.7%;
 	text-indent: 3%;
 	font-size: 16px;
@@ -277,7 +277,7 @@
 
 #createAccountPasswordField {
 	width: 42%;
-	height: 38px;
+	height: 45px;
 	margin-top: 5%;
 	margin-left: 4.7%;
 	text-indent: 3%;
@@ -290,7 +290,7 @@
 
 #createAccountConfirmPasswordField {
 	width: 42%;
-	height: 38px;
+	height: 45px;
 	margin-left: 4.7%;
 	text-indent: 3%;
 	font-size: 16px;
@@ -326,13 +326,13 @@
 
 #signinGenderMaleButton {
 	width: 44.5%;
-	height: 38px;
+	height: 45px;
 	box-shadow: 0 0 80px orange;
 	font-size: 20px;
 }
 #signinGenderFemaleButton {
 	width: 44.5%;
-	height: 38px;
+	height: 45px;
 	box-shadow: 0 0 80px orange;
 	font-size: 20px;
 	margin-left: 5%;
@@ -354,13 +354,13 @@
 }
 
 #signinBirthdayDaySelect {
-	margin-left: 2%;
+	margin-left: 8%;
 	font-size: 18px;
 	
 }
 
 #signinBirthdayYearSelect {
-	margin-left: 2%;
+	margin-left: 8%;
 	font-size: 18px;
 }
 
@@ -371,10 +371,11 @@
 #createAccountSubmitDiv button { /* to show button text as greyed out and black when button is active, do not give any color to text in button.*/
 	width: 89%;
 	margin-left: 5%;;
-	height: 40px;
+	height: 50px;
 	border-radius: 2%;
-	font-size: 1.6em;
-	/*background-color: #DAA520;	*/
+	font-size: 2em;
+	color: white;
+	background-color: black;	
 	
 
 }

@@ -5,9 +5,8 @@
 	height: 100%;
 	overflow: auto;
 	z-index: 1;
-	background-color: rgba(0,0,0,.5);
+	background-color: rgba(0,0,0,.8);
 }
-
 
 #user-sign-in-modal-close {
 	position: absolute;
@@ -28,7 +27,8 @@
 	display: block;
 	height: auto;
 	width: 350px;
-	left: 550px;
+	left: 50%;
+	margin-left: -175px;
 	top: 20px;
 	text-align: center;
 	padding-top: 1%;
@@ -61,7 +61,8 @@
 	position: relative;
 	width: 350px;
 	height: 350px;
-	left: 550px;
+	left: 50%;
+	margin-left: -175px;
 	top: 150px;
 	/*transform: translateX(-50%) translateY(-85%);*/
 	/* CSS transforms property applies a 2D or 3D transformation to an element. This property allows you to rotate, scale, move, translate, etc.
@@ -77,15 +78,15 @@
 }
 
 .user-sign-in-modal-back-face:hover .user-sign-in-modal-front-face, .user-sign-in-modal-back-face.focused .user-sign-in-modal-front-face {
-	width: 30px;
-	background-color: black;
+	width: 30px; /* when we hover upon the back-face, these settings must apply to the element with the className ".user-sign-in-modal-front-face", so the input fields can be revealed, but these settings are not permanent. */
+	background-color: black;/* in addition, it must also apply to the element with the className: ".user-sign-in-modal-front-face" inside the element with the className ".user-sign-in-modal-back-face.focused", for this element, thesese settings will be permanent, because these will apply once we change the className of the element. */
 }
 
 .user-sign-in-modal-back-face:hover .front-face-text, .front-face-text.focused {
-	font-size: 1em; /* when the className is .front-face-text, it will apply all these three settings, once the back face has received focus
-					we are adding class .focused and then it will apply these three seetings permanently in addition to whatever settings we 
+	font-size: 1em; /* when we hover upon the back-face, apply these settings to the element with the className ".front-face-text", in addition also apply all these three settings to the element with the className ".front-face-text.focused". Once the back face has received focus,
+					we are adding a second class .focused to "front-face-text" and then it will apply these three settings permanently in addition to whatever settings we 
 					initially set for .front-face-text class below. When the same element has multiple classes, whichever class appears
-					last takes precedence, in other words is applied to the element. */
+					last takes precedence, in other words, is applied to the element. */
 	color: white;
 	transform: rotate(-90deg);
 }
@@ -183,13 +184,13 @@
 	border-bottom: 30px solid transparent;
 }
 
-.sign-in-modal-submit-button:hover, .sign-in-modal-submit-button:focus  {
+.sign-in-modal-submit-button:hover  {
 	border: 5px solid #3b5998;
 	background-color: white;
 }
 
 .sign-in-modal-submit-button:hover:after, .sign-in-modal-submit-button:focus:after {
-	border-right: 30px solid #3b5998;
+	border-right: 30px solid red;
 }
 
 .sign-in-loader1 {

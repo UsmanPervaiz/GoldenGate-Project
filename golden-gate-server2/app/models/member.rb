@@ -21,7 +21,7 @@ class Member < ApplicationRecord
    # :gender
   validates_format_of :first_name, with: /\A[a-zA-z]+\z/, message: "Only letters allowed for First Name!"
   validates_format_of :last_name, with: /\A[a-zA-z]+\z/, message: "Only letters allowed for Last Name!"
-  validate :password_complexity # this is to add custom devise password validations, using devise_security_extension is recommended though.
+  validate :password_complexity, on: :create # this is to add custom devise password validations (On create only,not when updating), using devise_security_extension is recommended though.
   before_save {|member| member.email = member.email.downcase}
   before_create :save_signup_date, :capitalize_name, :lowercase_email
   # we use before create here, so it only does it once in the lifecycle, when an instance is created.

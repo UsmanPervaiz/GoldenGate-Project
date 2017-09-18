@@ -3,9 +3,8 @@ class Api::V1::OrderDetailsController < ApplicationController
 	# rails g controller OrderDetails create update destroy
 	
   def create
-
   	decoded_token = authorize_account(params[:token])
-	if (decoded_token.present?)
+	 if (decoded_token.present?)
 	    member = Member.find(decoded_token.first['member_id'])
 	    order = member.orders.new()
 	    order.save

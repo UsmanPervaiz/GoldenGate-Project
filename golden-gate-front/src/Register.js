@@ -88,7 +88,7 @@ export default class Register extends React.Component{ c
 			ReactDOM.findDOMNode(this.refs.createAccountFirstNameInputField).value = createAccountFirstName.slice(0,-1) // if string is of length 3, and if beginIndex is -1, it is treated as (stringLength - 1) and it will only select begining from index 2, which will give you the last character in teh string..
 			ReactDOM.findDOMNode(this.refs.createAccountFirstNameInputField).style.border = "2px solid red"
 			this.setState({
-				createAccountFirstNameErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "8.6%", left: "4.5%"},
+				createAccountFirstNameErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "7.8%", left: "4.5%"},
 				createAccountFirstNameError: "Name cannot contain numbers!"
 			})
 		} else {
@@ -104,7 +104,7 @@ export default class Register extends React.Component{ c
 		if(!this.state.createAccountFirstName.length) {
 			ReactDOM.findDOMNode(this.refs.createAccountFirstNameInputField).style.border = "2px solid red"
 			this.setState({
-				createAccountFirstNameErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "8.6%", left: "4.5%"},
+				createAccountFirstNameErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "7.8%", left: "4.5%"},
 				createAccountFirstNameError: "First name cannot be blank!"
 			})
 		} 
@@ -116,7 +116,7 @@ export default class Register extends React.Component{ c
 			ReactDOM.findDOMNode(this.refs.createAccountLastNameInputField).value = createAccountLastName.slice(0,-1)
 			ReactDOM.findDOMNode(this.refs.createAccountLastNameInputField).style.border = "2px solid red"
 			this.setState({
-				createAccountLastNameErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "8.6%", left: "52.5%"},
+				createAccountLastNameErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "7.8%", left: "52.5%"},
 				createAccountLastNameError: "Last name cannot contain numbers!"
 			})
 		} else {
@@ -132,7 +132,7 @@ export default class Register extends React.Component{ c
 		if(!this.state.createAccountLastName) {
 			ReactDOM.findDOMNode(this.refs.createAccountLastNameInputField).style.border = "2px solid red"
 			this.setState({
-				createAccountLastNameErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "8.6%", left: "52.5%"},
+				createAccountLastNameErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "7.8%", left: "52.5%"},
 				createAccountLastNameError: "Last name cannot be blank!"
 			})
 		} 
@@ -148,7 +148,7 @@ export default class Register extends React.Component{ c
 		} else {
 			ReactDOM.findDOMNode(this.refs.createAccountEmailField).value = ""
 			this.setState({
-				createAccountEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "4.5%"},
+				createAccountEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "4.5%"},
 				createAccountEmailFieldError: "Email cannot begin with a Number!"
 			})
 		}
@@ -159,7 +159,7 @@ export default class Register extends React.Component{ c
 			if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.createAccountEmailField) === false) {
 				ReactDOM.findDOMNode(this.refs.createAccountEmailField).style.border = "2px solid red"
 				this.setState({
-					createAccountEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "4.5%"},
+					createAccountEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "4.5%"},
 					createAccountEmailFieldError: "Invalid Email!"
 				})
 			} else {
@@ -170,7 +170,7 @@ export default class Register extends React.Component{ c
 				if(this.state.createAccountEmailField !== this.state.createAccountEmailConfirm ) {
 					ReactDOM.findDOMNode(this.refs.createAccountConfirmEmailField).style.border = "2px solid red"
 					this.setState({
-						createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "52.5%"},
+						createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "52.5%"},
 						createAccountConfirmEmailFieldError: "Emails do not match!"
 					})
 				} else {
@@ -184,13 +184,13 @@ export default class Register extends React.Component{ c
 		} else  {
 				ReactDOM.findDOMNode(this.refs.createAccountEmailField).style.border = "2px solid red"
 				this.setState({
-					createAccountEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "4.5%"},
+					createAccountEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "4.5%"},
 					createAccountEmailFieldError: "Email cannot be blank!"
 				})
 				if(this.state.createAccountEmailConfirm) {
 					ReactDOM.findDOMNode(this.refs.createAccountConfirmEmailField).style.border = "2px solid red"
 					this.setState({
-						createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "52.5%"},
+						createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "52.5%"},
 						createAccountConfirmEmailFieldError: "Emails do not match!"
 					})
 				}
@@ -211,7 +211,7 @@ export default class Register extends React.Component{ c
 				ReactDOM.findDOMNode(this.refs.createAccountConfirmEmailField).value = ""
 				this.setState({
 					createAccountEmailConfirm: "",
-					createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "52.5%"},
+					createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "52.5%"},
 					createAccountConfirmEmailFieldError: "Typo! Emails did not match.",
 				})
 			}
@@ -219,7 +219,7 @@ export default class Register extends React.Component{ c
 			ReactDOM.findDOMNode(this.refs.createAccountConfirmEmailField).value = ""
 			this.setState({
 				createAccountEmailConfirm: "",
-				createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "52.5%"},
+				createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "52.5%"},
 				createAccountConfirmEmailFieldError: "Please Fill in the box on the left first."
 				})
 		}
@@ -239,7 +239,7 @@ export default class Register extends React.Component{ c
 			} else {
 				ReactDOM.findDOMNode(this.refs.createAccountConfirmEmailField).style.border = "2px solid red"
 				this.setState({
-					createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "52.5%"},
+					createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "52.5%"},
 					createAccountConfirmEmailFieldError: "Emails do not match!",
 				})
 			}
@@ -247,7 +247,7 @@ export default class Register extends React.Component{ c
 		if(!this.state.createAccountEmailConfirm) {
 			ReactDOM.findDOMNode(this.refs.createAccountConfirmEmailField).style.border = "2px solid red"
 			this.setState({
-				createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "20.2%", left: "52.5%"},
+				createAccountConfirmEmailFieldErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "18.2%", left: "52.5%"},
 				createAccountConfirmEmailFieldError: "Email cannot be blank!"
 				})
 		}
@@ -265,14 +265,14 @@ export default class Register extends React.Component{ c
 			ReactDOM.findDOMNode(this.refs.createAccountPasswordField).value = ""
 			this.setState({
 				createAccountPassword: "",
-				createAccountPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "4.8%"},
+				createAccountPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "4.8%"},
 				createAccountPasswordError: "Passwords can only begin with letters!"
 			})
 		}
 		if(createAccountPassword.length > 15) {
 			ReactDOM.findDOMNode(this.refs.createAccountPasswordField).value = createAccountPassword.substr(0, 15)
 			this.setState({
-				createAccountPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "4.8%"},
+				createAccountPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "4.8%"},
 				createAccountPasswordError: "Password maximum length reached!"
 			})
 		}
@@ -286,14 +286,14 @@ export default class Register extends React.Component{ c
 			} else if(this.state.createAccountPassword.length > 0) {
 				ReactDOM.findDOMNode(this.refs.createAccountPasswordField).style.border = "2px solid red"
 				this.setState({
-					createAccountPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "4.8%"},
+					createAccountPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "4.8%"},
 					createAccountPasswordError: "Password minimum 6 characters!"
 				})
 			} 
 		} else {
 				ReactDOM.findDOMNode(this.refs.createAccountPasswordField).style.border = "2px solid red"
 				this.setState({
-					createAccountPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "4.8%"},
+					createAccountPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "4.8%"},
 					createAccountPasswordError: "Passwords cannot be blank!"
 				})
 			}
@@ -302,7 +302,7 @@ export default class Register extends React.Component{ c
 				ReactDOM.findDOMNode(this.refs.createAccountPasswordConfirm).style.border = "2px solid red"
 			
 				this.setState({
-					createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "52.5%"},
+					createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "52.5%"},
 					createAccountPasswordConfirmError: "Passwords do not match!"
 				})
 			} else {
@@ -328,7 +328,7 @@ export default class Register extends React.Component{ c
 			} else {
 				ReactDOM.findDOMNode(this.refs.createAccountPasswordConfirm).value = ""
 				this.setState({
-					createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "52.5%"},
+					createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "52.5%"},
 					createAccountPasswordConfirmError: "Typo! Passwords did not match.",
 				})
 			}
@@ -336,7 +336,7 @@ export default class Register extends React.Component{ c
 			ReactDOM.findDOMNode(this.refs.createAccountPasswordConfirm).value = ""
 			this.setState({
 				createAccountPasswordConfirm: "",
-				createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "52.5%"},
+				createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "52.5%"},
 				createAccountPasswordConfirmError: "Please Fill in the box on the left first."
 				})
 		}
@@ -356,7 +356,7 @@ export default class Register extends React.Component{ c
 			} else {
 				ReactDOM.findDOMNode(this.refs.createAccountPasswordConfirm).style.border = "2px solid red"
 				this.setState({
-					createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "52.5%"},
+					createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "52.5%"},
 					createAccountPasswordConfirmError: "Passwords do not match!"
 				})
 			}
@@ -364,7 +364,7 @@ export default class Register extends React.Component{ c
 		if(!this.state.createAccountPasswordConfirm) {
 			ReactDOM.findDOMNode(this.refs.createAccountPasswordConfirm).style.border = "2px solid red"
 				this.setState({
-					createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "31.8%", left: "52.5%"},
+					createAccountPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "28.8%", left: "52.5%"},
 					createAccountPasswordConfirmError: "Passwords cannot be blank!"
 				})
 		}
@@ -563,7 +563,7 @@ export default class Register extends React.Component{ c
 					</div>
 
 					<div id="signinBirthdayMonthDiv">
-						<select name="month" id="signinBirthdayMonthSelect" onChange={this.birthdayMonthChange.bind(this)} style={{width: "180px", height: "38px"}}>
+						<select name="month" id="signinBirthdayMonthSelect" onChange={this.birthdayMonthChange.bind(this)} style={{width: "180px", height: "45px"}}>
 							<option value="" disabled selected>Month</option>
 							<option value="01">January</option>
 							<option value="02">February</option>
@@ -579,7 +579,7 @@ export default class Register extends React.Component{ c
 							<option value="12">December</option>
 						</select>
 
-						<span><select name="day" id="signinBirthdayDaySelect"  onChange={this.birthdayDayChange.bind(this)} style={{width: "180px", height: "38px"}}>
+						<span><select name="day" id="signinBirthdayDaySelect"  onChange={this.birthdayDayChange.bind(this)} style={{width: "180px", height: "45px"}}>
 							<option value="" disabled selected>Day</option>
 							{Array.from(new Array(32), (x, index) => { 
 								if(index !== 0) {
@@ -593,7 +593,7 @@ export default class Register extends React.Component{ c
 							}	
 						</select></span>
 
-						<span><select name="year" id="signinBirthdayYearSelect"  onChange={this.birthdayYearChange.bind(this)} style={{width: "180px", height: "38px"}}>
+						<span><select name="year" id="signinBirthdayYearSelect"  onChange={this.birthdayYearChange.bind(this)} style={{width: "180px", height: "45px"}}>
 							<option value="" disabled selected>Year</option>
 							{ numbers.map((number) => <option value={number}>{number}</option> ) }
 						</select></span>
@@ -601,7 +601,6 @@ export default class Register extends React.Component{ c
 
 					<div id="createAccountSubmitDiv">
 						<button ref="createAccountSubmitButton" type="submit" disabled={this.state.createAccountInvalidData}>SUBMIT</button>
-						<p>Submit button will be enabled once all fields are valid.</p>
 					</div>
 				</form>
 			</div>

@@ -3,10 +3,17 @@ import "./MyAccountAboutMeModal.css"
 export default class MyAccountAboutMeModal extends React.Component {
 
 
-	aboutMeEditCloseClicked() {
-	 	var a = this.refs["about-me-modal-content"]
-	 	a.className = "hide-about-me-modal-content"
-		setTimeout(() =>this.props.aboutMeEditCloseClicked(), 800)
+	aboutMeEditCloseClicked(arg) {
+		if(arg === "close") {
+	 		var a = this.refs["about-me-modal-content"]
+	 		a.className = "hide-about-me-modal-content"
+			setTimeout(() =>this.props.aboutMeEditCloseClicked(), 800)
+		}
+		else {
+			var a = this.refs["about-me-modal-content"]
+	 		a.className = "hide-about-me-modal-content memberInfo-updated-successfully"
+			setTimeout(() =>this.props.aboutMeEditCloseClicked(), 1900)
+		}
 		
 	}
 
@@ -18,7 +25,7 @@ export default class MyAccountAboutMeModal extends React.Component {
 					<div id="about-me-modal-content" ref="about-me-modal-content" className="about-me-modal-content">
 
 						<div id="modal-header">
-							<span className="my-account-modal-close" onClick={this.aboutMeEditCloseClicked.bind(this)} >&times;</span>
+							<span className="my-account-modal-close" onClick={this.aboutMeEditCloseClicked.bind(this, "close")} >&times;</span>
 							<h2>About Me</h2>
 						</div>
 								

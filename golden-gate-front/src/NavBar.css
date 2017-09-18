@@ -1,10 +1,4 @@
 
-body {
-	margin: 0;
-	padding: 0;
-	font-family: "Arial", serif;
-	background-color: white;
-}
 
 #navbardiv {
 
@@ -12,11 +6,11 @@ body {
 
 .NavBar {
 	height: 100px;
-	background-color: #A0522D;
+	background-color: #800000;
 	/*color: #ffffff;*/
 	list-style: none;
-	text-align: center;
 	padding: 20px 0 20px 0;
+	overflow: hidden;
 	
 }
 
@@ -121,6 +115,8 @@ body {
 }
 
 #department {
+	position: relative;
+	top: -15px;
 	box-shadow: 0 0 60px red, 0 0 60px red;
 	color: white;
 }
@@ -194,7 +190,7 @@ body {
 
 #navCartName {
 	position: absolute;
-	top: 12.2%;
+	top: 10.2%;
 	color: white;
 	right: 1%;
 	font-size: 24px;
@@ -225,8 +221,8 @@ body {
 
 .navSignIn.show button:nth-child(1) {
 	position: absolute;
-	top: 13%;
-	right: 223px;
+	top: 11.1%;
+	right: 243px;
 	width: 5.5%;
 	height: 27px;
 	border: none;
@@ -240,9 +236,9 @@ body {
 
 .navSignIn.show button:nth-child(2) {
 	position: absolute;
-	top: 13%;
+	top: 11.1%;
 	font-size: 17px;
-	right: 9.5%;
+	right: 8.5%;
 	width: 5.5%;
 	height: 27px;
 	border: none;
@@ -286,12 +282,11 @@ body {
 	right: 11.5%;
 	width: 9%;
 	height: 34px;
-	top: 13%;
+	top: 11.5%;
 	color: black;
 	font-size: 18px;
 	background-color: red;
 	border-radius: 10px;
-	
 	border: 2px solid red;
 	line-height: 30px;
 	
@@ -307,7 +302,7 @@ body {
 	border-radius: 10px;
 	line-height: 10%;
 	color: red;
-	top: 13.5%;
+	top: 11.7%;
 
 }
 

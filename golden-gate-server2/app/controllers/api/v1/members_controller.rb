@@ -1,5 +1,20 @@
 class Api::V1::MembersController < ApplicationController
 	
+	def show
+		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first
+		member = Member.find(decoded_token["member_id"])
+
+		render json: {
+			memberInfo: {
+              firstName: member.first_name, 
+              lastName: member.last_name, 
+              email: member.email, 
+              gender: member.gender, 
+              dob: member.birthday 
+            } 
+        }
+	end
+
 	def check_validity
 		member = Member.new(member_params)
 		if(member.valid?)
@@ -25,7 +40,26 @@ class Api::V1::MembersController < ApplicationController
 	end
 
 	def update
+		
+		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first
+		if(decoded_token.present?)
+			member = Member.find(decoded_token["member_id"])
+			params["member"].each do |key, value|
+				if(value.present?)
+					member.update("#{key}": value) # if you have any password validations on the user model, make sure they are only on when creating a new user (on: :create), otherwise you won't be able to update without password.
+				end
+		    end
+		end	
+	end
 
+	def update_password
+		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first
+		member = Member.find(decoded_token["member_id"])
+		if(member.valid_password?(params["currentPassword"]))
+			member.update(password: params["password"])
+			render json: {passwordUpdated: "Password Updated Successfully!"}
+		else render json: {error: "Incorrect Current Password!"}, status: 422
+		end
 	end
 	
 	def destroy
@@ -39,4 +73,5 @@ class Api::V1::MembersController < ApplicationController
 	end
 
 end
+
 

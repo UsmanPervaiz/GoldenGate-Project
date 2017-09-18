@@ -21,8 +21,14 @@ export default class Account extends React.Component {
 			newDobYear: "",
 			updatePasswordModal: "hide-update-password-modal",
 			currentPassword: "",
+			currentPasswordError: "",
+			currentPasswordErrorDisplay: {display: "none"},
 			newPassword: "",
-			confirmNewPassword: "",
+			newPasswordError: "",
+			newPasswordErrorDisplay: {display: "none"},
+			newPasswordConfirm: "",
+			newPasswordConfirmError: "",
+			newPasswordConfirmErrorDisplay: {display: "none"},
 			addNewAddressModal: "hide-add-new-address-modal"
 		}
 
@@ -102,11 +108,9 @@ export default class Account extends React.Component {
 	}
 
 	aboutMeModalUpdateButtonClicked(event, closeModal) {	
-		// var birthDate = `${this.state.newDobYear}/${this.state.newDobMonth}/${this.state.newDobDay}`
 		var newDob = ""
 		if(this.state.newDobYear && this.state.newDobMonth && this.state.newDobDay) {
 			newDob = `${this.state.newDobYear}-${this.state.newDobMonth}-${this.state.newDobDay}`
-			// newDOB = this.state.newDobYear + this.props.memberInfo.dob.slice(4,-1) 
 		} else if (this.state.newDobYear && this.state.newDobMonth) {
 			newDob = this.state.newDobYear + "-" + this.state.newDobMonth + "-" + this.props.memberInfo.dob.slice(-2)
 		} else if (this.state.newDobYear && this.state.newDobDay){
@@ -121,7 +125,6 @@ export default class Account extends React.Component {
 			newDob = this.props.memberInfo.dob.slice(0,8) + this.state.newDobDay
 		}
 
-		console.log("BIRTHDAY", newDob)
 		if(this.state.newFirstName || this.state.newLastName || this.state.newEmail || this.state.newGender || this.state.newDobMonth || this.state.newDobDay || this.state.newDobYear) {
 			var member = {
 				first_name: this.state.newFirstName,
@@ -134,19 +137,20 @@ export default class Account extends React.Component {
 						{ member: member },
 						{ headers: {token: localStorage.token} } 
 			).then(() => this.props.updateMemberInfo())
-			.then(() => closeModal())
+			.then(() => closeModal("updated"))
 		} else {
-			closeModal()
+			closeModal("ok")
 		}
 	}
 
 	aboutMeEditCloseClicked() {
 		this.setState({
-			aboutMeModal: "hide-about-me-modal"
+			aboutMeModal: "hide-about-me-modal",
 		})
 	}
-
 	///////////////////////////////////////////////////// AboutMeModal
+
+	///////////////////////////////////////////////////// UpdatePasswordModal
 
 	updatePasswordClicked() {
 		this.setState({
@@ -161,26 +165,105 @@ export default class Account extends React.Component {
 	}
 
 	newPasswordChanged(e) {
-		this.setState({
-			newPassword: e.target.value
-		}, () => console.log("newPassword", this.state.newPassword))
+		var newPassword = e.target.value;
+		if(/^[a-zA-Z]/.test(newPassword) || !newPassword) {
+			this.setState({
+				newPassword: e.target.value,
+				newPasswordErrorDisplay: { display: "none" },
+				newPasswordError: ""
+			})
+		} else {
+			e.target.value = ""
+			this.setState({
+				newPassword: "",
+				newPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "34.0%", margin: "0 auto"},
+				newPasswordError: "Passwords can only begin with letters!"
+			})
+		}
+		if(newPassword.length > 15) {
+			e.target.value = newPassword.substr(0, 15)
+			this.setState({
+				newPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "34.0%", margin: "0 auto"},
+				newPasswordError: "Password maximum length reached!"
+			})
+		}
 	}
 
 	confirmNewPasswordChanged(e) {
-		this.setState({
-			confirmNewPassword: e.target.value
-		}, () => console.log("ConfirmPassword", this.state.confirmNewPassword))
+		var newPasswordConfirm = e.target.value;
+		if(/^[a-zA-Z]/.test(newPasswordConfirm) || !newPasswordConfirm) {
+			this.setState({
+				newPasswordConfirm: e.target.value,
+				newPasswordConfirmErrorDisplay: { display: "none" },
+				newPasswordConfirmError: ""
+			})
+		} else {
+			e.target.value = ""
+			this.setState({
+				newPasswordConfirm: "",
+				newPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "54%", margin: "0 auto"},
+				newPasswordConfirmError: "Passwords can only begin with letters!"
+			})
+		}
+		if(newPasswordConfirm.length > 15) {
+			e.target.value = newPasswordConfirm.substr(0, 15)
+			this.setState({
+				newPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "54%", margin: "0 auto"},
+				newPasswordConfirmError: "Password maximum length reached!"
+			})
+		}
 	}
 
-	saveNewPasswordClicked(e) { //////////////////
-		this.props.saveNewPassword(e)
+	saveNewPasswordClicked(event, callback) { //////////////////
+		event.preventDefault()
+		var isEverythingOk = true
+		if(this.state.newPassword.length < 6) {
+			isEverythingOk = false
+			this.setState({
+				newPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "34.0%", margin: "0 auto"},
+				newPasswordError: "Password must be of minimum 6 characters!"
+			})
+		}
+		if(this.state.newPassword !== this.state.newPasswordConfirm) {
+			isEverythingOk = false
+			this.setState({
+				newPasswordConfirm: "",
+				newPasswordConfirmErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "54%", margin: "0 auto"},
+				newPasswordConfirmError: "Passwords do not match!"
+			})
+		}
+		if(isEverythingOk) {
+			var data = {
+				"currentPassword": this.state.currentPassword,
+				"password": this.state.newPassword,
+			}
+			axios.defaults.headers.common['Token'] = localStorage.token;
+			axios.put("http://localhost:3000/api/v1/update_password", data)
+			.then(()=> callback("updated"))
+			.catch((error)=> {
+				this.setState({
+					currentPasswordError: error.response.data.error,
+					currentPasswordErrorDisplay: {position: "absolute", paddingBottom: "0em", height: "5px", color: "red", top: "14%", margin: "0 auto"}
+				})
+			})
+		}
 	}
 
 	updatePasswordModalCloseClicked() {
 		this.setState({
-			updatePasswordModal: "hide-update-password-modal"
+			updatePasswordModal: "hide-update-password-modal",
+			currentPassword: "",
+			currentPasswordError: "",
+			currentPasswordErrorDisplay: {display: "none"},
+			newPassword: "",
+			newPasswordError: "",
+			newPasswordErrorDisplay: {display: "none"},
+			newPasswordConfirm: "",
+			newPasswordConfirmError: "",
+			newPasswordConfirmErrorDisplay: {display: "none"},
 		})
 	}
+	/////////////////////////////////////////////////// UpdatePasswordModal
 
 	addNewAddressClicked() {
 		console.log("address")
@@ -201,7 +284,7 @@ export default class Account extends React.Component {
 			<div>
 
 				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
-				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} /> : null }
+				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
 				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
 
 			<div id="account-container">

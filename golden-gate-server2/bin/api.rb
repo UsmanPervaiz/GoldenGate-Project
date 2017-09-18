@@ -30,12 +30,12 @@ def fetch_and_seed_data
 				)
 			
 		end
-		response = HTTParty.get(url)
+		# response = HTTParty.get(url)
 
-		while(response["next_key"]) do
-			#  create a produce
-			url = response["next_key"]
-		end
+		# while(response["next_key"]) do
+		# 	#  create a produce
+		# 	url = response["next_key"]
+		# end
 		
 end
 
@@ -44,7 +44,7 @@ end
 #    WalmartAdapter.fetch_data_by_category(category)
 # end
 
-WalmartAdapter.fetch_data_by_category('Electronics')
+# WalmartAdapter.fetch_data_by_category('Electronics')
 
 
 

@@ -76,7 +76,7 @@ class NavBar extends React.Component {
 	}
 
   render() {
-
+  console.log("RRRRRRR", this.props)
 	return (
 	  <div id="navbardiv">
 
@@ -115,7 +115,7 @@ class NavBar extends React.Component {
 		</div>
 			
 		<div className="navSearchInput">
-			{ this.props.userSignedIn ? <p>Welcome, {this.props.memberName}</p> : null }
+			{ this.props.userSignedIn ? <p>Welcome, {this.props.memberInfo.firstName} {this.props.memberInfo.lastName} </p> : null }
 			<input type="text" name="searchbox" placeholder="Search Here" />
 			<span className="searchButton"><button>Search</button></span>
 		</div>
@@ -127,7 +127,7 @@ class NavBar extends React.Component {
 
 		<div className="navShoppingCartDiv" onClick={this.navCartClicked.bind(this)} >
 			<FontAwesome className="shoppingCart" name="shopping-cart" size="3x"
-			 style={{ position: "absolute", color: "#DEB887", float:"right", right: "4.3%", top: "10.8%" }}/>
+			 style={{ position: "absolute", color: "#DEB887", float:"right", right: "4.3%", top: "9.4%" }}/>
 			 <span id="navCartName" >Cart</span>
 			 { this.props.memberCart.length > 0 ? <div id="cartCount">{this.props.memberCart.length}</div> : null }
 		</div>
