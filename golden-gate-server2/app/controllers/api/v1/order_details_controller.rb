@@ -8,15 +8,18 @@ class Api::V1::OrderDetailsController < ApplicationController
 	    member = Member.find(decoded_token.first['member_id'])
 	    order = member.orders.new()
 	    order.save
-
+      #Order: before_create: set_order_status, set_tax, set_shipping
 	    order_detail = order.order_details.new(product_id: params[:product_id], quantity: params[:quantity])
-		order_detail.save
+		  order_detail.save
+      #OrderDetail: before_save: def finalize self[:unit_price] = self.product.sale_price; self[:total] = self.quantity * self[:unit_price]; end
 
-		order_subtotal(order)
-		order_tax(order)
+		  order_subtotal(order)
+      #helper_method: order.subtotal = order.order_details.collect { |order_detail| order_detail.total }.inject(0){ |acc,num| acc + num }
+		  order_tax(order)
+      #helper_method: order.tax = (order.subtotal * 8.75) / 100
   		order_total(order)
-
-		order.save	
+      #order.total = order.subtotal + (order.tax + order.shipping)
+      order.save	
   		render json: { currentOrderDetails: current_order_details(member.id), order: order }
 	else 
 		render json: {error: "Please sign in."}, status: 422

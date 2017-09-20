@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :member
-  belongs_to :address
+  belongs_to :address, optional: true #In Rails 5, whenever we define a belongs_to association, it is required to have the associated record present by default. It triggers validation error if associated record is not present. We can pass optional: true to the belongs_to association which would remove this validation check.
   has_many :order_details
   has_many :products, through: :order_details
 
