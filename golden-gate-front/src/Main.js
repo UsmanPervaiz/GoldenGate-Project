@@ -26,6 +26,7 @@ class Main extends React.Component {
 
 		this.state = {
 			userSignedIn: false,
+			addedToCart: "",
 			electronics: [],
 			temporaryCart: [],
 			memberCart: [],
@@ -48,7 +49,8 @@ class Main extends React.Component {
 
 		}
 
-	imageClicked (event) {
+	imageClicked(event) {
+		console.log("?????", event)
 		var imageClicked = event.target
 		var modal = this.refs.appMyModal
 		var modalImage = this.refs.img01
@@ -62,7 +64,12 @@ class Main extends React.Component {
 	}
 
 	addToCartClicked(product, productQuantity) {
-
+		var updatedElectronics = this.state.electronics
+		updatedElectronics.forEach(function(electronicProduct) {
+			if(electronicProduct === product) {
+				electronicProduct.style = {opacity: 0.5}
+			}
+		})
 		if(this.state.userSignedIn) {
 			if(this.state.memberCart.length === 0) {
 		  		var token = localStorage.getItem("token")
@@ -72,16 +79,20 @@ class Main extends React.Component {
 							token: token,
 							quantity: productQuantity
 					
-				}).then((resp)=> this.setState({
+				}).then((resp)=> { 
+
+					this.setState({
 									memberCart: resp.data.currentOrderDetails,
-									memberOrder: resp.data.order
+									memberOrder: resp.data.order,
+									addedToCart: true,
+									electronics: updatedElectronics
+				}) 
+
 				})
-				).catch((error)=> console.log(error))
+				.catch((error)=> console.log(error))
 			
 			} else {
-				
 				var token = localStorage.getItem("token")
-
 		  		axios.put("http://localhost:3000/api/v1/order_details/500", {
 
 				 		product_id: product.id,
@@ -91,8 +102,11 @@ class Main extends React.Component {
 				})
 				.then((resp)=> this.setState({
 					memberCart: resp.data.currentOrderDetails,
-					memberOrder: resp.data.order
-				}) )
+					memberOrder: resp.data.order,
+					addedToCart: true,
+					electronics: updatedElectronics
+				}) 
+				)
 				.catch((error) => console.log(error))
 			} 
 	    } else {
@@ -119,15 +133,32 @@ class Main extends React.Component {
 		).catch((error)=> console.log(error))
 	}
 
-	electronicsClicked(e) {
-		
+	electronicsClicked(e) {	
 		axios.get("http://localhost:3000/api/v1/products")
 		.then((resp)=> {
-			this.setState({
-				electronics: resp.data
-			})
-		}).then(()=> this.props.history.push("/electronics"))
+			if(this.state.memberCart.length >= 1 ) {
+				resp.data.forEach(function(item,i) {					
+					this.state.memberCart.forEach(function(prodObj) {
+						for(var key in prodObj) {
+							if(prodObj[key].id === item.id) {
+								item.style = {opacity: "0.5"}
+							} 
+						}
+					})
+				}.bind(this))
+					this.setState({
+						electronics: resp.data
+					},() => console.log("MODIFIED", this.state.electronics))
+			} else {
+				this.setState({
+					electronics: resp.data
+				},() => console.log("MODMODMOD", this.state.electronics))
+			}
+				
+		})
+		.then(()=> this.props.history.push("/electronics"))
 		.catch((error)=> console.log(error))
+			
 	}
 
 	isUserSignedIn() {
@@ -331,9 +362,8 @@ class Main extends React.Component {
 								userSignedIn: true,
 								memberInfo: resp.data.memberInfo
 			    			})
-			console.log("XXXXX", resp.data)
-		        }
-			).catch((error)=> console.log(error.response))
+		   	})
+			.catch((error)=> console.log(error.response))
 		} else {
 			this.setState({
 				userSignedIn: false
@@ -353,14 +383,23 @@ class Main extends React.Component {
 
 
 	render () {
-		console.log("FORCED MAIN")
+
 		return (
 			<div >
 				
-			  <div id={this.state.showMainPage}>
-			  <div id="navBar">
+			  	<div id={this.state.showMainPage}>
+			  	<div id="navBar">
 				<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberCart={this.state.memberCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} />
-			  </div>
+			  	</div>
+
+			  	{ this.state.addedToCart ? 
+			  		<div id="myModal" ref="appMyModal" className="appModal" >
+						<span className="appClose" onClick={ this.myModalSpanClicked.bind(this) } >&times;</span>
+						<img className="app-modal-content" id="img01" ref="img01" />
+						<div id="caption" ref="caption" ></div>
+					</div> 
+					: null }
+
 				<div id="myModal" ref="appMyModal" className="appModal" >
 					<span className="appClose" onClick={ this.myModalSpanClicked.bind(this) } >&times;</span>
 					<img className="app-modal-content" id="img01" ref="img01" />
@@ -376,7 +415,7 @@ class Main extends React.Component {
 			      <Route exact path="/" render={(props)=> <Welcome {...props} />} />
 			      <Route exact path="/signin" render={(props)=> <SigninPopUp {...props} />} />
 	  			  <Route exact path="/register" render={(props)=> <Register {...props} userSignedIn={this.state.userSignedIn} accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} userSignedInMessageModal={this.userSignedInMessageModal.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signinButtonClicked={this.signinButtonClicked.bind(this)} mainState={this.state} /> }/>
-			      <Route exact path="/electronics" render={(props)=> <Electronics {...props} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
+			      <Route exact path="/electronics" render={(props) => <Electronics {...props} electronics={this.state.electronics} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} memberCart={this.state.memberCart} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
 	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  <Route exact path="/checkout" component={Checkout} />
 			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} /> }/>

@@ -35,22 +35,25 @@ export  default class Electronics extends React.Component {
     addToCartClicked(item, i) {
     	var quantityInputField = `quantityInputField${i}`
     	var productQuantity = parseInt(this.refs[quantityInputField].value)
-
+    	var productDiv = this.refs[`item${i}`]
+    	productDiv.id = "product-added-to-cart"
+    	setTimeout(function() { productDiv.id = `item${i}` }, 1000)
     	this.props.addToCartClicked(item, productQuantity)
     }
 
 	render () {
+		console.log("ELECTRONICS", this.props.modifiedElectronics)
 		return (
 			<div id="electronicsData">
-				 {this.props.electronicsList.map((item, i) => 
-				 	<div key={i} id={`item${i}`}>
-				  	<ul>
+				 {this.props.electronics.map((item, i) => 
+				 	<div key={i} id={`item${i}`} ref={`item${i}`} style={item.style} >
+				  	  <ul>
 				  		<div id="quantityFields" ref={`quantityField${i}`} style={{display: "flex", flexWrap: "wrap", width: "220px"}}>
 				  				<div id="increaseQuantity" onClick={this.increaseQuantityClicked.bind(this, i)} style={{ background: "green", width: "35px", height: "20px", textAlign: "center"}}>
 				  	  				<FontAwesome id={`increaseQuantity${i}`} className="itemPlus" name="plus"  size="lg" style={{ left: "2%", color: "red" }}/>
 			 					</div>
 			 					<div id="quantityNumber" style={{ background: "blue", width: "35px", height: "20px"}}>
-			 						<input type="text" ref={`quantityInputField${i}`} value="1" style={{height: "20px", width: "35px", border: "none", outline: "none", fontSize: "14px", textAlign: "center"}} />
+			 						<input type="text" ref={`quantityInputField${i}`} defaultValue="1" style={{height: "20px", width: "35px", border: "none", outline: "none", fontSize: "14px", textAlign: "center"}} />
 			 					</div>
 			 					<div id="decreaseQuantity" onClick={this.decreaseQuantityClicked.bind(this, i)} style={{background: "red", textAlign: "center", width: "35px", height: "20px"}}>
 			 						<FontAwesome className="itemPlus" name="minus"  size="lg" style={{ color: "white" }} />
@@ -70,6 +73,7 @@ export  default class Electronics extends React.Component {
 				  	</div>
 				  	)
 				  } 
+				
 			</div>
 		)
 	}

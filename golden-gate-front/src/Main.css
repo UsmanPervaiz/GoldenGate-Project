@@ -21,16 +21,14 @@ body {
 	width: 100%;
 }
 #electronicsData ul {
+	display: inline-block;
+	float: left;
 	border: 2px solid black;
 	width: 23%;
 	height: 330px;
 	margin-left: 1.3%;
 	margin-top: 1%;
 	list-style: none;
-	display: inline-block;
-	float: left;
-	overflow: auto;
-	 /*overflow is added to keep the text inside the <ul> after the photo is zoomed.*/
 }
 
 #electronicsData ul li  {
@@ -38,12 +36,10 @@ body {
 	padding-top: 0%;
 	font-size: 14px;
 	position: relative;
-
 }
 
 #name, #brand, #msrp, #salePrice {
-	position: relative;
-	
+	position: relative;	
 	display: block;
 }
 
@@ -53,7 +49,6 @@ body {
 	position: relative;
 	padding-top: 3%;
 	box-shadow: 6px 6px 5px black;
-
 }
 
 #electronicsData ul li img:hover {
@@ -113,8 +108,8 @@ body {
 
 .appClose {
 	position: absolute;
-	top: 10.5%;
-	right: 26%;
+	top: 9%;
+	right: 30%;
 	color: black;
 	font-size: 40px;
 }
@@ -141,6 +136,11 @@ body {
     margin-top: -125px;
     color: red;
 	text-align: center;
+}
+
+#product-added-to-cart ul {
+	transform: rotate(360deg);
+	transition: all 1s;
 }
 
 /*#appAddToCartButton {

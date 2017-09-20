@@ -92,10 +92,14 @@
 }
 
 .user-sign-in-modal-back-face.loading .front-face-text {
+	/* Once we change the className from "user-sign-in-modal-back-face" to "user-sign-in-modal-back-face loading",
+	we are setting the display for ".front-face-text" as "none", just so our loader can take its place. */
 	display: none;
 }
 
 .user-sign-in-modal-back-face.loading .sign-in-loader1 {
+	/* Initially we set the display as "none", but after we change the className from ".user-sign-in-modal-back-face" to
+	".user-sign-in-modal-back-face loading", we are setting the display as "block" to make the loader visible. */
 	display: block;
 }
 
@@ -104,15 +108,24 @@
 }
 
 .user-sign-in-modal-back-face.loading .user-sign-in-modal-front-face {
+	/* When the back-face receives focus, we change the className and define new style properties for the new
+	className, to keep the back-face visible permanently. So, when the user clicks on the sign-in button,
+	we change the className from ".user-sign-in-modal-back-face" to ".user-sign-in-modal-back-face loading" and
+	here setting the width and background-color of ".user-sign-in-modal-front-face", to hide the back-face and
+	make the front-face visible by increasing its width. */
 	width: 100%;
 	background-color: #3b5998;
 }
 
 .user-sign-in-modal-back-face.loading .sign-in-modal-submit-button {
+	/* When the user clicks on the sign-in button, we are changing the className from ".user-sign-in-modal-front-face"
+	to ".user-sign-in-modal-front-face loading" and setting the display as "none" for ".sign-in-modal-submit-button". 
+	This will result in hiding the sign-in button when teh loader is being displayed. */
 	display: none;
 }
 
 .user-sign-in-modal-back-face.loading .loader-text {
+
 	display: block;
 }
 
@@ -184,7 +197,7 @@
 	border-bottom: 30px solid transparent;
 }
 
-.sign-in-modal-submit-button:hover  {
+.sign-in-modal-submit-button:hover, .sign-in-modal-submit-button:focus  {
 	border: 5px solid #3b5998;
 	background-color: white;
 }
@@ -193,7 +206,13 @@
 	border-right: 30px solid red;
 }
 
-.sign-in-loader1 {
+.sign-in-loader1 { 
+	/* By default we set this <span> element inside the div with className "user-sign-in-modal-back-face" as no 
+	display, but once we change the className of "user-sign-in-modal-back-face" to "user-sign-in-modal-back-face loading"
+	, we are setting the display for this <span> element as "block" and at the sametime we are also setting the display
+	as "none" for the <span> element with className "front-face-text". By removing the <span> (front-face-text) element,
+	this <span> (sign-in-loader1) element will move upwards and will take "front-face-text"'s place and will be placed
+	exactly where the "LOGIN" (front-face-text) was displayed.*/
 	display: none;
 	position: absolute;
 	width: 150px;
@@ -261,9 +280,9 @@
 .loader-text {
 	position: absolute;
 	display: none;
-	top: 46%;
-	left: 34%;
-	font-size: 1.4em;
+	top: 45%;
+	left: 30%;
+	font-size: 1.8em;
 	animation: signInText 2s linear infinite;
 
 }
