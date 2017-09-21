@@ -16,7 +16,7 @@ export default class Cart extends React.Component {
 			cartEmptyOrNot: "cart-empty-or-not-hide",
 			divOrderSummary: "order-summary-show",
 			showCartPage: "hide-cart-page",
-			showLoadingSymbol: "show-loading-symbol",
+			showLoadingSymbol: "hide-loading-symbol",
 			inCartupdateQuantityButton: "hide-update-cart-button",
 			updatedQuantity: {quantityInputFieldX: "x"},
 		
@@ -52,7 +52,7 @@ export default class Cart extends React.Component {
 	}
 
 	componentWillReceiveProps() {
-		console.log(this.props)
+		
 	setTimeout(() => {
 		if(this.props.memberCart.length < 1 && this.props.temporaryCart.length < 1) {
 			this.setState({
@@ -130,7 +130,9 @@ export default class Cart extends React.Component {
     	product = Object.values(product)[0]
     	var quantityInputField = `quantityInputField${i}`
     	var productQuantity = parseInt(this.refs[quantityInputField].value)
-    	this.props.addToCartClicked(product, productQuantity)
+    	var divForItemToUpdate = this.refs[`productDetailDiv${i}`]
+    	var updateButtonforItem = this.refs[`inCartupdateQuantityButton${i}`]
+    	this.props.addToCartClicked(product, productQuantity, divForItemToUpdate, updateButtonforItem )
     }
 
     removeFromCartClicked(product) {
@@ -174,7 +176,7 @@ export default class Cart extends React.Component {
 			  			var productDetails = Object.values(product)[0]
 			  			return (
 			  				
-			  					<div className="cart-product-flex-container" id={`productDetailDiv${i}`} >
+			  					<div className="cart-product-flex-container" id={`productDetailDiv${i}`} ref={`productDetailDiv${i}`}>
 			  						<div id="showProductImageDiv">
 			  							<img src={productDetails.large_image}  />
 			  						</div>
@@ -213,7 +215,7 @@ export default class Cart extends React.Component {
 				  	  				</div>
 
 				  	  				<div className={this.state.inCartupdateQuantityButton} ref={`inCartupdateQuantityButton${i}`} >
-				  	  		    		<button onClick={this.updateCartClicked.bind(this, i, product)} style={{position: "absolute", top: "80%", lineHeight: "20px", marginLeft: "245px", height: "26px", width: "80px", background: "red", color: "black", fontWeight: "bold"}} >Update Cart</button>
+				  	  		    		<button onClick={this.updateCartClicked.bind(this, i, product)} style={{position: "absolute", top: "80%", lineHeight: "20px", marginLeft: "33.5%", height: "26px", width: "80px", background: "red", color: "black", fontWeight: "bold"}} >Update Cart</button>
 				  	  				</div>
 
 				  	  				<div className="cartRemoveItemDiv">

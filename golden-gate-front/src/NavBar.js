@@ -34,6 +34,10 @@ class NavBar extends React.Component {
 		this.props.navBarSignInClicked()
 	}
 
+	myAccountButtonClicked() {
+		this.props.history.push("/myaccount")
+	}
+
 	componentWillReceiveProps(prevProps, nextProps) {
 		if(this.props.userSignedIn) {
 			this.setState({
@@ -134,7 +138,7 @@ class NavBar extends React.Component {
 
 		{this.props.userSignedIn ? 
 		<div className='nav-my-account-button show'>
-			<button>My Account</button><span><button id="navBarSignout" onClick={this.signOutClicked.bind(this)} >Sign Out</button></span>
+			<button onClick={this.myAccountButtonClicked.bind(this)} >My Account</button><span><button id="navBarSignout" onClick={this.signOutClicked.bind(this)} >Sign Out</button></span>
 		</div> : null }
 
 		<div className="nav-favorites hidden">

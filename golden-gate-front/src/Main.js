@@ -63,7 +63,7 @@ class Main extends React.Component {
 		this.refs.appMyModal.style.display = "none"	
 	}
 
-	addToCartClicked(product, productQuantity) {
+	addToCartClicked(product, productQuantity, divForUpdatedItem, updateButtonforItem) {
 		var updatedElectronics = this.state.electronics
 		updatedElectronics.forEach(function(electronicProduct) {
 			if(electronicProduct === product) {
@@ -107,6 +107,15 @@ class Main extends React.Component {
 					electronics: updatedElectronics
 				}) 
 				)
+				.then(() => { if(divForUpdatedItem) {
+					console.log("DIVUPDATED", divForUpdatedItem)
+					var currentClassName = divForUpdatedItem.className
+					var newClassName = "item-in-cart-updated-successfully"
+					divForUpdatedItem.className = "item-in-cart-updated-successfully"
+					updateButtonforItem.className = "hide-update-cart-button"
+					setTimeout(function() { divForUpdatedItem.className = currentClassName }, 1000)
+
+				}})
 				.catch((error) => console.log(error))
 			} 
 	    } else {
@@ -121,6 +130,7 @@ class Main extends React.Component {
 	    	}
 		}
 	}
+
 
 	removeFromCartClicked(product) {
 		var productToRemove = Object.values(product)[0]
@@ -148,11 +158,11 @@ class Main extends React.Component {
 				}.bind(this))
 					this.setState({
 						electronics: resp.data
-					},() => console.log("MODIFIED", this.state.electronics))
+					})
 			} else {
 				this.setState({
 					electronics: resp.data
-				},() => console.log("MODMODMOD", this.state.electronics))
+				})
 			}
 				
 		})

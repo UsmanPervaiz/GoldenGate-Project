@@ -1,9 +1,7 @@
 
-
-
 #account-container {
 	position: absolute;
-	background-color: yellow;
+	background-color: #DEB887;
 	overflow: auto;
 	min-width: 100%;
 	min-height: 100%;
@@ -68,7 +66,7 @@
 	width: 800px;
 	margin-left: 30%;
 	min-height: 200px;
-	background-color: green;
+	/*background-color: white;*/
 	box-sizing: border-box;
 
 }
