@@ -1,9 +1,9 @@
 # GoldenGate
 
 ### An e-commerce platform inspired by eBay and Amazon.com  
-* • Developed a single page e-commerce website with Rails API backend and React component based frontend.   
-* • Employed JavaScript and React for user registration, product browsing, shopping cart placement, and check-out.  
-* • Utilized Rails and SQL to persist user data and CSS for enhanced user interface.  
+* • Developed a single page e-commerce website with Rails API backend and React component based frontend.*   
+* • Employed JavaScript and React for user registration, product browsing, shopping cart placement, and check-out.*  
+* • Utilized Rails and SQL to persist user data and CSS for enhanced user interface.*  
 
 Welcome, and thankyou for viewing my Github profile page.
 
