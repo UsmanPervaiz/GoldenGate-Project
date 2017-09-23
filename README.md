@@ -1,9 +1,9 @@
 # GoldenGate
 
 ### An e-commerce platform inspired by eBay and Amazon.com  
-* • Developed a single page e-commerce website with Rails API backend and React component based frontend.*   
-* • Employed JavaScript and React for user registration, product browsing, shopping cart placement, and check-out.*  
-* • Utilized Rails and SQL to persist user data and CSS for enhanced user interface.*  
+**• Developed a single page e-commerce website with Rails API backend and React component based frontend.*   
+ • Employed JavaScript and React for user registration, product browsing, shopping cart placement, and check-out.*  
+ • Utilized Rails and SQL to persist user data and CSS for enhanced user interface.** 
 
 Welcome, and thankyou for viewing my Github profile page.
 
@@ -41,7 +41,7 @@ Server-Side validdation is not as user-friendly as client side validation, as it
 
 **The way I have it set up as is that if the user is somehow able to bypass the JS validations and submit the form, a modal window will open up to inform the user of the Server-Side errors they need to fix in order to complete the registration process.**
 
-The validations implemented are:
+> The validations implemented are:
 
 > 1. User first and last name can only contain letters (aA-zZ) and cannot be blank.
 > 2. Email must be in a valid format and cannot be blank.
@@ -54,7 +54,7 @@ The validations implemented are:
 
 ### ACCOUNT REGISTRATION SECURITY QUESTIONS:
 
-Another cool security feature that I have applied is to ask the user to answer any 3 out of 15 security questions, in order to recover their account or reset their password. This step comes right after the user clicks submit on the registration form. If for any reason the data enetered is not accurate, the user never moves on to the security questions and a modal window appears to inform the user about the server-side errors.
+**Another cool security feature that I have applied is to ask the user to answer any 3 out of 15 security questions, in order to recover their account or reset their password. This step comes right after the user clicks submit on the registration form. If for any reason the data enetered is not accurate, the user never moves on to the security questions and a modal window appears to inform the user about the server-side errors.**
 
 The security question modal window will only appear if the enetered registration data passes all server-side validations. The account is created once the user answers any three security questions and submits them. 
 
@@ -96,9 +96,9 @@ After selecting the right quantity, user can click on "Add to cart."
 
 Once the item has been successfully added to the user's cart on the server-side, the product will spin/rotate as a confirmation of successfull addition.
 
-Along with the spin/rotate affect, I have added another great feature which I think that almost every website on the internet is missing. The feature is that once the product has been added to your cart, that specific product will be faded permanently, untill deleted from the cart or paid for it. This feature is to make sure that you know what products are already in your cart, instead of going back and forth to your cart. This feature will help the user to not add multiple quatities of the same product by mistake.
+Along with the spin/rotate affect, **I have added another great feature which I think that almost every website on the internet is missing. The feature is that once the product has been added to your cart, that specific product will be faded permanently, untill deleted from the cart or paid for it. This feature is to make sure that you know what products are already in your cart, instead of going back and forth to your cart. This feature will help the user to not add multiple quatities of the same product by mistake.**
 
-Another feature added for user protection is that, let's say, you added 2 quantities of a product and now if you by mistake again add another 2 quatities of the same product (not knowing that the item is already in your cart), there will be no changes to your cart, in other words the cart will not be updated. The only time the cart will be updated is when the user adds a different quantity (plus or minus) then what is already in the cart.
+**Another feature added for user protection is that, let's say, you added 2 quantities of a product and now if you by mistake again add another 2 quatities of the same product (not knowing that the item is already in your cart), there will be no changes to your cart, in other words the cart will not be updated. The only time the cart will be updated is when the user adds a different quantity (plus or minus) then what is already in the cart.**
 
 The above two features were added based on my personal online shopping experience. And I believe these features are a must have for any modern website.
 
