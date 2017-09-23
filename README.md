@@ -54,7 +54,7 @@ Server-Side validdation is not as user-friendly as client side validation, as it
 
 ### ACCOUNT REGISTRATION SECURITY QUESTIONS:
 
-** A cool security feature that I have applied is to ask the user to answer any 3 out of 15 security questions, in order to recover their account or reset their password. This step comes right after the user clicks submit on the registration form. If for any reason the data enetered is not accurate, the user never moves on to the security questions and a modal window appears to inform the user about the server-side errors.**
+**A cool security feature that I have applied is to ask the user to answer any 3 out of 15 security questions, in order to recover their account or reset their password. This step comes right after the user clicks submit on the registration form. If for any reason the data enetered is not accurate, the user never moves on to the security questions and a modal window appears to inform the user about the server-side errors.**
 
 The security question modal window will only appear if the enetered registration data passes all server-side validations. The account is created once the user answers any three security questions and submits them. 
 
