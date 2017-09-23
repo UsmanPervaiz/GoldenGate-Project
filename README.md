@@ -39,7 +39,7 @@ Server-Side validation is validation that occurs on the server, after the data h
 
 Server-Side validdation is not as user-friendly as client side validation, as it requires a round trip to the server, but it is essential, it is your application's last line of defense against bad data.
 
-The way I have it set up as is that if the user is somehow able to bypass the JS validations and submit the form, a modal window will open up to inform the user of the Server-Side errors they need to fix in order to complete the registration process.
+**The way I have it set up as is that if the user is somehow able to bypass the JS validations and submit the form, a modal window will open up to inform the user of the Server-Side errors they need to fix in order to complete the registration process.**
 
 The validations implemented are:
 
