@@ -48,7 +48,7 @@ export  default class Electronics extends React.Component {
 				 {this.props.electronics.map((item, i) => 
 				 	<div key={i} id={`item${i}`} ref={`item${i}`} style={item.style} >
 				  	  <ul>
-				  		<div id="quantityFields" ref={`quantityField${i}`} style={{display: "flex", flexWrap: "wrap", width: "220px"}}>
+				  		<div id="quantityFields" ref={`quantityField${i}`} style={{display: "flex", flexWrap: "wrap", position: "relative", width: "220px"}}>
 				  				<div id="increaseQuantity" onClick={this.increaseQuantityClicked.bind(this, i)} style={{ background: "green", width: "35px", height: "20px", textAlign: "center"}}>
 				  	  				<FontAwesome id={`increaseQuantity${i}`} className="itemPlus" name="plus"  size="lg" style={{ left: "2%", color: "red" }}/>
 			 					</div>

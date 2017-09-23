@@ -8,12 +8,27 @@
 
 
 .welcomePage {
-	background-color: black
+	position: absolute;
+	height: 850px;
+	width: 100%;
+}
+
+.neon {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	overflow: hidden;
+}
+
+.neon li {
+	position: absolute;
+	height: 100%;
 }
 
 .fly-in-text {
 	left: 50%;
-	top: 50%;
+	top: 40%;
 	position: absolute;
 	/* With position set as absolute, the element is positioned relative to its first 
 	positioned ancestor element.*/
@@ -21,13 +36,15 @@
 	/* This property is applied to list items. Because this property is inherited,
 	it can be set on the parent element (normally <ol> or <ul>) to let it apply
 	to all list items. here "none" is used to remove bullets from <li> elements. */
-	transform: translateX(-50%) translateY(-50%);
+	/*transform: translateX(-50%) translateY(-20%);*/
+	margin-left: -300px;
 	/* The transform property applies 2D or 3D transformation to an element, 
 	this property allows you to rotate, scale, move, skew, etc, elements.
 	The translateX() CSS function moves the element horizontally on the plane.
 	The translateY() CSS function moves the element vertically on the plane. */
 	box-sizing: border-box;
 }
+
 .fly-in-text li {
 	color: #FFD700;
 	display: inline-block;
@@ -49,7 +66,7 @@
 	 over a given duration. CSS transitions provide a way to control animation speed 
 	 when changing CSS properties. 
 	 "ease" specifies a transition effect with a slow start, then fast, then end slowly.*/
-	 animation: glow 2.5s linear infinite;
+	 animation: glow 3.0s linear infinite;
 	 /* CSS animations make it possible to animate transitions from one CSS style 
 	 configuration to another. To use CSS animation, we must first specify some
 	 keyframes for the animation. Keyframes hold what styles the element will have at 
@@ -157,15 +174,15 @@
 	transition: all 5.0s ease;
 	animation: neon 5.7s linear infinite;
 	box-sizing: border-box;
-	background: #FF0000;
-	box-shadow: 0 0 80px #f00, 0 0 80px #f00;
+	background: white;
+	box-shadow: 0 0 80px white, 0 0 80px white;
 	border: 2px solid #FF00FF;
 }
 
 
 @keyframes neon {
 	0% {
-		box-shadow: 0 0 80px #FF00FF, 0 0 80px #FF00FF;	
+		box-shadow: 0 0 80px white, 0 0 80px white;	
 	}
 	50% {
 		background: #0000CD;
@@ -236,6 +253,12 @@
 }
 .neon li:nth-child(18) {
 	animation-delay: 3.6s;
+}
+.neon li:nth-child(19) {
+	animation-delay: 3.8s;
+}
+.neon li:nth-child(20) {
+	animation-delay: 4.0s;
 }
 
 

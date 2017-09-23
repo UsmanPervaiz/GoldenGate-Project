@@ -145,7 +145,6 @@ export default class Cart extends React.Component {
 
 
 	render() {
-		console.log("CART RENDER:", this.props)
 		var memberCart = this.props.memberCart
 		var temporaryCart = this.props.temporaryCart
 

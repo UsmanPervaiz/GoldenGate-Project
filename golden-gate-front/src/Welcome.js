@@ -36,11 +36,11 @@ export default class Welcome extends Component {
 
   render() {
     
-    console.log("WELCOME")
-    
         return (
-        <div className="welcomePage" style={{background: "black"}}>
+        <div className="welcomePage" >
           <ul className="neon" >
+          <li></li>
+          <li></li>
           <li></li>
           <li></li>
           <li></li>

@@ -18,7 +18,6 @@ export default class MyAccountAboutMeModal extends React.Component {
 	}
 
 	render () {
-		console.log("DOB:", this.props.memberInfo)
 		return (
 			<div id="about-me-modal-wrapper" className="about-me-modal-wrapper" >
 
