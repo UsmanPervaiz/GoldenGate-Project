@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios"
 import "./MyAccount.css";
+import UserLogInModal from "./UserLogInModal.js";
 import MyAccountAboutMeModal from "./MyAccountAboutMeModal";
 import UpdatePasswordModal from "./UpdatePasswordModal";
 import AddNewAddressModal from "./AddNewAddressModal"
@@ -279,9 +280,11 @@ export default class Account extends React.Component {
 	}
 
 	render() {
-		console.log("FORCEEED myaccount" ,"memberInfo", this.props)
+		console.log("PKPKPK", this.props)
 		return (
-			<div className="my-account-wrapper">
+			<div>
+			{ localStorage.token ? <div className="my-account-wrapper">
+			
 
 				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
 				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
@@ -370,7 +373,7 @@ export default class Account extends React.Component {
 				</div>
 
 			</div> 
-			</div>
+			</div> : this.props.history.push("/login") } </div>
 			)
 	}
 }

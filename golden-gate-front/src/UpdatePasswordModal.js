@@ -41,12 +41,12 @@ export default class UpdatePasswordModal extends React.Component {
 						</div>
 						<div id="new-password" className="update-password-container">
 							<label className="update-password-input-field-labels" htmlFor="current-password-input-field">New Password</label>
-							<input required type="text" id="current-password-input-field" className="update-password-input-fields" defaultValue="" onChange={(event) => this.props.newPasswordChanged(event)} />
+							<input required type="password" id="new-password-input-field" className="update-password-input-fields" defaultValue="" onChange={(event) => this.props.newPasswordChanged(event)} />
 							<p id="newPasswordError" style={this.props.newPasswordErrorDisplay} > {this.props.newPasswordError} </p>
 						</div>
 						<div id="confirm-new-password" className="update-password-container">
 							<label className="update-password-input-field-labels" htmlFor="current-password-input-field">Confirm Password</label>
-							<input required type="text" id="current-password-input-field" className="update-password-input-fields" defaultValue="" onChange={(event) => this.props.confirmNewPasswordChanged(event)} />
+							<input required type="password" id="confirm-new-password-input-field" className="update-password-input-fields" defaultValue="" onChange={(event) => this.props.confirmNewPasswordChanged(event)} />
 							<p id="newPasswordConfirmError" style={this.props.newPasswordConfirmErrorDisplay} > {this.props.newPasswordConfirmError} </p>
 						</div>
 						<div id="save-new-password" className="update-password-container">

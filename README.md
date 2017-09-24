@@ -5,9 +5,11 @@
  > * **Employed JavaScript and React for user registration, product browsing, shopping cart placement, and check-out.**  
  > * **Utilized Rails and SQL to persist user data and CSS for enhanced user interface.** 
 
-Welcome, and thankyou for viewing my Github profile page.
+Welcome, and thank you for viewing my Github profile page.
 
-This is my first after-school solo project and it is still in progress, about 75% is complete, but, I am still uploading a demo video to explain the features of this project for employment purposes.
+This is my first after-school solo project and it is still in progress, about 75% is complete, but, I am still uploading a demo video to explain the features of this project for employment purposes. 
+
+**The project is not re-factored as of yet, my main goal here is to practice everything that I have learned so far. I still have to separate Dumb Components from Smart Components, it can be seen that some Componenets are stateless, but still are defined as Class-Components. The most important thing to me is that whatever features I have implemented so far are working 100% and as desired. I have learned a lot in the past few weeks coding on my own, in the beginning some of my code was not according to the "DRY" principle, but as i progressed, my css and my coding got better and is still getting better. Overall I am happy and satisfied with my progress.**
 
 I have been working on it for about 7-8 weeks, had many ups and downs, yes and nos, this and that moments. I wanted to bring it as close as possible to a real e-commerce website experience.
 
@@ -129,3 +131,8 @@ The user also has the option to remove an item from the cart with a click of a b
 ### IN CART TOTAL:
 
 The in-cart total is displayed right next to the products in the cart page. The total includes a fixed shipping rate of $9.99 and a tax of 8.75% on the total amount.
+
+## FEATURES WAITING TO BE IMPLEMENTED:
+
+1- User can add item to cart even if they are not signed in.
+2- User can complete the checkout.

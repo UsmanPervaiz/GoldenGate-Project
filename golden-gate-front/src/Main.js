@@ -8,7 +8,6 @@ import Cart from "./Cart.js"
 // import "./csshake/dist/csshake-little.css"
 import Welcome from "./Welcome.js";
 import axios from "axios"
-import SigninPopUp from "./SigninPopUp"
 import "./csshake/dist/csshake-crazy.css";
 import FontAwesome from "react-fontawesome";
 import Checkout from "./Checkout.js";
@@ -215,6 +214,12 @@ class Main extends React.Component {
 		})
 	}
 
+	navBarSignOutClicked() {
+		this.setState({
+			userSignedIn: false,
+		})
+	}
+
 	navBarSigninCloseClicked() {
 		this.setState({
 			userLogInModal: ""
@@ -252,8 +257,11 @@ class Main extends React.Component {
 			}).then((resp)=> {  
 				localStorage.setItem("token", resp.data.token)
 			})
+			.then(()=> this.setState({
+				userSignedIn: true
+			}))
+			.then(()=> this.userSignedInMessageModal())
 		      .then((resp)=> this.props.history.push("/main"))
-		      .then(()=> this.userSignedInMessageModal())
 		      .catch((error)=> { 
 		  		this.setState({
 		  			signInAjaxErrorMessage: error.response.data.error
@@ -269,14 +277,15 @@ class Main extends React.Component {
 			}).then((resp)=> { 
 				localStorage.setItem("token", resp.data.token)
 			})
-		      .then((resp)=> this.props.history.push("/main"))
 		      .then(()=> {
 		      	this.navBarSigninCloseClicked()
 		      	this.setState({
 		      		signinEmail: "",
-		      		signInPasswordError: ""
+		      		signInPasswordError: "",
+		      		userSignedIn: true
 		      	})
 		      })
+		      .then((resp)=> this.props.history.push("/main"))
 		      // .then(()=> this.userSignedInMessageModal())
 		      .catch((error)=> { 
 		  		this.setState({
@@ -285,17 +294,6 @@ class Main extends React.Component {
 		  		logInForm.className = "user-sign-in-modal-back-face focused"
 		  	  })
 	}
-
-	// saveNewPassword(currentPassword, newPassword, callback) {
-	// 	var data = {
-	// 		"currentPassword": currentPassword,
-	// 		"password": newPassword,
-	// 	}
-	// 	axios.defaults.headers.common['Token'] = localStorage.token;
-	// 	axios.put("http://localhost:3000/api/v1/update_password", data)
-	// 	.then(() => callback())
-		
-	// }
 
 	updateMemberInfo() {
 		axios.get("http://localhost:3000/api/v1/members/0", {
@@ -308,39 +306,41 @@ class Main extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		console.log("PREVSTATE", prevState, "THISSTATE", this.state)
+
 	}
 
-	componentWillReceiveProps() {
-		console.log("mainWillReceiveProps")
-		if(localStorage.token) {
-			this.setState({
-				userSignedIn: true,
-				// showMainPage: "hide-main-page",
+	componentWillReceiveProps(nextProps) {
+		// This life-cycle method is skppied on "this.setState" and that is the reason why the loading symbol is not seen when updating the sign-in input fields
+		console.log("mainWillReceiveProps", nextProps)
+		this.setState({
 				showLoadingSymbol: "show-loading-symbol"
 			})
+		if(localStorage.token) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
 				headers: { token: localStorage.token }
 			}).then((resp)=> this.setState({
 								memberCart: resp.data.currentOrderDetails,
 								memberOrder: resp.data.order,
-								userSignedIn: true,
 								memberInfo: resp.data.memberInfo
 			    			})
 			).catch((error)=> console.log(error.response))
-		} else {
-		 	this.setState({
-		 		userSignedIn: false
-		 	})
-		 
-			if (localStorage.temporaryCart) {
-				var getLocalCart = JSON.parse(localStorage.temporaryCart)
-				this.setState({
-				temporaryCart: getLocalCart
-				})
-			}
+		} 
+		else {
+			this.setState({
+				memberCart: [],
+				memberOrder: {},
+				memberInfo: ""
+			})
 		}
+		 
+		// 	if (localStorage.temporaryCart) {
+		// 		var getLocalCart = JSON.parse(localStorage.temporaryCart)
+		// 		this.setState({
+		// 		temporaryCart: getLocalCart
+		// 		})
+		// 	}
+		// }
 		setTimeout(()=> this.setState({
-			// showMainPage: "show-main-page",
 			showLoadingSymbol: "hide-loading-symbol"
 		}), 1000)
 	}
@@ -396,11 +396,17 @@ class Main extends React.Component {
 
 		return (
 			<div >
-				
+			
 			  	<div id={this.state.showMainPage}>
-			  	<div id="navBar">
-				<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberCart={this.state.memberCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} />
-			  	</div>
+			  		<div id="navBar">
+						<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberCart={this.state.memberCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} navBarSignOutClicked={this.navBarSignOutClicked.bind(this)} />
+			  		</div>
+			  		<div id={this.state.showLoadingSymbol}>
+			  			<div id="loading-symbol-body">
+			    			<FontAwesome className="circle-o-notch" name="circle-o-notch" spin size="5x"/>
+			    			<h2>Loading....</h2>
+			    		</div>
+			  		</div>
 
 			  	{ this.state.addedToCart ? 
 			  		<div id="myModal" ref="appMyModal" className="appModal" >
@@ -423,22 +429,14 @@ class Main extends React.Component {
 
 			  	<Switch>
 			      <Route exact path="/" render={(props)=> <Welcome {...props} />} />
-			      <Route exact path="/signin" render={(props)=> <SigninPopUp {...props} />} />
+			      <Route exact path="/login" render={(props)=> <UserLogInModal navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} mainState={this.state} /> } />
 	  			  <Route exact path="/register" render={(props)=> <Register {...props} userSignedIn={this.state.userSignedIn} accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} userSignedInMessageModal={this.userSignedInMessageModal.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signinButtonClicked={this.signinButtonClicked.bind(this)} mainState={this.state} /> }/>
 			      <Route exact path="/electronics" render={(props) => <Electronics {...props} electronics={this.state.electronics} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} memberCart={this.state.memberCart} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
-	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
+	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  <Route exact path="/checkout" component={Checkout} />
-			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} /> }/>
+			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} /> }/>			  	  
 			  	</Switch>
 				</div>
-
-			  <div id={this.state.showLoadingSymbol}>
-			  	<div id="loading-symbol-body">
-			    <FontAwesome className="circle-o-notch" name="circle-o-notch" spin size="5x"/>
-			    <h2>Loading....</h2>
-			    </div>
-			  </div>
-
 			</div>
 
 			)

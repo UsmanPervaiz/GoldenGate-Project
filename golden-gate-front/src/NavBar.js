@@ -26,8 +26,9 @@ class NavBar extends React.Component {
 
 	signOutClicked () {
 		localStorage.clear();
-		this.props.history.push("/main")
+		this.props.navBarSignOutClicked()
 		this.props.userLoggedOutMessageModal()
+		this.props.history.push("/main")
 	}
 
 	navBarSignInClicked() {
@@ -74,8 +75,7 @@ class NavBar extends React.Component {
 	}
 
 	
-	navCartClicked() {
-		
+	navCartClicked() {	
 		this.props.history.push("/cart")
 	}
 

@@ -62,8 +62,8 @@ export default class UserLogInModal extends React.Component {
 					</div>
 
 					<form>
-						<input type="text" placeholder="Email" className="sign-in-modal-input-field" required onChange={this.signinOnEmailChange.bind(this)} />
-						<input type="text" placeholder="Password" className="sign-in-modal-input-field" required ref="sign-in-password-field" onChange={this.signinOnPasswordChange.bind(this)}/>
+						<input type="email" placeholder="Email" className="sign-in-modal-input-field" required onChange={this.signinOnEmailChange.bind(this)} />
+						<input type="password" placeholder="Password" className="sign-in-modal-input-field" required ref="sign-in-password-field" onChange={this.signinOnPasswordChange.bind(this)}/>
 						<button type="submit" className="sign-in-modal-submit-button" onClick={this.signInModalSubmitButtonClicked.bind(this)} ></button>
 					</form>
 

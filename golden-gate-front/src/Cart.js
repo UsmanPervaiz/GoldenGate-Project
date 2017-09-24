@@ -16,7 +16,6 @@ export default class Cart extends React.Component {
 			cartEmptyOrNot: "cart-empty-or-not-hide",
 			divOrderSummary: "order-summary-show",
 			showCartPage: "hide-cart-page",
-			showLoadingSymbol: "hide-loading-symbol",
 			inCartupdateQuantityButton: "hide-update-cart-button",
 			updatedQuantity: {quantityInputFieldX: "x"},
 		
@@ -51,10 +50,9 @@ export default class Cart extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps() {
-		
-	setTimeout(() => {
-		if(this.props.memberCart.length < 1 && this.props.temporaryCart.length < 1) {
+	componentWillReceiveProps(nextProps) {
+			
+		if(nextProps.memberCart.length < 1 && nextProps.temporaryCart.length < 1) {
 			this.setState({
 				itemsInCartDiv: "items-in-cart-hide",
 				cartEmptyOrNot: "cart-empty-or-not-show",
@@ -68,24 +66,23 @@ export default class Cart extends React.Component {
 				divOrderSummary: "order-summary-show",
 			})
 		}
-		if(this.props.userSignedIn) {
+		if(nextProps.userSignedIn) {
 			this.setState({
 				cartPageAskSignIn: "ask-to-sign-in-hide"
 			})
 
 		}
-		if(this.props.memberCart.length < 1 && this.props.temporaryCart.length < 1) {
+		if(nextProps.memberCart.length === 1 || nextProps.temporaryCart.length === 1) {
 			cartArrayItem = "Item"
 
 		} else {
 			cartArrayItem = "Items"
 		}
-	}, 1000)
+	
 	}
 
 	componentDidMount() {
 		setTimeout(()=> this.setState({
-			showLoadingSymbol: "hide-loading-symbol",
 			showCartPage: "show-cart-page"
 		}), 1000)
 	}
@@ -158,7 +155,7 @@ export default class Cart extends React.Component {
 		
 			  		<div id={this.state.cartPageAskSignIn}>
 			  			Have an account? Sign in and save time.
-			  		<span id="cartpageSigninButtonSpan"><button id="cartPageSignInButton">Sign In</button></span></div>
+			  		<span id="cartpageSigninButtonSpan"><button id="cartPageSignInButton" onClick={()=> this.props.navBarSignInClicked()}  >Sign In</button></span></div>
 			  
 			  		<div id={this.state.itemsInCartDiv}>
 			  			{this.props.memberCart.length} {cartArrayItem}
@@ -170,7 +167,7 @@ export default class Cart extends React.Component {
 			  	</div>
 			  		
 
-			  		{this.props.memberCart? this.props.memberCart.map( (product, i) => { 
+			  		{this.props.memberCart ? this.props.memberCart.map( (product, i) => { 
 			  			var productQuantity = Object.keys(product)[0]
 			  			var productDetails = Object.values(product)[0]
 			  			return (
@@ -225,7 +222,7 @@ export default class Cart extends React.Component {
 			  				
 			  				)
 
-			  		 }): "NULL" }
+			  		 }): null }
 			  		
 
 			  	<div id={this.state.divOrderSummary} >
@@ -256,11 +253,7 @@ export default class Cart extends React.Component {
 			  	</div>
 			
 			</div>
-			<div id={this.state.showLoadingSymbol}>
-			   <FontAwesome className="circle-o-notch" name="circle-o-notch" spin size="5x"
-			 	style={{position: "absolute", left: "50%", top: "50%", color: "red", }}/>
-			 	<h2 style={{position: "absolute", top: "60%", left: "49%", color: "blue"}}>Loading....</h2>
-			</div>
+		
 		</div>
 
 			)
