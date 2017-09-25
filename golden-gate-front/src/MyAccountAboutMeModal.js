@@ -29,7 +29,7 @@ export default class MyAccountAboutMeModal extends React.Component {
 						</div>
 								
 						<div id="about-me-modal-body">
-
+						<form onSubmit={(event) => this.props.aboutMeModalUpdateButtonClicked(event, this.aboutMeEditCloseClicked.bind(this))} >
 							<div id="edit-first-name">
 								<label className="all-edit-account-labels" htmlFor="new-first-name">First Name</label>
 								<input className="all-new-user-data" id="new-first-name" type="text" defaultValue={this.props.memberInfo.firstName} onChange={(event) => this.props.aboutMeFirstNameChanged(event)}/>
@@ -40,7 +40,7 @@ export default class MyAccountAboutMeModal extends React.Component {
 							</div>
 							<div id="edit-email">
 								<label className="all-edit-account-labels" htmlFor="new-user-email">Email</label>
-								<input className="all-new-user-data" id="new-user-email" type="text" defaultValue={this.props.memberInfo.email} onChange={(event) => this.props.aboutMeEmailChanged(event)}/>
+								<input className="all-new-user-data" id="new-user-email" type="email" defaultValue={this.props.memberInfo.email} onChange={(event) => this.props.aboutMeEmailChanged(event)}/>
 							</div>
 							<div id="new-gender">
 								<h3>Gender</h3>
@@ -70,9 +70,9 @@ export default class MyAccountAboutMeModal extends React.Component {
 							</div>
 
 							<div id="update-button">
-								<button onClick={(event) => this.props.aboutMeModalUpdateButtonClicked(event, this.aboutMeEditCloseClicked.bind(this))} >UPDATE</button>
+								<button type="submit" >UPDATE</button>
 							</div>
-							
+							</form>
 						</div>			
 
 					</div>

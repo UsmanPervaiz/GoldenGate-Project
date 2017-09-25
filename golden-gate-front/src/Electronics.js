@@ -2,7 +2,7 @@
 import React from 'react'
 import NavBar from './NavBar'
 import FontAwesome from "react-fontawesome"
-import "./Main.css";
+import "./App.css";
 
 export  default class Electronics extends React.Component {
 

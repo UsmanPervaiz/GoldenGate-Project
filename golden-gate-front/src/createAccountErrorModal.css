@@ -9,7 +9,7 @@
 	overflow: auto;
 	align-content: center;
 	border: 2px solid red;
-	background-color: red;
+	background-color: #FFDEAD;
 	box-sizing: border-box;
 	transition: all 0.2s; /* transition time must be the same as animation-delay, because we want to start animation right when transition has finished.*/
 	animation-name: hideCreateAccountErrorModal;
@@ -26,12 +26,13 @@
 	position: fixed;
 	min-width: 100%;
 	min-height: 100%;
-	z-index: 1;   /* sit on top of other divs */
-	background-color: rgba(0,0,0,.7); /* you must define background color with opacity for the wrapper div, so other divs inside the wrapper are not affected by opacity and will have full opacity. */
+	z-index: 2;   /* sit on top of other divs */
+	 /* you must define background color with opacity for the wrapper div, so other divs inside the wrapper are not affected by opacity and will have full opacity. */
 	/* opacity: .5; if we define opacity separately, it will affect all child divs inside the wrapper, but we do not want that and that is why we set opacity on the background color of the wrapper div, and not on the wrapper div itself. */
 	color: red;
 	overflow: auto;
 	box-sizing: border-box;
+	background-color: rgba(0,0,0,.9);
 }
 
 .create-account-error-modal-content {
@@ -44,7 +45,7 @@
 	overflow: auto;
 	align-content: center;
 	border: 2px solid black;
-	background-color: white;
+	background-color: #FFDEAD;
 	box-shadow: 0 0 80px white;
 	animation-name: aboutMeAnimate;
 	animation-duration: 1s;

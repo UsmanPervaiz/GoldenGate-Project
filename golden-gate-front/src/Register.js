@@ -501,7 +501,7 @@ export default class Register extends React.Component{ c
 
 
 	render () {
-		console.log(this.props, "state-register")
+		console.log("REGISTER_COMPONENT")
   	  var numbers = []
 	  for (var i = 2017; i >= 1900; i--) {
         numbers.push(i)

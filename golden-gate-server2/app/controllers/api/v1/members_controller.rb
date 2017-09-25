@@ -40,15 +40,21 @@ class Api::V1::MembersController < ApplicationController
 	end
 
 	def update
-		
 		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first
 		if(decoded_token.present?)
 			member = Member.find(decoded_token["member_id"])
 			params["member"].each do |key, value|
 				if(value.present?)
-					member.update("#{key}": value) # if you have any password validations on the user model, make sure they are only on when creating a new user (on: :create), otherwise you won't be able to update without password.
+					member.assign_attributes("#{key}": value)
+					if(member.valid?)
+						member.save # if you have any password validations on the user model, make sure they are only on when creating a new user (on: :create), otherwise you won't be able to update without password.
+					end
 				end
 		    end
+		    if(member.errors.present?)
+		    	render json: {error: member.errors}, status: 422
+		    end
+		    
 		end	
 	end
 

@@ -4,7 +4,8 @@ import "./MyAccount.css";
 import UserLogInModal from "./UserLogInModal.js";
 import MyAccountAboutMeModal from "./MyAccountAboutMeModal";
 import UpdatePasswordModal from "./UpdatePasswordModal";
-import AddNewAddressModal from "./AddNewAddressModal"
+import AddNewAddressModal from "./AddNewAddressModal";
+import CreateAccountErrorModal from "./createAccountErrorModal.js"
 
 
 export default class Account extends React.Component {
@@ -30,7 +31,9 @@ export default class Account extends React.Component {
 			newPasswordConfirm: "",
 			newPasswordConfirmError: "",
 			newPasswordConfirmErrorDisplay: {display: "none"},
-			addNewAddressModal: "hide-add-new-address-modal"
+			addNewAddressModal: "hide-add-new-address-modal",
+			updateAccountErrorResponseData: "",
+  			updateAccountErrorModal: false
 		}
 
 	}
@@ -54,7 +57,7 @@ export default class Account extends React.Component {
 		var newLastName = event.target.value
 		this.setState({
 			newLastName: event.target.value
-		})
+		}, () => console.log(this.state.newLastName))
 	}
 
 	aboutMeEmailChanged(event) {
@@ -79,19 +82,18 @@ export default class Account extends React.Component {
 			this.setState(
 				valueToChange
 			)
-		} else {
+		} else if (event.target.value.length === 2 ) {
 			valueToChange[arg] = event.target.value
 			this.setState(
 				valueToChange
-			, () => { 
-					if(this.state[arg].length < 2) {
+			)
+		}
+		  else if (this.state[arg].length && this.state[arg].length < 2) {
 						valueToChange[arg] = "0" + this.state[arg]
 						this.setState(
 							valueToChange
 						)
 					}
-				})
-		}
 	}
 
 	aboutMeDateOfBirthYearChanged(event) {
@@ -108,28 +110,29 @@ export default class Account extends React.Component {
 		}
 	}
 
-	aboutMeModalUpdateButtonClicked(event, closeModal) {	
+	aboutMeModalUpdateButtonClicked(event, closeModal) {
+		event.preventDefault()
 		var newDob = ""
-		if(this.state.newDobYear && this.state.newDobMonth && this.state.newDobDay) {
+		if(this.state.newDobYear.length && this.state.newDobMonth.length && this.state.newDobDay.length) {
 			newDob = `${this.state.newDobYear}-${this.state.newDobMonth}-${this.state.newDobDay}`
-		} else if (this.state.newDobYear && this.state.newDobMonth) {
+		} else if (this.state.newDobYear.length && this.state.newDobMonth.length) {
 			newDob = this.state.newDobYear + "-" + this.state.newDobMonth + "-" + this.props.memberInfo.dob.slice(-2)
-		} else if (this.state.newDobYear && this.state.newDobDay){
+		} else if (this.state.newDobYear.length && this.state.newDobDay.length){
 			newDob = this.state.newDobYear + "-" + this.props.memberInfo.dob.slice(5,7) + "-" + this.state.newDobDay
-		} else if(this.state.newDobMonth && this.state.newDobDay){
+		} else if(this.state.newDobMonth.length && this.state.newDobDay.length){
 			newDob = this.props.memberInfo.dob.slice(0,4) + "-" + this.state.newDobMonth + "-" + this.state.newDobDay
-		} else if(this.state.newDobYear) {
-			newDob = this.state.newDobYear + this.props.memberInfo.dob.slice(4,-1) 
-		} else if(this.state.newDobMonth) {
-			newDob = this.props.memberInfo.dob.slice(0,4) + "-" + this.state.newDobMonth + this.props.memberInfo.dob.slice(7,-1)
-		} else if(this.state.newDobDay){
+		} else if(this.state.newDobYear.length) {
+			newDob = this.state.newDobYear + this.props.memberInfo.dob.slice(4) 
+		} else if(this.state.newDobMonth.length) {
+			newDob = this.props.memberInfo.dob.slice(0,4) + "-" + this.state.newDobMonth + "-" + this.props.memberInfo.dob.slice(-2)
+		} else if(this.state.newDobDay.length){
 			newDob = this.props.memberInfo.dob.slice(0,8) + this.state.newDobDay
 		}
 
 		if(this.state.newFirstName || this.state.newLastName || this.state.newEmail || this.state.newGender || this.state.newDobMonth || this.state.newDobDay || this.state.newDobYear) {
 			var member = {
 				first_name: this.state.newFirstName,
-				last_name: this.state.newtLastName,
+				last_name: this.state.newLastName, 
 				email: this.state.newEmail,
 				gender: this.state.newGender,
 				birthday: newDob
@@ -139,9 +142,21 @@ export default class Account extends React.Component {
 						{ headers: {token: localStorage.token} } 
 			).then(() => this.props.updateMemberInfo())
 			.then(() => closeModal("updated"))
+			.catch((error) =>
+				this.setState({
+					updateAccountErrorResponseData: error.response.data,
+					updateAccountErrorModal: "show"
+				}, ()=> this.props.updateMemberInfo())
+			)
 		} else {
 			closeModal("ok")
 		}
+	}
+
+	updateAccountErrorModalCloseClicked() {
+		this.setState({
+			updateAccountErrorModal: false
+		})
 	}
 
 	aboutMeEditCloseClicked() {
@@ -280,12 +295,11 @@ export default class Account extends React.Component {
 	}
 
 	render() {
-		console.log("PKPKPK", this.props)
+		console.log("My-ACCOUNT")
 		return (
 			<div>
 			{ localStorage.token ? <div className="my-account-wrapper">
-			
-
+				{ this.state.updateAccountErrorModal ? <CreateAccountErrorModal createAccountErrorResponseData={this.state.updateAccountErrorResponseData} createAccountErrorModalCloseClicked={this.updateAccountErrorModalCloseClicked.bind(this)}/> : null }
 				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
 				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
 				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
