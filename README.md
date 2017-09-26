@@ -1,4 +1,4 @@
-# GoldenGate
+# GoldenGate | [Video Demo](https://www.youtube.com/watch?v=ZtQsc7Jv0KE&feature=youtu.be) | (Still under construction)
 
 >### An e-commerce platform inspired by eBay and Amazon.com  
  > * **Developed a single page e-commerce website with Rails API backend and React component based frontend.**  
