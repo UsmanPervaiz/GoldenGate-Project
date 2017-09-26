@@ -33,7 +33,42 @@ export default class Account extends React.Component {
 			newPasswordConfirmErrorDisplay: {display: "none"},
 			addNewAddressModal: "hide-add-new-address-modal",
 			updateAccountErrorResponseData: "",
-  			updateAccountErrorModal: false
+  			updateAccountErrorModal: false,
+  			newAddressZipCode: "",
+  			newAddressLine1: "",
+  			newAddressLine2: "",
+  			newAddressCity: "",
+  			newAddressState: "",
+  			newAddressFirstName: "",
+  			newAddressLastName: ""
+
+
+		}
+
+	}
+
+	addNewZipCode(event){
+		var newZipCode = event.target.value
+		if(newZipCode.length < 6) {
+			this.setState({
+				newAddressZipCode: event.target.value
+			}, (event)=> {
+					if(this.state.newAddressZipCode.length === 5) {
+					axios.get(`http://ziptasticapi.com/${this.state.newAddressZipCode}`)
+					.then((resp)=> 
+						this.setState({
+							newAddressCity: resp.data.city,
+							newAddressState: resp.data.state
+						})
+					)
+				}
+			})
+		} 
+		else {
+			event.target.value = newZipCode.slice(0,5)
+			this.setState({
+				newAddressZipCode: newZipCode.slice(0,5)
+			})
 		}
 
 	}
@@ -302,7 +337,7 @@ export default class Account extends React.Component {
 				{ this.state.updateAccountErrorModal ? <CreateAccountErrorModal createAccountErrorResponseData={this.state.updateAccountErrorResponseData} createAccountErrorModalCloseClicked={this.updateAccountErrorModalCloseClicked.bind(this)}/> : null }
 				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
 				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
-				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
+				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewZipCode={this.addNewZipCode.bind(this)} newAddressState={this.state.newAddressState} newAddressCity={this.state.newAddressCity} addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
 
 			<div id="account-container">
 			

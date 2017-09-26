@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios"
+import $ from 'jquery'
 import "./AddNewAddressModal.css";
 
 export default class AddNewAddressModal extends React.Component {
@@ -9,7 +11,9 @@ export default class AddNewAddressModal extends React.Component {
 		setTimeout(()=> this.props.addNewAddressModalCloseClicked(),800)
 	}
 
+
 	render() {
+		console.log(this.props)
 		return (
 			<div id="add-new-address-wrapper" className="add-new-address-wrapper" >
 
@@ -23,7 +27,7 @@ export default class AddNewAddressModal extends React.Component {
 					<div id="about-me-modal-body">
 						<div id="new-address-zip-code-container" className="new-address-long-fields" >
 							<label className="all-new-address-labels" htmlFor="new-address-zip-code">Zip Code</label>
-							<input id="new-address-zip-code" className="all-new-address-input-fields" />
+							<input id="new-address-zip-code" className="all-new-address-input-fields" defaultValue="" onChange={(event)=>this.props.addNewZipCode(event)} onBlur={(event)=>this.props.autoFillCityAndState(event)} />
 						</div>
 						<div id="new-address-first-name" className="new-address-short-fields">
 							<label className="all-new-address-labels" htmlFor="new-address-first-name">First Name</label>
@@ -43,11 +47,11 @@ export default class AddNewAddressModal extends React.Component {
 						</div>
 						<div id="new-address-city-container" className="new-address-short-fields">
 							<label className="all-new-address-labels" htmlFor="new-first-name">City</label>
-							<input className="all-new-address-input-fields" id="new-address-city-field" type="text" defaultValue="Usman" />
+							<input className="all-new-address-input-fields" id="new-address-city-field"  type="text" value={this.props.newAddressCity} readOnly="true" />
 					    </div>
 					    <div id="new-address-state-container" className="new-address-short-fields">
 					    	<label className="all-new-address-labels" htmlFor="new-last-name">State</label>
-							<input className="all-new-address-input-fields" id="new-address-state-field" type="text" defaultValue="Pervaiz" />					
+							<input className="all-new-address-input-fields" id="new-address-state-field" type="text" value={this.props.newAddressState} readOnly="true" />					
 						</div>
 						<div id="save-new-address" className="new-address-long-fields">
 							<button className="save-new-address-button">SAVE</button>
