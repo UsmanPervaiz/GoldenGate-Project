@@ -5,7 +5,8 @@ import UserLogInModal from "./UserLogInModal.js";
 import MyAccountAboutMeModal from "./MyAccountAboutMeModal";
 import UpdatePasswordModal from "./UpdatePasswordModal";
 import AddNewAddressModal from "./AddNewAddressModal";
-import CreateAccountErrorModal from "./createAccountErrorModal.js"
+import CreateAccountErrorModal from "./createAccountErrorModal.js";
+
 
 
 export default class Account extends React.Component {
@@ -34,43 +35,84 @@ export default class Account extends React.Component {
 			addNewAddressModal: "hide-add-new-address-modal",
 			updateAccountErrorResponseData: "",
   			updateAccountErrorModal: false,
-  			newAddressZipCode: "",
-  			newAddressLine1: "",
-  			newAddressLine2: "",
-  			newAddressCity: "",
-  			newAddressState: "",
-  			newAddressFirstName: "",
-  			newAddressLastName: ""
+  			newAddressData: {
+  				newAddressLine1: "",
+  				newAddressLine2: "",
+  				newAddressCity: "",
+  				newAddressState: "",
+  				newAddressZipCode: "",
+  				newAddressFirstName: "",
+  				newAddressLastName: "",
+  				newAddressPhoneNumber: "",
+  				newAddressType: "",
+  				newAddressDefault: false
+  			}
+		}
+	}
 
+	addNewAddressDataChanged(event, key){
+		var newState = Object.assign({}, this.state)
+		if(key === "newAddressPhoneNumber") {
+			if(event.target.value.length < 11) {
+				newState.newAddressData.newAddressPhoneNumber = event.target.value
+				this.setState(
+					newState
+					)
+			} else {
+				newState.newAddressData.newAddressPhoneNumber = event.target.value.slice(0, 10)
+				event.target.value = event.target.value.slice(0, 10)
+				this.setState(
+					newState
+					)
+			}
+		}
+		else if(key === "newAddressZipCode") {
+			 if(event.target.value.length === 5 ) {
+				newState.newAddressData.newAddressZipCode = event.target.value
+				axios.get(`http://ziptasticapi.com/${event.target.value}`)
+				.then((resp)=> {
+					newState.newAddressData.newAddressCity = resp.data.city
+					newState.newAddressData.newAddressState = resp.data.state
+				})
+				.then(()=> 
+					this.setState(
+						newState
+					))
+			} else if(event.target.value < 6) {
+				newState.newAddressData.newAddressZipCode = event.target.value
+				this.setState(
+					newState
+				)
+				
+			} else {
+				event.target.value = event.target.value.slice(0,5)
+				newState.newAddressData.newAddressZipCode = event.target.value.slice(0,5)
+				this.setState(
+					newState
+				)
+			}
 
+		} else if (key === "newAddressDefault") {
+				newState.newAddressData.newAddressDefault = event.target.checked
+				this.setState(
+					newState
+				)
+		} 
+		else {
+			newState.newAddressData[key] = event.target.value
+			this.setState(
+				newState
+				)
 		}
 
 	}
 
-	addNewZipCode(event){
-		var newZipCode = event.target.value
-		if(newZipCode.length < 6) {
-			this.setState({
-				newAddressZipCode: event.target.value
-			}, (event)=> {
-					if(this.state.newAddressZipCode.length === 5) {
-					axios.get(`http://ziptasticapi.com/${this.state.newAddressZipCode}`)
-					.then((resp)=> 
-						this.setState({
-							newAddressCity: resp.data.city,
-							newAddressState: resp.data.state
-						})
-					)
-				}
-			})
-		} 
-		else {
-			event.target.value = newZipCode.slice(0,5)
-			this.setState({
-				newAddressZipCode: newZipCode.slice(0,5)
-			})
-		}
-
+	addNewAddressSaveButtonClicked(event) {
+		event.preventDefault()
+		axios.post("http://localhost:3000/api/v1/addresses",
+			{ newAddressData: this.state.newAddressData },
+			{ headers: {"TOKEN": localStorage.token} }
+			)
 	}
 
 	////////////////////////////////////////////////// AboutMeModal
@@ -337,7 +379,7 @@ export default class Account extends React.Component {
 				{ this.state.updateAccountErrorModal ? <CreateAccountErrorModal createAccountErrorResponseData={this.state.updateAccountErrorResponseData} createAccountErrorModalCloseClicked={this.updateAccountErrorModalCloseClicked.bind(this)}/> : null }
 				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
 				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
-				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewZipCode={this.addNewZipCode.bind(this)} newAddressState={this.state.newAddressState} newAddressCity={this.state.newAddressCity} addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
+				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressDataChanged={this.addNewAddressDataChanged.bind(this)} newAddressData={this.state.newAddressData} addNewAddressSaveButtonClicked={this.addNewAddressSaveButtonClicked.bind(this)} addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
 
 			<div id="account-container">
 			

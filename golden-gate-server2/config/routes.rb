@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   		resources :products, only: [:index]
   		get 'carts/show', to: "carts#show"
   		post 'security_questions', to: "security_questions#create"
+      resources :addresses, only: [:create, :update, :destroy]
   	  
     end
   end
  
-
 end
