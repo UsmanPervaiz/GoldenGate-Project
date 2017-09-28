@@ -41,6 +41,7 @@ class Api::V1::MembersController < ApplicationController
 
 	def update
 		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first
+
 		if(decoded_token.present?)
 			member = Member.find(decoded_token["member_id"])
 			params["member"].each do |key, value|

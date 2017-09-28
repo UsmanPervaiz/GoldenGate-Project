@@ -24,6 +24,7 @@ export default class AddNewAddressModal extends React.Component {
 					</div>
 
 					<div id="about-me-modal-body">
+					
 					<form onSubmit={(event)=>this.props.addNewAddressSaveButtonClicked(event)} >
 						<div id="new-address-zip-code-container" className="new-address-long-fields" >
 							<label className="all-new-address-labels" htmlFor="new-address-zip-code">Zip Code</label>

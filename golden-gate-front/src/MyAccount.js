@@ -107,12 +107,33 @@ export default class Account extends React.Component {
 
 	}
 
+
 	addNewAddressSaveButtonClicked(event) {
 		event.preventDefault()
+		var newAddressDefault = ""
+		if(this.state.newAddressData.newAddressDefault) {
+			newAddressDefault = true
+		} else {
+			newAddressDefault = false
+		}
+
+		var new_address_data = {
+			address_type: this.state.newAddressData.newAddressType,
+			default: this.state.newAddressData.newAddressDefault,
+			phone: this.state.newAddressData.newAddressPhoneNumber,
+			first_name: this.state.newAddressData.newAddressFirstName,
+			last_name: this.state.newAddressData.newAddressLastName,
+			address_line_1: this.state.newAddressData.newAddressLine1,
+			address_line_2: this.state.newAddressData.newAddressLine2,
+			city: this.state.newAddressData.newAddressCity,
+			state: this.state.newAddressData.newAddressState,
+			zip_code: this.state.newAddressData.newAddressZipCode,
+		}
 		axios.post("http://localhost:3000/api/v1/addresses",
-			{ newAddressData: this.state.newAddressData },
-			{ headers: {"TOKEN": localStorage.token} }
+				{ new_address_data: new_address_data },
+				{ headers: {"TOKEN": localStorage.token} }
 			)
+		.then((resp)=> this.props.updateMemberAddresses(resp.data.memberAddresses))
 	}
 
 	////////////////////////////////////////////////// AboutMeModal
@@ -372,7 +393,7 @@ export default class Account extends React.Component {
 	}
 
 	render() {
-		console.log("My-ACCOUNT")
+		console.log("My-ACCOUNT-PROPS:", this.props.memberAddresses)
 		return (
 			<div>
 			{ localStorage.token ? <div className="my-account-wrapper">
@@ -457,7 +478,30 @@ export default class Account extends React.Component {
 						<h3 className="all-account-settings-headings">Saved Addresses</h3>
 						<h4 className="all-account-settings-headings" onClick={this.addNewAddressClicked.bind(this)} >Add Address</h4>
 						<div id="saved-user-address-data">
-
+							{this.props.memberAddresses.length  ? 
+										
+											this.props.memberAddresses.map(function(address){
+											
+												return (
+													<div className="member-address-content" >
+														
+														<div className="address-type-header">
+															{address.default ? <span className="check-if-address-default">D</span> : null}
+															<span className="remove-address-from-database">&times;</span>
+															{address.address_type}
+														</div><br />
+														{address.first_name} {address.last_name}<br />
+														{address. address_line_1}{address.address_line_2 ? <br /> : null}
+														{address.address_line_2.length ? address.address_line_2 : null}<br />
+														{address.city} {address.state}<br />													
+														{address.zip_code}<br />
+														{address.phone}<br />
+													</div>
+												)
+											})
+										
+									: <div>No Saved Addresses....</div> 
+							} 
 						</div>
 					</div>
 

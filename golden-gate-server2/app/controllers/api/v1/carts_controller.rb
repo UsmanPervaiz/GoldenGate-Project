@@ -11,7 +11,8 @@ class Api::V1::CartsController < ApplicationController
   		if(order.present?)
   			render json: { 
             currentOrderDetails: current_order_details(decoded_token.first["member_id"]), #calling a helper method.
-            order: order, 
+            order: order,
+            addresses: member.addresses,
             memberInfo: {
               firstName: member.first_name, 
               lastName: member.last_name, 
@@ -23,7 +24,8 @@ class Api::V1::CartsController < ApplicationController
   		else 
   			render json: { 
             currentOrderDetails: [], 
-            order: {}, 
+            order: {},
+            addresses: member.addresses, 
             memberInfo: {
               firstName: member.first_name, 
               lastName: member.last_name, 

@@ -31,6 +31,7 @@ class App extends React.Component {
 			memberCart: [],
 			memberOrder: {},
 			memberInfo: "",
+			memberAddresses: [],
 			showMainPage: "show-main-page",
 			showLoadingSymbol: "show-loading-symbol",
 			signInAjaxErrorMessage: "",
@@ -47,6 +48,12 @@ class App extends React.Component {
 			}
 
 		}
+
+	updateMemberAddresses(addresses) {
+		this.setState({
+			memberAddresses: addresses
+		})
+	}
 
 	imageClicked(event) {
 		console.log("?????", event)
@@ -286,7 +293,6 @@ class App extends React.Component {
 		      	})
 		      })
 		      .then((resp)=> this.props.history.push("/main"))
-		      // .then(()=> this.userSignedInMessageModal())
 		      .catch((error)=> { 
 		  		this.setState({
 		  			signInAjaxErrorMessage: error.response.data.error
@@ -322,7 +328,8 @@ class App extends React.Component {
 								userSignedIn: true,
 								memberCart: resp.data.currentOrderDetails,
 								memberOrder: resp.data.order,
-								memberInfo: resp.data.memberInfo
+								memberInfo: resp.data.memberInfo,
+								memberAddresses: resp.data.addresses
 			    			})
 			).catch((error)=> console.log(error.response))
 		} 
@@ -331,40 +338,17 @@ class App extends React.Component {
 				userSignedIn: false,
 				memberCart: [],
 				memberOrder: {},
-				memberInfo: ""
+				memberInfo: "",
+				memberAddresses: []
 			})
 		}
-		 
-		// 	if (localStorage.temporaryCart) {
-		// 		var getLocalCart = JSON.parse(localStorage.temporaryCart)
-		// 		this.setState({
-		// 		temporaryCart: getLocalCart
-		// 		})
-		// 	}
-		// }
 		setTimeout(()=> this.setState({
 			showLoadingSymbol: "hide-loading-symbol"
 		}), 1000)
 	}
 
-	// componentDidUpdate(prevProps, prevState) {
-	// 	console.log("mainDidUpdate", "thisState",this.state, "PREVSTATE", prevState)
-	// 	axios.get("http://localhost:3000/api/v1/carts/show", {
-	// 			saveNewPassword: { token: localStorage.token }
-	// 		}).then((resp)=> {
-	// 			if(resp.data.currentOrderDetails !== this.state.memberCart || resp.data.order !== this.state.memberOrder || resp.data.memberInfo !== this.state.memberInfo) {
-	// 				this.setState({
-	// 						memberCart: resp.data.currentOrderDetails,
-	// 						memberOrder: resp.data.order,
-	// 						userSignedIn: true,
-	// 						memberInfo: resp.data.memberInfo
-	// 		    	})
-	// 			}
-	// 		}
-	// 		).catch((error)=> console.log(error.response))
-	// }
-
 	componentDidMount() {
+
 		if(localStorage.token) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
 				headers: { token: localStorage.token }
@@ -372,7 +356,8 @@ class App extends React.Component {
 								memberCart: resp.data.currentOrderDetails,
 								memberOrder: resp.data.order,
 								userSignedIn: true,
-								memberInfo: resp.data.memberInfo
+								memberInfo: resp.data.memberInfo,
+								memberAddresses: resp.data.addresses
 			    			})
 		   	})
 			.catch((error)=> console.log(error.response))
@@ -436,7 +421,7 @@ class App extends React.Component {
 			      <Route exact path="/electronics" render={(props) => <Electronics {...props} electronics={this.state.electronics} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} memberCart={this.state.memberCart} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
 	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  <Route exact path="/checkout" component={Checkout} />
-			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} /> }/>			  	  
+			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} /> }/>			  	  
 			  	</Switch>
 				</div>
 			</div>
