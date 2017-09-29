@@ -46,7 +46,8 @@ export default class Account extends React.Component {
   				newAddressPhoneNumber: "",
   				newAddressType: "",
   				newAddressDefault: false
-  			}
+  			},
+  			testing: true
 		}
 	}
 
@@ -104,7 +105,6 @@ export default class Account extends React.Component {
 				newState
 				)
 		}
-
 	}
 
 
@@ -134,7 +134,26 @@ export default class Account extends React.Component {
 				{ headers: {"TOKEN": localStorage.token} }
 			)
 		.then((resp)=> this.props.updateMemberAddresses(resp.data.memberAddresses))
+		.then(()=> {
+			var newAddressData = {
+  					newAddressLine1: "",
+  					newAddressLine2: "",
+  					newAddressCity: "",
+  					newAddressState: "",
+  					newAddressZipCode: "",
+  					newAddressFirstName: "",
+  					newAddressLastName: "",
+  					newAddressPhoneNumber: "",
+  					newAddressType: "",
+  					newAddressDefault: false
+  				}
+  				this.setState({
+  					newAddressData: newAddressData
+  				})
+		})
 	}
+
+	
 
 	////////////////////////////////////////////////// AboutMeModal
 
@@ -380,7 +399,6 @@ export default class Account extends React.Component {
 	/////////////////////////////////////////////////// UpdatePasswordModal
 
 	addNewAddressClicked() {
-		console.log("address")
 		this.setState({
 			addNewAddressModal: "show-add-new-address-modal"
 		})
@@ -391,6 +409,16 @@ export default class Account extends React.Component {
 			addNewAddressModal: "hide-add-new-address-modal"
 		})
 	}
+
+	deleteAddressAskMember(event,address) {
+		this.props.userWantsToDeleteAddress(address)
+	}
+
+	permanentlyDeleteMemberAddress(questionId) {
+ 		this.props.permanentlyDeleteMemberAddress(questionId)
+	}
+
+
 
 	render() {
 		console.log("My-ACCOUNT-PROPS:", this.props.memberAddresses)
@@ -477,27 +505,61 @@ export default class Account extends React.Component {
 					<div id="saved-user-addresses-container">
 						<h3 className="all-account-settings-headings">Saved Addresses</h3>
 						<h4 className="all-account-settings-headings" onClick={this.addNewAddressClicked.bind(this)} >Add Address</h4>
-						<div id="saved-user-address-data">
+						<div id="saved-user-address-wrapper">
 							{this.props.memberAddresses.length  ? 
 										
-											this.props.memberAddresses.map(function(address){
+											this.props.memberAddresses.map((address) =>{
 											
-												return (
+												return address.default ? !address.userWantsToDelete ? (
+													<div className="member-default-address-content" >
+														
+														<div className="default-address-type-header">
+															<span className="remove-address-from-database" onClick={(event)=>this.deleteAddressAskMember(event,address)} >&times;</span>
+															{address.address_type}
+														</div><br />
+														{address.first_name} {address.last_name}<br />
+														{address. address_line_1}{address.address_line_2.length ? <br /> : null}
+														{address.address_line_2.length ? address.address_line_2 : null}<br />
+														{address.city}, {address.state}, {address.zip_code}<br />
+														{address.phone}<br />
+													</div>
+												) : <div className="member-address-content" >
+														<br /><br /><br /><br />
+														Do You Really Want To Delete This Address?<br /><br />
+														<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm">No</button>
+													</div> : null
+											})
+										
+									: null 
+							} 
+						</div>
+						<div id="saved-user-address-wrapper">
+							{this.props.memberAddresses.length  ? 
+										
+											this.props.memberAddresses.map((address) => {
+											
+												return address.default ? null : !address.userWantsToDelete ? (
 													<div className="member-address-content" >
 														
 														<div className="address-type-header">
-															{address.default ? <span className="check-if-address-default">D</span> : null}
-															<span className="remove-address-from-database">&times;</span>
+															<span className="remove-address-from-database" onClick={(event)=>this.deleteAddressAskMember(event,address)} >&times;</span>
 															{address.address_type}
 														</div><br />
 														{address.first_name} {address.last_name}<br />
 														{address. address_line_1}{address.address_line_2 ? <br /> : null}
 														{address.address_line_2.length ? address.address_line_2 : null}<br />
-														{address.city} {address.state}<br />													
-														{address.zip_code}<br />
+														{address.city}, {address.state}, {address.zip_code}<br />			
 														{address.phone}<br />
+														{address.address_line_2.length ? null : <br />}
+														<div className="set-address-as-default" onClick={()=>this.props.setDefaultAddressClicked(address.id)} >
+															Set As Default
+														</div>
 													</div>
-												)
+												) : <div className="member-address-content" >
+														<br /><br /><br /><br />
+														Do You Really Want To Delete This Address?<br /><br />
+														<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm">No</button>
+													</div>
 											})
 										
 									: <div>No Saved Addresses....</div> 

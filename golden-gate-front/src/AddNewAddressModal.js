@@ -24,7 +24,7 @@ export default class AddNewAddressModal extends React.Component {
 					</div>
 
 					<div id="about-me-modal-body">
-					
+
 					<form onSubmit={(event)=>this.props.addNewAddressSaveButtonClicked(event)} >
 						<div id="new-address-zip-code-container" className="new-address-long-fields" >
 							<label className="all-new-address-labels" htmlFor="new-address-zip-code">Zip Code</label>
@@ -60,9 +60,9 @@ export default class AddNewAddressModal extends React.Component {
 						</div>
 						<div id="new-address-type-container" className="new-address-long-fields">
 					
-							<input type="radio" id="radio1" name="address-type" value="billing" className="address-type-radio-buttons" onChange={(event)=> this.props.addNewAddressDataChanged(event, "newAddressType")} />
+							<input type="radio" id="radio1" name="address-type" required value="billing" className="address-type-radio-buttons" onChange={(event)=> this.props.addNewAddressDataChanged(event, "newAddressType")} />
 							<label htmlFor="radio1">Billing</label>
-							<input type="radio" id="radio2" name="address-type" value="shipping" className="address-type-radio-buttons" onChange={(event)=> this.props.addNewAddressDataChanged(event, "newAddressType")} />
+							<input type="radio" id="radio2" name="address-type" required value="shipping" className="address-type-radio-buttons" onChange={(event)=> this.props.addNewAddressDataChanged(event, "newAddressType")} />
 							<label htmlFor="radio2">Shipping</label>
 							<input type="checkbox" id="radio3" name="address-default" className="address-type-radio-buttons" onChange={(event)=> this.props.addNewAddressDataChanged(event, "newAddressDefault")}/>
 							<label htmlFor="radio3">Default</label>

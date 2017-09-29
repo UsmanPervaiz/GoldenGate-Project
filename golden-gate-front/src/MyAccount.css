@@ -283,7 +283,7 @@
 }
 
 #saved-user-addresses-container {
-
+	position: absolute;
 	margin: 0 auto;
 	width: 800px;
 	min-height: 100px;
@@ -312,8 +312,8 @@
 	font-size: 1.2em;
 }
 
-#saved-user-address-data {
-
+#saved-user-address-wrapper {
+	
 	display: inline-block;
 	height: 100%;
 	width: 100%;
@@ -323,26 +323,53 @@
 	background-color: white;
 }
 
-.member-address-content {
+.member-address-content, .member-default-address-content {
 	display: inline-block;
 	width: 46%;
-	min-height: 275px;
-	font-size: 1.5em;
-	text-align: center;
+	height: 200px;
+	font-size: 1em;
+	padding-left: 3%;
 	margin-top: 3%;
 	margin-bottom: 3%;
 	margin-left: 2.7%;
-	
-	padding-bottom: 3%;
 	overflow: auto;
+	color: white;
 	border: 2px solid black;
 	box-sizing: border-box;
-	background-color: red;
+	background-color: white;
+	background-image: url("./addressBackground.jpg");
+	background-size: 180%;
+	background-position: 40% 30%;
 }
 
-.address-type-header {
+.address-type-header, .default-address-type-header {	
+	padding-top: 1%;
+	padding-bottom: 2%;
+	font-size: 1.4em;
+	text-align: center;
+	color: yellow;
+}
+
+.address-type-header .remove-address-from-database {
+	color: red;
+	font-size: 1.5em;
+	margin-top: -3%;
+}
+
+.default-address-type-header .remove-address-from-database  {
+	color: red;
+	font-size: 1.5em;
+	margin-top: -3%;
+}
+
+.default-address-type-header:before {
+	position: absolute;
+	content: "Default";
+	color: green;
+	margin-left: -14%;
+	margin-top: .5%;
+	font-size: .6em;
 	
-	border-bottom: 2px solid black;
 }
 
 .check-if-address-default {
@@ -367,7 +394,29 @@
 	cursor: pointer;
 }
 
+.member-address-delete-confirm {
+	width: 50px;
+	height: 30px;
+}
 
+.member-address-delete-confirm:hover {
+	cursor: pointer;
+	color: white;
+	background-color: black;
+}
+
+.set-address-as-default {
+	float: right;
+	margin-right: 2%;
+	margin-top: 8.5%;
+	color: yellow;
+	font-weight: 900;
+}
+
+.set-address-as-default:hover {
+	color: red;
+	cursor: pointer;
+}
 
 
 

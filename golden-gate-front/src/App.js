@@ -55,8 +55,53 @@ class App extends React.Component {
 		})
 	}
 
+	userWantsToDeleteAddress(addressToDelete) {
+		var newMemberAddresses = this.state.memberAddresses
+		newMemberAddresses.forEach((address) => {
+			address.userWantsToDelete = false
+		})
+		newMemberAddresses.forEach((address) => {
+			if(address === addressToDelete) {
+				address.userWantsToDelete = true
+			}
+		})
+		this.setState({
+			memberAddresses: newMemberAddresses
+			})
+	}
+
+	permanentlyDeleteMemberAddress(addressId) {
+		axios.delete(`http://localhost:3000/api/v1/addresses/${addressId}`,
+			{ headers: {"TOKEN": localStorage.getItem("token")} }
+			)
+		.then((resp)=> {
+			var modifiedMemberAddresses = resp.data.memberAddresses
+			modifiedMemberAddresses.forEach((address) => {
+				address.userWantsToDelete = false
+			})
+			this.setState({
+				memberAddresses: modifiedMemberAddresses
+			})
+		})
+	}
+
+	setDefaultAddressClicked(addressId) {
+		axios.put(`http://localhost:3000/api/v1/set_default_address/${addressId}`,
+			{addressId: addressId},
+			{ headers: {"TOKEN": localStorage.getItem("token")} }
+			)
+		.then((resp)=> {
+			var modifiedMemberAddresses = resp.data.memberAddresses
+			modifiedMemberAddresses.forEach((address) => {
+				address.userWantsToDelete = false
+			})
+			this.setState({
+				memberAddresses: modifiedMemberAddresses
+			})
+		})
+	}
+
 	imageClicked(event) {
-		console.log("?????", event)
 		var imageClicked = event.target
 		var modal = this.refs.appMyModal
 		var modalImage = this.refs.img01
@@ -324,14 +369,19 @@ class App extends React.Component {
 		if(localStorage.token) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
 				headers: { token: localStorage.token }
-			}).then((resp)=> this.setState({
-								userSignedIn: true,
-								memberCart: resp.data.currentOrderDetails,
-								memberOrder: resp.data.order,
-								memberInfo: resp.data.memberInfo,
-								memberAddresses: resp.data.addresses
-			    			})
-			).catch((error)=> console.log(error.response))
+			}).then((resp)=> {
+					var modifiedMemberAddresses = resp.data.addresses
+					modifiedMemberAddresses.forEach((address) => {
+						address.userWantsToDelete = false
+					})
+					this.setState({
+						userSignedIn: true,
+							memberCart: resp.data.currentOrderDetails,
+							memberOrder: resp.data.order,
+							memberInfo: resp.data.memberInfo,
+							memberAddresses: modifiedMemberAddresses
+			    		})
+			}).catch((error)=> console.log(error.response))
 		} 
 		else {
 			this.setState({
@@ -352,13 +402,18 @@ class App extends React.Component {
 		if(localStorage.token) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
 				headers: { token: localStorage.token }
-			}).then((resp)=>  { this.setState({
-								memberCart: resp.data.currentOrderDetails,
-								memberOrder: resp.data.order,
-								userSignedIn: true,
-								memberInfo: resp.data.memberInfo,
-								memberAddresses: resp.data.addresses
-			    			})
+			}).then((resp)=>  { 
+					var modifiedMemberAddresses = resp.data.addresses
+					modifiedMemberAddresses.forEach((address) => {
+						address.userWantsToDelete = false
+					})
+					this.setState({
+						memberCart: resp.data.currentOrderDetails,
+						memberOrder: resp.data.order,
+						userSignedIn: true,
+						memberInfo: resp.data.memberInfo,
+						memberAddresses: modifiedMemberAddresses
+			    	})
 		   	})
 			.catch((error)=> console.log(error.response))
 		} else {
@@ -421,7 +476,7 @@ class App extends React.Component {
 			      <Route exact path="/electronics" render={(props) => <Electronics {...props} electronics={this.state.electronics} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} memberCart={this.state.memberCart} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
 	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  <Route exact path="/checkout" component={Checkout} />
-			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} /> }/>			  	  
+			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} userWantsToDeleteAddress={this.userWantsToDeleteAddress.bind(this)} permanentlyDeleteMemberAddress={this.permanentlyDeleteMemberAddress.bind(this)} setDefaultAddressClicked={this.setDefaultAddressClicked.bind(this)} /> }/>			  	  
 			  	</Switch>
 				</div>
 			</div>
