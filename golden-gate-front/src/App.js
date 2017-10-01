@@ -70,6 +70,16 @@ class App extends React.Component {
 			})
 	}
 
+	doNotDeleteMemberAddressClicked() {
+		var memberAddresses = this.state.memberAddresses
+		memberAddresses.forEach((address)=>{
+			address.userWantsToDelete = false
+		})
+		this.setState({
+			memberAddresses: memberAddresses
+		})
+	}
+
 	permanentlyDeleteMemberAddress(addressId) {
 		axios.delete(`http://localhost:3000/api/v1/addresses/${addressId}`,
 			{ headers: {"TOKEN": localStorage.getItem("token")} }
@@ -476,7 +486,7 @@ class App extends React.Component {
 			      <Route exact path="/electronics" render={(props) => <Electronics {...props} electronics={this.state.electronics} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} memberCart={this.state.memberCart} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
 	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  <Route exact path="/checkout" component={Checkout} />
-			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} userWantsToDeleteAddress={this.userWantsToDeleteAddress.bind(this)} permanentlyDeleteMemberAddress={this.permanentlyDeleteMemberAddress.bind(this)} setDefaultAddressClicked={this.setDefaultAddressClicked.bind(this)} /> }/>			  	  
+			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} userWantsToDeleteAddress={this.userWantsToDeleteAddress.bind(this)} doNotDeleteMemberAddressClicked={this.doNotDeleteMemberAddressClicked.bind(this)} permanentlyDeleteMemberAddress={this.permanentlyDeleteMemberAddress.bind(this)} setDefaultAddressClicked={this.setDefaultAddressClicked.bind(this)} /> }/>			  	  
 			  	</Switch>
 				</div>
 			</div>

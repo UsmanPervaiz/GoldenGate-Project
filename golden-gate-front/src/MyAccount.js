@@ -51,107 +51,9 @@ export default class Account extends React.Component {
 		}
 	}
 
-	addNewAddressDataChanged(event, key){
-		var newState = Object.assign({}, this.state)
-		if(key === "newAddressPhoneNumber") {
-			if(event.target.value.length < 11) {
-				newState.newAddressData.newAddressPhoneNumber = event.target.value
-				this.setState(
-					newState
-					)
-			} else {
-				newState.newAddressData.newAddressPhoneNumber = event.target.value.slice(0, 10)
-				event.target.value = event.target.value.slice(0, 10)
-				this.setState(
-					newState
-					)
-			}
-		}
-		else if(key === "newAddressZipCode") {
-			 if(event.target.value.length === 5 ) {
-				newState.newAddressData.newAddressZipCode = event.target.value
-				axios.get(`http://ziptasticapi.com/${event.target.value}`)
-				.then((resp)=> {
-					newState.newAddressData.newAddressCity = resp.data.city
-					newState.newAddressData.newAddressState = resp.data.state
-				})
-				.then(()=> 
-					this.setState(
-						newState
-					))
-			} else if(event.target.value < 6) {
-				newState.newAddressData.newAddressZipCode = event.target.value
-				this.setState(
-					newState
-				)
-				
-			} else {
-				event.target.value = event.target.value.slice(0,5)
-				newState.newAddressData.newAddressZipCode = event.target.value.slice(0,5)
-				this.setState(
-					newState
-				)
-			}
+	
 
-		} else if (key === "newAddressDefault") {
-				newState.newAddressData.newAddressDefault = event.target.checked
-				this.setState(
-					newState
-				)
-		} 
-		else {
-			newState.newAddressData[key] = event.target.value
-			this.setState(
-				newState
-				)
-		}
-	}
-
-
-	addNewAddressSaveButtonClicked(event) {
-		event.preventDefault()
-		var newAddressDefault = ""
-		if(this.state.newAddressData.newAddressDefault) {
-			newAddressDefault = true
-		} else {
-			newAddressDefault = false
-		}
-
-		var new_address_data = {
-			address_type: this.state.newAddressData.newAddressType,
-			default: this.state.newAddressData.newAddressDefault,
-			phone: this.state.newAddressData.newAddressPhoneNumber,
-			first_name: this.state.newAddressData.newAddressFirstName,
-			last_name: this.state.newAddressData.newAddressLastName,
-			address_line_1: this.state.newAddressData.newAddressLine1,
-			address_line_2: this.state.newAddressData.newAddressLine2,
-			city: this.state.newAddressData.newAddressCity,
-			state: this.state.newAddressData.newAddressState,
-			zip_code: this.state.newAddressData.newAddressZipCode,
-		}
-		axios.post("http://localhost:3000/api/v1/addresses",
-				{ new_address_data: new_address_data },
-				{ headers: {"TOKEN": localStorage.token} }
-			)
-		.then((resp)=> this.props.updateMemberAddresses(resp.data.memberAddresses))
-		.then(()=> {
-			var newAddressData = {
-  					newAddressLine1: "",
-  					newAddressLine2: "",
-  					newAddressCity: "",
-  					newAddressState: "",
-  					newAddressZipCode: "",
-  					newAddressFirstName: "",
-  					newAddressLastName: "",
-  					newAddressPhoneNumber: "",
-  					newAddressType: "",
-  					newAddressDefault: false
-  				}
-  				this.setState({
-  					newAddressData: newAddressData
-  				})
-		})
-	}
+	
 
 	
 
@@ -404,31 +306,141 @@ export default class Account extends React.Component {
 		})
 	}
 
-	addNewAddressModalCloseClicked() {
-		this.setState({
-			addNewAddressModal: "hide-add-new-address-modal"
+	addNewAddressDataChanged(event, key){
+		var newState = Object.assign({}, this.state)
+		if(key === "newAddressPhoneNumber") {
+			if(event.target.value.length < 11) {
+				newState.newAddressData.newAddressPhoneNumber = event.target.value
+				this.setState(
+					newState
+					)
+			} else {
+				newState.newAddressData.newAddressPhoneNumber = event.target.value.slice(0, 10)
+				event.target.value = event.target.value.slice(0, 10)
+				this.setState(
+					newState
+					)
+			}
+		}
+		else if(key === "newAddressZipCode") {
+			 if(event.target.value.length === 5 ) {
+				newState.newAddressData.newAddressZipCode = event.target.value
+				axios.get(`http://ziptasticapi.com/${event.target.value}`)
+				.then((resp)=> {
+					newState.newAddressData.newAddressCity = resp.data.city
+					newState.newAddressData.newAddressState = resp.data.state
+				})
+				.then(()=> 
+					this.setState(
+						newState
+					))
+			} else if(event.target.value < 6) {
+				newState.newAddressData.newAddressZipCode = event.target.value
+				this.setState(
+					newState
+				)
+				
+			} else {
+				event.target.value = event.target.value.slice(0,5)
+				newState.newAddressData.newAddressZipCode = event.target.value.slice(0,5)
+				this.setState(
+					newState
+				)
+			}
+
+		} else if (key === "newAddressDefault") {
+				newState.newAddressData.newAddressDefault = event.target.checked
+				this.setState(
+					newState
+				)
+		} 
+		else {
+			newState.newAddressData[key] = event.target.value
+			this.setState(
+				newState
+				)
+		}
+	}
+
+	addNewAddressSaveButtonClicked(event, ref) {
+		event.preventDefault()
+		var newAddressDefault = ""
+		if(this.state.newAddressData.newAddressDefault) {
+			newAddressDefault = true
+		} else {
+			newAddressDefault = false
+		}
+
+		var new_address_data = {
+			address_type: this.state.newAddressData.newAddressType,
+			default: this.state.newAddressData.newAddressDefault,
+			phone: this.state.newAddressData.newAddressPhoneNumber,
+			first_name: this.state.newAddressData.newAddressFirstName,
+			last_name: this.state.newAddressData.newAddressLastName,
+			address_line_1: this.state.newAddressData.newAddressLine1,
+			address_line_2: this.state.newAddressData.newAddressLine2,
+			city: this.state.newAddressData.newAddressCity,
+			state: this.state.newAddressData.newAddressState,
+			zip_code: this.state.newAddressData.newAddressZipCode,
+		}
+		axios.post("http://localhost:3000/api/v1/addresses",
+				{ new_address_data: new_address_data },
+				{ headers: {"TOKEN": localStorage.token} }
+			)
+		.then((resp)=> this.props.updateMemberAddresses(resp.data.memberAddresses))
+		.then(()=> {
+			var newAddressData = {
+  					newAddressLine1: "",
+  					newAddressLine2: "",
+  					newAddressCity: "",
+  					newAddressState: "",
+  					newAddressZipCode: "",
+  					newAddressFirstName: "",
+  					newAddressLastName: "",
+  					newAddressPhoneNumber: "",
+  					newAddressType: "",
+  					newAddressDefault: false
+  				}
+  				this.setState({
+  					newAddressData: newAddressData
+  				}, () => this.addNewAddressModalCloseClicked(ref, "update"))
 		})
+	}
+
+	addNewAddressModalCloseClicked(ref, arg) {
+		
+		if(arg === "close"){
+			ref.className = "hide-add-new-address-modal-content"
+			setTimeout(()=> this.setState({ addNewAddressModal: "hide-add-new-address-modal"}), 800)
+		} else {
+			ref.className = "hide-add-new-address-modal-content new-address-added-successfully"
+			setTimeout(() =>this.setState({ addNewAddressModal: "hide-add-new-address-modal"}), 1900)
+		}
 	}
 
 	deleteAddressAskMember(event,address) {
 		this.props.userWantsToDeleteAddress(address)
 	}
 
-	permanentlyDeleteMemberAddress(questionId) {
- 		this.props.permanentlyDeleteMemberAddress(questionId)
+	permanentlyDeleteMemberAddress(addressId) {
+ 		this.props.permanentlyDeleteMemberAddress(addressId)
+	}
+
+	doNotDeleteMemberAddressClicked(addressId) {
+		this.props.doNotDeleteMemberAddressClicked(addressId)
 	}
 
 
 
 	render() {
-		console.log("My-ACCOUNT-PROPS:", this.props.memberAddresses)
+
 		return (
 			<div>
 			{ localStorage.token ? <div className="my-account-wrapper">
 				{ this.state.updateAccountErrorModal ? <CreateAccountErrorModal createAccountErrorResponseData={this.state.updateAccountErrorResponseData} createAccountErrorModalCloseClicked={this.updateAccountErrorModalCloseClicked.bind(this)}/> : null }
 				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
 				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
-				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressDataChanged={this.addNewAddressDataChanged.bind(this)} newAddressData={this.state.newAddressData} addNewAddressSaveButtonClicked={this.addNewAddressSaveButtonClicked.bind(this)} addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
+				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked} addNewAddressDataChanged={this.addNewAddressDataChanged.bind(this)} newAddressData={this.state.newAddressData} addNewAddressSaveButtonClicked={this.addNewAddressSaveButtonClicked.bind(this)} addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
 
 			<div id="account-container">
 			
@@ -558,7 +570,7 @@ export default class Account extends React.Component {
 												) : <div className="member-address-content" >
 														<br /><br /><br /><br />
 														Do You Really Want To Delete This Address?<br /><br />
-														<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm">No</button>
+														<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm" onClick={()=>this.doNotDeleteMemberAddressClicked(address.id)} >No</button>
 													</div>
 											})
 										
