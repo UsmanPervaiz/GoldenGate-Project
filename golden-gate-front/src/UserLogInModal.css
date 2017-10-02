@@ -296,17 +296,24 @@
 	}
 }
 
-#sign-in-modal-checkbox {
+.keep-me-signed-in-checkbox-label {
 	position: relative;
-	display: inline-block;
-	left: 8%;
+	margin-left: 8%;
+}
+
+#sign-in-modal-checkbox {
+	margin-left: 2%;
 	margin-top: 10%;
-	padding-left: 3%;
+	display: inline-block;
+
+}
+
+#sign-in-modal-checkbox:hover {
+	cursor: pointer;
 }
 
 #forgot-password {
 	display: block;
-	/*position: absolute;*/
 	margin-left: 8%;
 	padding-top: 2%;
 }

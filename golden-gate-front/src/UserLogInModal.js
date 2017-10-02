@@ -16,8 +16,9 @@ export default class UserLogInModal extends React.Component {
 	}
 
 	signInModalSubmitButtonClicked(e) {
-		if(this.props.mainState.signinEmail && this.props.mainState.signinPassword) {
-			e.preventDefault()
+		console.log(this.props, "PROPSSS")
+		e.preventDefault()
+		if(this.props.appState.signinEmail && this.props.appState.signinPassword) {
 			var logInForm = this.refs["user-sign-in-modal-back-face"]
 			logInForm.className = "user-sign-in-modal-back-face loading" 
 			var signInModalErrorDiv = this.refs["user-signin-modal-error-div"]
@@ -49,7 +50,7 @@ export default class UserLogInModal extends React.Component {
 					<FontAwesome className="exclamation-triangle" name="wrench" spin size="2x"
 				 	style={{ position: "absolute", display: "block", top: "9px", left: "4px", color: "black", }}/>
 					<h4>There was a problem.</h4>
-					<span id="signinErrorSpan" >{this.props.mainState.signInAjaxErrorMessage}</span>
+					<span id="signinErrorSpan" >{this.props.appState.signInAjaxErrorMessage}</span>
 				</div>
 			
 				<div id="user-sign-in-modal-back-face" ref="user-sign-in-modal-back-face" className="user-sign-in-modal-back-face" onFocus={this.userSignInBackFaceFocused.bind(this)} >
@@ -61,14 +62,14 @@ export default class UserLogInModal extends React.Component {
 						<span className="loader-text">Signing In</span>
 					</div>
 
-					<form>
+					<form onSubmit={this.signInModalSubmitButtonClicked.bind(this)}>
 						<input type="email" placeholder="Email" className="sign-in-modal-input-field" required onChange={this.signinOnEmailChange.bind(this)} />
 						<input type="password" placeholder="Password" className="sign-in-modal-input-field" required ref="sign-in-password-field" onChange={this.signinOnPasswordChange.bind(this)}/>
-						<button type="submit" className="sign-in-modal-submit-button" onClick={this.signInModalSubmitButtonClicked.bind(this)} ></button>
+						<label htmlFor="sign-in-modal-checkbox" className="keep-me-signed-in-checkbox-label" >Keep me signed in</label>
+						<input type="checkbox" id="sign-in-modal-checkbox" onChange={(e)=>this.props.keepMeSignedInClicked(e)} />
+						<a href="#" id="forgot-password" >Forgot your password?</a>
+						<button type="submit" className="sign-in-modal-submit-button" ></button>
 					</form>
-
-					<input type="checkbox" value="keep-me-signed-in" id="sign-in-modal-checkbox"/><span id="sign-in-modal-checkbox" >Keep me signed in.</span>
-					<a href="#" id="forgot-password" >Forgot your password?</a>
 				</div>
 			</div> 
 			)

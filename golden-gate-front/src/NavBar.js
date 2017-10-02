@@ -26,6 +26,7 @@ class NavBar extends React.Component {
 
 	signOutClicked () {
 		localStorage.clear();
+		sessionStorage.clear()
 		this.props.navBarSignOutClicked()
 		this.props.userLoggedOutMessageModal()
 		this.props.history.push("/main")

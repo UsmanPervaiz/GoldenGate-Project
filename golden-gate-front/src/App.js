@@ -25,6 +25,7 @@ class App extends React.Component {
 
 		this.state = {
 			userSignedIn: false,
+			keepUserSignedIn: false,
 			addedToCart: "",
 			electronics: [],
 			temporaryCart: [],
@@ -48,6 +49,14 @@ class App extends React.Component {
 			}
 
 		}
+
+	keepMeSignedInClicked(e) {
+		console.log("EVIL", e.target.checked)
+		let keepMeSignedInCheckdOrNot = e.target.checked
+		this.setState( (prevState, props) => {
+			return {keepUserSignedIn: keepMeSignedInCheckdOrNot}
+		})
+	}
 
 	updateMemberAddresses(addresses) {
 		this.setState({
@@ -133,7 +142,10 @@ class App extends React.Component {
 		})
 		if(this.state.userSignedIn) {
 			if(this.state.memberCart.length === 0) {
-		  		var token = localStorage.getItem("token")
+		  		let token = localStorage.getItem("token")
+		  		if(!token) {
+		  			token = sessionStorage.getItem("token")
+		  		}
 		  		axios.post('http://localhost:3000/api/v1/order_details', {
 						
 							product_id: product.id,
@@ -153,7 +165,10 @@ class App extends React.Component {
 				.catch((error)=> console.log(error))
 			
 			} else {
-				var token = localStorage.getItem("token")
+				let token = localStorage.getItem("token")
+		  		if(!token) {
+		  			token = sessionStorage.getItem("token")
+		  		}
 		  		axios.put("http://localhost:3000/api/v1/order_details/500", {
 
 				 		product_id: product.id,
@@ -168,8 +183,8 @@ class App extends React.Component {
 					electronics: updatedElectronics
 				}) 
 				)
-				.then(() => { if(divForUpdatedItem) {
-					console.log("DIVUPDATED", divForUpdatedItem)
+				.then(() => { 
+					if(divForUpdatedItem) {
 					var currentClassName = divForUpdatedItem.className
 					var newClassName = "item-in-cart-updated-successfully"
 					divForUpdatedItem.className = "item-in-cart-updated-successfully"
@@ -180,14 +195,27 @@ class App extends React.Component {
 				.catch((error) => console.log(error))
 			} 
 	    } else {
-	    	if(localStorage.temporaryCart) {
-	    		var getLocalCart = JSON.parse(localStorage.temporaryCart)
-	    		getLocalCart.push(product)
-	    		localStorage.setItem("temporaryCart", JSON.stringify(getLocalCart))
-	    	} else {
-	    		var setLocalCart = [product]
-	    		localStorage.setItem("temporaryCart", JSON.stringify(setLocalCart))
-	    		console.log(localStorage)
+	    	console.log("MUMMMY")
+	    	if(localStorage.getItem("temporaryCart")) {
+
+	    		let temporaryCart = JSON.parse(localStorage.getItem("temporaryCart"))
+	    		let itemAlreadyInCart = false
+	    		temporaryCart.forEach((itemObject) => {
+	    			for(var key in itemObject) {
+	    				if(itemObject[key].id === product.id) {
+	    					itemObject[productQuantity] = itemObject[key]
+	    					delete itemObject[key]
+
+	    				}
+	    			}
+	    		})
+	    		temporaryCart.push({[productQuantity]: product})
+	    		localStorage.setItem("temporaryCart", JSON.stringify(temporaryCart))
+
+	    	} else {  		
+	    		let setTemporaryCart = []
+	    		setTemporaryCart.push({[productQuantity]: product})
+	    		localStorage.setItem("temporaryCart", JSON.stringify(setTemporaryCart))
 	    	}
 		}
 	}
@@ -317,14 +345,30 @@ class App extends React.Component {
 				password: this.state.signinPassword
 				
 			}).then((resp)=> {  
-				localStorage.setItem("token", resp.data.token)
+				if(this.state.keepUserSignedIn) {
+					localStorage.setItem("token", resp.data.token)
+				} else {
+					sessionStorage.setItem("token", resp.data.token)
+				}
 			})
 			.then(()=> this.setState({
+				signinEmail: "",
+		      	signInPasswordError: "",
 				userSignedIn: true
 			}))
+			// .then(()=> {
+			// 	if(localStorage.getItem("temporaryCart")) {				
+			// 		JSON.parse(localStorage.getItem("temporaryCart")).forEach((itemObject) => {
+			// 			for(var key in itemObject) {
+			// 					this.addToCartClicked(itemObject[key], parseInt(key))
+			// 			}
+			// 		})
+			// 	}	
+			// })
 			.then(()=> this.userSignedInMessageModal())
 		      .then((resp)=> this.props.history.push("/main"))
 		      .catch((error)=> { 
+		      	console.log(error.response)
 		  		this.setState({
 		  			signInAjaxErrorMessage: error.response.data.error
 		  		}, () => signInErrorDiv.className = "show-signin-error-div" )} 
@@ -337,7 +381,12 @@ class App extends React.Component {
 				password: this.state.signinPassword
 				
 			}).then((resp)=> { 
-				localStorage.setItem("token", resp.data.token)
+				
+				if(this.state.keepUserSignedIn) {
+					localStorage.setItem("token", resp.data.token)
+				} else {
+					sessionStorage.setItem("token", resp.data.token)
+				}
 			})
 		      .then(()=> {
 		      	this.navBarSigninCloseClicked()
@@ -366,32 +415,51 @@ class App extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		console.log("PREVSTATE", prevState, "THISSTATE", this.state)
+		console.log("APP DID UPDATE", this.state)
 
 	}
 
+
 	componentWillReceiveProps(nextProps) {
 		// This life-cycle method is skppied on "this.setState" and that is the reason why the loading symbol is not seen when updating the sign-in input fields
-		console.log("mainWillReceiveProps", nextProps)
+		console.log("APPWillReceiveProps", nextProps)
 		this.setState({
 				showLoadingSymbol: "show-loading-symbol"
 			})
-		if(localStorage.token) {
+		var localStorageToken = localStorage.getItem("token")
+		var sessionStorageToken = sessionStorage.getItem("token")
+		var useThisToken = null
+		if(localStorageToken) {
+			useThisToken = localStorageToken
+		} else {
+			useThisToken = sessionStorageToken
+		}
+		if(useThisToken) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
-				headers: { token: localStorage.token }
+				headers: { token: useThisToken }
 			}).then((resp)=> {
 					var modifiedMemberAddresses = resp.data.addresses
 					modifiedMemberAddresses.forEach((address) => {
-						address.userWantsToDelete = false
+					address.userWantsToDelete = false
 					})
 					this.setState({
 						userSignedIn: true,
-							memberCart: resp.data.currentOrderDetails,
-							memberOrder: resp.data.order,
-							memberInfo: resp.data.memberInfo,
-							memberAddresses: modifiedMemberAddresses
-			    		})
-			}).catch((error)=> console.log(error.response))
+						memberCart: resp.data.currentOrderDetails,
+						memberOrder: resp.data.order,
+						memberInfo: resp.data.memberInfo,
+						memberAddresses: modifiedMemberAddresses
+			    	})
+			})
+			.then(()=> {
+				if(localStorage.getItem("temporaryCart")) {				
+					JSON.parse(localStorage.getItem("temporaryCart")).forEach((itemObject) => {
+						for(var key in itemObject) {
+								this.addToCartClicked(itemObject[key], parseInt(key))
+						}
+					})
+				}	
+			})
+			.catch((error)=> console.log(error.response))
 		} 
 		else {
 			this.setState({
@@ -408,10 +476,19 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-
-		if(localStorage.token) {
+		console.log("APP DID MOUNT", this.state)
+		var localStorageToken = localStorage.getItem("token")
+		var sessionStorageToken = sessionStorage.getItem("token")
+		var useThisToken = null
+		if(localStorageToken) {
+			useThisToken = localStorageToken
+		} else {
+			useThisToken = sessionStorageToken
+		}
+	
+		if(useThisToken) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
-				headers: { token: localStorage.token }
+				headers: { token: useThisToken }
 			}).then((resp)=>  { 
 					var modifiedMemberAddresses = resp.data.addresses
 					modifiedMemberAddresses.forEach((address) => {
@@ -445,7 +522,7 @@ class App extends React.Component {
 
 
 	render () {
-		 console.log("APP_COMPONENT")
+	
 		return (
 			<div >
 			
@@ -477,12 +554,12 @@ class App extends React.Component {
 				{ this.state.userLoggedOutMessageModal ? <UserLoggedOutMessageModal userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} /> : null }
 				{ this.state.accountCreatedMessageModal ? <AccountCreatedMessageModal accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} /> : null }
 				{ this.state.userSignedInMessageModal  ? <UserSignedInMessageModal /> : null }
-			  	{ this.state.userLogInModal ? <UserLogInModal navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} mainState={this.state} /> : null }
+			  	{ this.state.userLogInModal ? <UserLogInModal keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} appState={this.state} /> : null }
 
 			  	<Switch>
 			      <Route exact path="/" render={(props)=> <Welcome {...props} />} />
-			      <Route exact path="/login" render={(props)=> <UserLogInModal navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} mainState={this.state} /> } />
-	  			  <Route exact path="/register" render={(props)=> <Register {...props} userSignedIn={this.state.userSignedIn} accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} userSignedInMessageModal={this.userSignedInMessageModal.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signinButtonClicked={this.signinButtonClicked.bind(this)} mainState={this.state} /> }/>
+			      <Route exact path="/login" render={(props)=> <UserLogInModal keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} appState={this.state} /> } />
+	  			  <Route exact path="/register" render={(props)=> <Register {...props} userSignedIn={this.state.userSignedIn} keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} userSignedInMessageModal={this.userSignedInMessageModal.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signinButtonClicked={this.signinButtonClicked.bind(this)} signinEmail={this.state.signinEmail} signinPassword={this.state.signinPassword} signInAjaxErrorMessage={this.state.signInAjaxErrorMessage} signInEmailError={this.state.signInEmailError} signInPasswordError={this.state.signInPasswordError} /> }/>
 			      <Route exact path="/electronics" render={(props) => <Electronics {...props} electronics={this.state.electronics} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} memberCart={this.state.memberCart} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
 	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  <Route exact path="/checkout" component={Checkout} />

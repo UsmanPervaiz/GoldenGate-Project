@@ -82,6 +82,7 @@ export default class Register extends React.Component{ c
 		this.props.signinButtonClicked(signInErrorDiv)
 	}
 
+
 	createAccountFirstNameChange(e) {
 		var createAccountFirstName = e.target.value.trim()
 		if(!createAccountFirstName.length) {
@@ -481,7 +482,10 @@ export default class Register extends React.Component{ c
 	    	}
 	    axios.post('http://localhost:3000/api/v1/create_new_account', {
 	    	member: member
-	    	}).then((resp) => localStorage.setItem("token", resp.data.token))
+	    	})
+	    .then((resp)=> {  
+				sessionStorage.setItem("token", resp.data.token)
+		})
 	    .then(() => this.props.history.push("/main"))
 	    .then(() => this.props.accountCreatedMessageModal())
 	    .then(() => {
@@ -518,7 +522,7 @@ export default class Register extends React.Component{ c
 				<FontAwesome className="exclamation-triangle" name="wrench" spin size="2x"
 			 	style={{ position: "absolute", display: "block", top: "9px", left: "4px", color: "black", }}/>
 				<h4>There was a problem.</h4>
-				<span id="signinErrorSpan" >{this.props.mainState.signInAjaxErrorMessage}</span>
+				<span id="signinErrorSpan" >{this.props.signInAjaxErrorMessage}</span>
 			</div>
 
 			<div id="signinInfoDiv">
@@ -528,19 +532,19 @@ export default class Register extends React.Component{ c
 				
 				<label id="signinEmailLabel">Email</label>
 				<div id="signInEmailErrorDiv">
-					{this.props.mainState.signInEmailError}
+					{this.props.signInEmailError}
 				</div>
 				<input type="email" id="signinEmailField" ref="signinEmailField" onChange={this.signinOnEmailChange.bind(this)} placeholder="Email Address" />
 				<br />
 				<label id="signinPagePasswordLabel">Password</label>
 				<div id="signInPasswordErrorDiv" >
-					{this.props.mainState.signInPasswordError}
+					{this.props.signInPasswordError}
 				</div>
 				<input id="signinPasswordField" ref="signinPasswordField" onChange={this.signinOnPasswordChange.bind(this)} type="password" />
 				<br /><br />
 				<button id="signinPageButton" onClick={this.signinButtonClicked.bind(this)} >Sign In</button>
 				<br />
-				<input id="signinPageRadio1" type="checkbox" /><span id="signinRadioText">Keep me signed in.</span>
+				<input id="signinPageRadio1" type="checkbox" onChange={(e)=>this.props.keepMeSignedInClicked(e)}/><span id="signinRadioText">Keep me signed in.</span>
 				<br />
 				<a id="signinPageForgotPassword" href="#">Forgot your password?</a>
 			</div>

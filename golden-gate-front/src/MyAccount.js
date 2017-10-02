@@ -46,8 +46,7 @@ export default class Account extends React.Component {
   				newAddressPhoneNumber: "",
   				newAddressType: "",
   				newAddressDefault: false
-  			},
-  			testing: true
+  			}
 		}
 	}
 
@@ -430,13 +429,27 @@ export default class Account extends React.Component {
 		this.props.doNotDeleteMemberAddressClicked(addressId)
 	}
 
+ 	componentWillReceiveProps() {
+ 		console.log("ACCOUT WILL RECEIVE PROPS:", this.props)
+ 	}
 
+ 	componentWillMount() {
+		console.log("ACCOUNT WILLMOUNT:", this.props)
+	}
 
+	componentDidMount() {
+		this.props.history.push("/myaccount")
+
+	}
+
+	componentDidUpdate() {
+		console.log("ACCOUNT DID UPDATE:", this.props)
+	}
 	render() {
-
+		console.log("ACCOUNT RENDERING:", this.props)
 		return (
 			<div>
-			{ localStorage.token ? <div className="my-account-wrapper">
+			{ this.props.userSignedIn ? <div className="my-account-wrapper">
 				{ this.state.updateAccountErrorModal ? <CreateAccountErrorModal createAccountErrorResponseData={this.state.updateAccountErrorResponseData} createAccountErrorModalCloseClicked={this.updateAccountErrorModalCloseClicked.bind(this)}/> : null }
 				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
 				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
@@ -538,7 +551,7 @@ export default class Account extends React.Component {
 												) : <div className="member-address-content" >
 														<br /><br /><br /><br />
 														Do You Really Want To Delete This Address?<br /><br />
-														<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm">No</button>
+														<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm" onClick={()=>this.doNotDeleteMemberAddressClicked(address.id)} >No</button>
 													</div> : null
 											})
 										
@@ -582,7 +595,7 @@ export default class Account extends React.Component {
 				</div>
 
 			</div> 
-			</div> : this.props.history.push("/login") } </div>
+			</div> : null } </div>
 			)
 	}
 }
