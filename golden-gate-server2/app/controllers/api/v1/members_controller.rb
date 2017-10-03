@@ -40,6 +40,7 @@ class Api::V1::MembersController < ApplicationController
 	end
 
 	def update
+		
 		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first
 
 		if(decoded_token.present?)

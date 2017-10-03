@@ -8,7 +8,6 @@ class Api::V1::SecurityQuestionsController < ApplicationController
 	# end
 
 	def create
-		byebug
 		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first
 		array_of_question_ids_and_answers = []
 		
