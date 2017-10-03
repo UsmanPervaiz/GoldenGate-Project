@@ -82,6 +82,13 @@ class NavBar extends React.Component {
 
   render() {
   console.log("RRRRRRR", this.props)
+  let memberCart = null
+		if(this.props.memberCart.length) {
+			memberCart = this.props.memberCart
+		} else {
+			memberCart = this.props.temporaryCart
+		}
+
 	return (
 	  <div id="navbardiv">
 
@@ -134,7 +141,7 @@ class NavBar extends React.Component {
 			<FontAwesome className="shoppingCart" name="shopping-cart" size="3x"
 			 style={{ position: "absolute", color: "#DEB887", float:"right", right: "4.3%", top: "9.4%" }}/>
 			 <span id="navCartName" >Cart</span>
-			 { this.props.memberCart.length > 0 ? <div id="cartCount">{this.props.memberCart.length}</div> : null }
+			 { memberCart.length > 0 ? <div id="cartCount">{memberCart.length}</div> : null }
 		</div>
 
 		{this.props.userSignedIn ? 

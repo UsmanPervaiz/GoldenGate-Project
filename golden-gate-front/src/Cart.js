@@ -23,7 +23,13 @@ export default class Cart extends React.Component {
 	}
 
 	componentWillMount() {
-		if(this.props.memberCart.length < 1 && this.props.temporaryCart.length < 1) {
+		let memberCart = []
+		if(this.props.memberCart.length) {
+			memberCart = this.props.memberCart
+		} else if (this.props.temporaryCart) {
+			memberCart = this.props.memberCart
+		}
+		if(memberCart.length < 1 ) {
 			this.setState({
 				itemsInCartDiv: "items-in-cart-hide",
 				cartEmptyOrNot: "cart-empty-or-not-show",
@@ -42,7 +48,7 @@ export default class Cart extends React.Component {
 			})
 
 		}
-		if(this.props.memberCart.length < 2 && this.props.temporaryCart.length < 2) {
+		if(memberCart.length < 2) {
 			cartArrayItem = "Item"
 
 		} else {
@@ -142,9 +148,14 @@ export default class Cart extends React.Component {
 
 
 	render() {
-		var memberCart = this.props.memberCart
-		var temporaryCart = this.props.temporaryCart
 
+		let memberCart = []
+		if(this.props.memberCart.length) {
+			memberCart = this.props.memberCart
+		} else if(this.props.temporaryCart.length) {
+			memberCart = this.props.temporaryCart
+		} 
+		
 		return (
 		<div>
 			<div id={this.state.showCartPage}>
@@ -158,7 +169,7 @@ export default class Cart extends React.Component {
 			  		<span id="cartpageSigninButtonSpan"><button id="cartPageSignInButton" onClick={()=> this.props.navBarSignInClicked()}  >Sign In</button></span></div>
 			  
 			  		<div id={this.state.itemsInCartDiv}>
-			  			{this.props.memberCart.length} {cartArrayItem}
+			  			{memberCart.length} {cartArrayItem}
 			  		</div>
 
 			  		<div id={this.state.cartEmptyOrNot} >
@@ -167,9 +178,9 @@ export default class Cart extends React.Component {
 			  	</div>
 			  		
 
-			  		{this.props.memberCart ? this.props.memberCart.map( (product, i) => { 
-			  			var productQuantity = Object.keys(product)[0]
-			  			var productDetails = Object.values(product)[0]
+			  		{ memberCart.length ? memberCart.map( (product, i) => { 
+			  			let productQuantity = Object.keys(product)[0]
+			  			let productDetails = Object.values(product)[0]
 			  			return (
 			  				
 			  					<div className="cart-product-flex-container" id={`productDetailDiv${i}`} ref={`productDetailDiv${i}`}>

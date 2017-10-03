@@ -130,7 +130,16 @@ export default class Account extends React.Component {
 
 	aboutMeModalUpdateButtonClicked(event, closeModal) {
 		event.preventDefault()
-		var newDob = ""
+		let newDob = null
+		let useThisToken = null
+		let localStorageToken = localStorage.getItem("token")
+		let sessionStorageToken = sessionStorage.getItem("token")
+		
+		if(localStorageToken) {
+			useThisToken = localStorageToken
+		} else {
+			useThisToken = sessionStorageToken
+		}
 		if(this.state.newDobYear.length && this.state.newDobMonth.length && this.state.newDobDay.length) {
 			newDob = `${this.state.newDobYear}-${this.state.newDobMonth}-${this.state.newDobDay}`
 		} else if (this.state.newDobYear.length && this.state.newDobMonth.length) {
@@ -157,7 +166,7 @@ export default class Account extends React.Component {
 	    	}
 			axios.put("http://localhost:3000/api/v1/members/0", 
 						{ member: member },
-						{ headers: {token: localStorage.token} } 
+						{ headers: {token: useThisToken} } 
 			).then(() => this.props.updateMemberInfo())
 			.then(() => closeModal("updated"))
 			.catch((error) =>
@@ -250,7 +259,16 @@ export default class Account extends React.Component {
 
 	saveNewPasswordClicked(event, callback) { //////////////////
 		event.preventDefault()
-		var isEverythingOk = true
+		let isEverythingOk = true
+		let useThisToken = null
+		let localStorageToken = localStorage.getItem("token")
+		let sessionStorageToken = sessionStorage.getItem("token")
+		
+		if(localStorageToken) {
+			useThisToken = localStorageToken
+		} else {
+			useThisToken = sessionStorageToken
+		}
 		if(this.state.newPassword.length < 6) {
 			isEverythingOk = false
 			this.setState({
@@ -271,8 +289,8 @@ export default class Account extends React.Component {
 				"currentPassword": this.state.currentPassword,
 				"password": this.state.newPassword,
 			}
-			axios.defaults.headers.common['Token'] = localStorage.token;
-			axios.put("http://localhost:3000/api/v1/update_password", data)
+			// axios.defaults.headers.common['TOKEN'] = useThisToken;
+			axios.put("http://localhost:3000/api/v1/update_password", data, {headers: {token: useThisToken}})
 			.then(()=> callback("updated"))
 			.catch((error)=> {
 				this.setState({
@@ -363,6 +381,15 @@ export default class Account extends React.Component {
 
 	addNewAddressSaveButtonClicked(event, ref) {
 		event.preventDefault()
+		let useThisToken = null
+		let localStorageToken = localStorage.getItem("token")
+		let sessionStorageToken = sessionStorage.getItem("token")
+		
+		if(localStorageToken) {
+			useThisToken = localStorageToken
+		} else {
+			useThisToken = sessionStorageToken
+		}
 		var newAddressDefault = ""
 		if(this.state.newAddressData.newAddressDefault) {
 			newAddressDefault = true
@@ -384,7 +411,7 @@ export default class Account extends React.Component {
 		}
 		axios.post("http://localhost:3000/api/v1/addresses",
 				{ new_address_data: new_address_data },
-				{ headers: {"TOKEN": localStorage.token} }
+				{ headers: {"TOKEN": useThisToken} }
 			)
 		.then((resp)=> this.props.updateMemberAddresses(resp.data.memberAddresses))
 		.then(()=> {

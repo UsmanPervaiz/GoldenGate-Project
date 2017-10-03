@@ -90,8 +90,14 @@ class App extends React.Component {
 	}
 
 	permanentlyDeleteMemberAddress(addressId) {
+		let useThisToken = null
+		if(localStorage.getItem("token")) {
+			useThisToken = localStorage.getItem("token")
+		} else {
+			useThisToken = sessionStorage.getItem("token")
+		}
 		axios.delete(`http://localhost:3000/api/v1/addresses/${addressId}`,
-			{ headers: {"TOKEN": localStorage.getItem("token")} }
+			{ headers: {"TOKEN": useThisToken} }
 			)
 		.then((resp)=> {
 			var modifiedMemberAddresses = resp.data.memberAddresses
@@ -105,9 +111,15 @@ class App extends React.Component {
 	}
 
 	setDefaultAddressClicked(addressId) {
+		let useThisToken = null
+		if(localStorage.getItem("token")) {
+			useThisToken = localStorage.getItem("token")
+		} else {
+			useThisToken = sessionStorage.getItem("token")
+		}
 		axios.put(`http://localhost:3000/api/v1/set_default_address/${addressId}`,
 			{addressId: addressId},
-			{ headers: {"TOKEN": localStorage.getItem("token")} }
+			{ headers: {"TOKEN": useThisToken} }
 			)
 		.then((resp)=> {
 			var modifiedMemberAddresses = resp.data.memberAddresses
@@ -195,42 +207,82 @@ class App extends React.Component {
 				.catch((error) => console.log(error))
 			} 
 	    } else {
-	    	console.log("MUMMMY")
-	    	if(localStorage.getItem("temporaryCart")) {
+	    	
+	    	if(localStorage.getItem("temporaryCart").length) {
 
 	    		let temporaryCart = JSON.parse(localStorage.getItem("temporaryCart"))
-	    		let itemAlreadyInCart = false
-	    		temporaryCart.forEach((itemObject) => {
+	    		let isProductAlreadyInCart = false;
+	    		
+	    		temporaryCart.forEach((itemObject,index) => {
 	    			for(var key in itemObject) {
 	    				if(itemObject[key].id === product.id) {
-	    					itemObject[productQuantity] = itemObject[key]
-	    					delete itemObject[key]
-
-	    				}
+	    					isProductAlreadyInCart = true
+	    					let modifyProductQuantity = {[productQuantity]: product}
+	    					temporaryCart.splice(index, 1, modifyProductQuantity)
+	    				} 
 	    			}
 	    		})
-	    		temporaryCart.push({[productQuantity]: product})
-	    		localStorage.setItem("temporaryCart", JSON.stringify(temporaryCart))
+	    		if(!isProductAlreadyInCart) {
 
-	    	} else {  		
+	    			temporaryCart.push({[productQuantity]: product})
+	    		}
+	    		console.log("CCCC:", temporaryCart)
+	    		localStorage.setItem("temporaryCart", JSON.stringify(temporaryCart))
+	    		this.setState({
+	    			temporaryCart: temporaryCart
+	    		})
+
+	    	} else {  
+	    	console.log("xxxxxxx")		
 	    		let setTemporaryCart = []
 	    		setTemporaryCart.push({[productQuantity]: product})
 	    		localStorage.setItem("temporaryCart", JSON.stringify(setTemporaryCart))
+	    		this.setState({
+	    			temporaryCart: setTemporaryCart
+	    		})
 	    	}
 		}
 	}
 
 
 	removeFromCartClicked(product) {
-		var productToRemove = parseInt(Object.values(product)[0].id)
+		let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
+		// let localStorageToken = localStorage.getItem("token") 
+		// let sessionStorageToken = sessionStorage.getItem("token")
+		// if(localStorageToken) {
+		// 	useThisToken = localStorageToken
+		// } else {
+		// 	useThisToken = sessionStorageToken
+		// }
 
-		axios.delete(`http://localhost:3000/api/v1/order_details/${productToRemove}`,{
-			headers: { 'token': localStorage.token }
-		}).then((resp)=> this.setState({
+		var productToRemove = parseInt(Object.values(product)[0].id)
+		if(this.state.userSignedIn) {
+			axios.delete(`http://localhost:3000/api/v1/order_details/${productToRemove}`,{
+				headers: { 'token': useThisToken }
+			}).then((resp)=> this.setState({
 							memberCart: resp.data.currentOrderDetails,
 							memberOrder: resp.data.order
 						})
-		).catch((error)=> console.log(error))
+			).catch((error)=> console.log(error))
+		} else {
+			let temporaryCart = JSON.parse(localStorage.getItem("temporaryCart"))
+			
+			temporaryCart.forEach((itemObject,index) => {
+				for(var key in itemObject) {
+					
+					if(itemObject[key].id === Object.values(product)[0].id) {
+						console.log("item:", product)
+						// delete itemObject[key]
+						temporaryCart.splice(index, 1)
+						break;
+					}
+				}
+			})
+			localStorage.setItem("temporaryCart", JSON.stringify(temporaryCart))
+			this.setState({
+				temporaryCart: temporaryCart
+			})
+		}
 	}
 
 	electronicsClicked(e) {	
@@ -262,7 +314,15 @@ class App extends React.Component {
 	}
 
 	isUserSignedIn() {
-		if(localStorage.token) {
+		let checkThisToken = null
+		let localStorageToken = localStorage.getItem("token")
+		let sessionStorageToken = sessionStorage.getItem("token")
+		if(localStorageToken) {
+			checkThisToken = localStorageToken
+		} else {
+			checkThisToken = sessionStorageToken
+		}
+		if(checkThisToken) {
 			this.setState({
 				userSignedIn: true
 			})
@@ -407,8 +467,17 @@ class App extends React.Component {
 	}
 
 	updateMemberInfo() {
+		let useThisToken = null
+		let localStorageToken = localStorage.getItem("token")
+		let sessionStorageToken = sessionStorage.getItem("token")
+
+		if(localStorageToken) {
+			useThisToken = localStorageToken
+		} else {
+			useThisToken = sessionStorageToken
+		}
 		axios.get("http://localhost:3000/api/v1/members/0", {
-			headers: {"token": localStorage.token}
+			headers: {"token": useThisToken}
 		}).then((resp) => this.setState({
 								memberInfo: resp.data.memberInfo
 							})
@@ -427,9 +496,9 @@ class App extends React.Component {
 		this.setState({
 				showLoadingSymbol: "show-loading-symbol"
 			})
-		var localStorageToken = localStorage.getItem("token")
-		var sessionStorageToken = sessionStorage.getItem("token")
-		var useThisToken = null
+		let useThisToken = null
+		let localStorageToken = localStorage.getItem("token")
+		let sessionStorageToken = sessionStorage.getItem("token")
 		if(localStorageToken) {
 			useThisToken = localStorageToken
 		} else {
@@ -455,7 +524,7 @@ class App extends React.Component {
 				if(localStorage.getItem("temporaryCart")) {				
 					JSON.parse(localStorage.getItem("temporaryCart")).forEach((itemObject) => {
 						for(var key in itemObject) {
-							setTimeout(this.addToCartClicked(itemObject[key], parseInt(key)), 1000)
+							this.addToCartClicked(itemObject[key], parseInt(key))
 						}
 					})
 				}	
@@ -529,7 +598,7 @@ class App extends React.Component {
 			
 			  	<div id={this.state.showMainPage}>
 			  		<div id="navBar">
-						<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberCart={this.state.memberCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} navBarSignOutClicked={this.navBarSignOutClicked.bind(this)} />
+						<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberCart={this.state.memberCart} temporaryCart={this.state.temporaryCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} navBarSignOutClicked={this.navBarSignOutClicked.bind(this)} />
 			  		</div>
 			  		<div id={this.state.showLoadingSymbol}>
 			  			<div id="loading-symbol-body">
