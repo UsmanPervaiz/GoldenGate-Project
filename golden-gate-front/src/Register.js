@@ -491,7 +491,7 @@ export default class Register extends React.Component{ c
 	    .then(() => {
 	    	axios.post('http://localhost:3000/api/v1/security_questions', {
 	    		questionsAndAnswers: questionsAndAnswers }, {
-	    		headers: {'TOKEN': localStorage.token}}
+	    		headers: {'TOKEN': sessionStorage.getItem("token")}}
 	    		)
 	    })
 

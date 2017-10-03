@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170927235349) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: :cascade do |t|
     t.integer  "member_id"
     t.string   "address_type"
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 20170927235349) do
     t.string   "phone"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.index ["member_id"], name: "index_addresses_on_member_id"
+    t.index ["member_id"], name: "index_addresses_on_member_id", using: :btree
   end
 
   create_table "members", force: :cascade do |t|
@@ -48,8 +51,8 @@ ActiveRecord::Schema.define(version: 20170927235349) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.date     "signed_up_on"
-    t.index ["email"], name: "index_members_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_members_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "order_details", force: :cascade do |t|
@@ -60,8 +63,8 @@ ActiveRecord::Schema.define(version: 20170927235349) do
     t.decimal  "total",      precision: 7, scale: 2
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.index ["order_id"], name: "index_order_details_on_order_id"
-    t.index ["product_id"], name: "index_order_details_on_product_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id", using: :btree
+    t.index ["product_id"], name: "index_order_details_on_product_id", using: :btree
   end
 
   create_table "orders", force: :cascade do |t|
@@ -74,8 +77,8 @@ ActiveRecord::Schema.define(version: 20170927235349) do
     t.datetime "updated_at",                                              null: false
     t.string   "order_status",                         default: "incart"
     t.integer  "address_id"
-    t.index ["address_id"], name: "index_orders_on_address_id"
-    t.index ["member_id"], name: "index_orders_on_member_id"
+    t.index ["address_id"], name: "index_orders_on_address_id", using: :btree
+    t.index ["member_id"], name: "index_orders_on_member_id", using: :btree
   end
 
   create_table "products", force: :cascade do |t|
@@ -86,19 +89,19 @@ ActiveRecord::Schema.define(version: 20170927235349) do
     t.string   "category"
     t.text     "short_description"
     t.text     "long_description"
-    t.boolean  "clearance",                                            default: false
-    t.integer  "parent_item_id",    limit: 30
-    t.decimal  "msrp",                         precision: 7, scale: 2
-    t.decimal  "sale_price",                   precision: 7, scale: 2
-    t.string   "stock",                                                default: "Not Available"
-    t.integer  "upc",               limit: 20
+    t.boolean  "clearance",                                 default: false
+    t.string   "parent_item_id"
+    t.decimal  "msrp",              precision: 7, scale: 2
+    t.decimal  "sale_price",        precision: 7, scale: 2
+    t.string   "stock",                                     default: "Not Available"
+    t.string   "upc"
     t.text     "category_path"
     t.text     "thumb_nail_image"
     t.text     "medium_image"
     t.text     "large_image"
-    t.boolean  "active",                                               default: false
-    t.datetime "created_at",                                                                     null: false
-    t.datetime "updated_at",                                                                     null: false
+    t.boolean  "active",                                    default: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
   end
 
   create_table "security_question_answers", force: :cascade do |t|
@@ -107,8 +110,8 @@ ActiveRecord::Schema.define(version: 20170927235349) do
     t.text     "answer"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.index ["member_id"], name: "index_security_question_answers_on_member_id"
-    t.index ["security_question_id"], name: "index_security_question_answers_on_security_question_id"
+    t.index ["member_id"], name: "index_security_question_answers_on_member_id", using: :btree
+    t.index ["security_question_id"], name: "index_security_question_answers_on_security_question_id", using: :btree
   end
 
   create_table "security_questions", force: :cascade do |t|
@@ -117,4 +120,8 @@ ActiveRecord::Schema.define(version: 20170927235349) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "order_details", "products"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "members"
 end

@@ -222,8 +222,9 @@ class App extends React.Component {
 
 
 	removeFromCartClicked(product) {
-		var productToRemove = Object.values(product)[0]
-		axios.delete(`http://localhost:3000/api/v1/order_details/${productToRemove.id}`,{
+		var productToRemove = parseInt(Object.values(product)[0].id)
+
+		axios.delete(`http://localhost:3000/api/v1/order_details/${productToRemove}`,{
 			headers: { 'token': localStorage.token }
 		}).then((resp)=> this.setState({
 							memberCart: resp.data.currentOrderDetails,
@@ -454,7 +455,7 @@ class App extends React.Component {
 				if(localStorage.getItem("temporaryCart")) {				
 					JSON.parse(localStorage.getItem("temporaryCart")).forEach((itemObject) => {
 						for(var key in itemObject) {
-								this.addToCartClicked(itemObject[key], parseInt(key))
+							setTimeout(this.addToCartClicked(itemObject[key], parseInt(key)), 1000)
 						}
 					})
 				}	
