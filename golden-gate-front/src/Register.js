@@ -546,7 +546,7 @@ export default class Register extends React.Component{ c
 				<br />
 				<input id="signinPageRadio1" type="checkbox" onChange={(e)=>this.props.keepMeSignedInClicked(e)}/><span id="signinRadioText">Keep me signed in.</span>
 				<br />
-				<a id="signinPageForgotPassword" href="#">Forgot your password?</a>
+				<a id="signinPageForgotPassword" href="/forgotpassword">Forgot your password?</a>
 			</div>
 
 			<div id="createNewAccountDiv">

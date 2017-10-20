@@ -148,13 +148,13 @@ export default class Cart extends React.Component {
 
 
 	render() {
-
-		let memberCart = []
-		if(this.props.memberCart.length) {
-			memberCart = this.props.memberCart
-		} else if(this.props.temporaryCart.length) {
-			memberCart = this.props.temporaryCart
-		} 
+		console.log("CART:", this.props.temporaryCartTotal)
+		let memberCart = this.props.memberCart || this.props.temporaryCart
+		// if(this.props.memberCart.length) {
+		// 	memberCart = this.props.memberCart
+		// } else if(this.props.temporaryCart.length) {
+		// 	memberCart = this.props.temporaryCart
+		// } 
 		
 		return (
 		<div>
@@ -242,19 +242,19 @@ export default class Cart extends React.Component {
 			  		</div>
 
 			  		<div id="merchandiseDiv" >
-			  			<div>Marchandise:<span>{this.props.memberOrder.subtotal}</span></div>
+			  			<div>Marchandise:<span>{this.props.memberOrder.subtotal || this.props.temporaryCartTotal.subTotal}</span></div>
 			  		</div>
 
 			  		<div id="cartTaxDiv">
-			  			<div>Tax:<span>{this.props.memberOrder.tax}</span></div>
+			  			<div>Tax:<span>{this.props.memberOrder.tax || this.props.temporaryCartTotal.tax}</span></div>
 			  		</div>
 
 			  		<div id="estimatedShippingDiv">
-			  			<div>Estimated Shipping:<span>{this.props.memberOrder.shipping}</span></div>	
+			  			<div>Estimated Shipping:<span>{this.props.memberOrder.shipping || this.props.temporaryCartTotal.shipping}</span></div>	
 			  		</div>
 
 			  		<div id="cartSubtotalDiv">
-			  			<div>SUB TOTAL:<span>{this.props.memberOrder.total}</span></div>
+			  			<div>SUB TOTAL:<span>{this.props.memberOrder.total || this.props.temporaryCartTotal.total}</span></div>
 			  		</div>
 
 			  		<div id="checkoutButtonDiv">

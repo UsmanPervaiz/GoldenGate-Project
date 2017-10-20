@@ -8,14 +8,15 @@ import Cart from "./Cart.js"
 // import "./csshake/dist/csshake-little.css"
 import Welcome from "./Welcome.js";
 import axios from "axios"
-import "./csshake/dist/csshake-crazy.css";
+// import "./csshake/dist/csshake-crazy.css";
 import FontAwesome from "react-fontawesome";
 import Checkout from "./Checkout.js";
 import MyAccount from "./MyAccount.js";
+import UserLogInModal from "./UserLogInModal.js";
 import UserLoggedOutMessageModal from "./UserLoggedOutMessageModal.js";
 import UserSignedInMessageModal from "./UserSignedInMessageModal.js"
 import AccountCreatedMessageModal from "./AccountCreatedMessageModal.js";
-import UserLogInModal from "./UserLogInModal.js";
+import ForgotPassword from "./ForgotPassword.js";
 import {withRouter} from "react-router";
 
 class App extends React.Component {
@@ -28,8 +29,9 @@ class App extends React.Component {
 			keepUserSignedIn: false,
 			addedToCart: "",
 			electronics: [],
-			temporaryCart: [],
-			memberCart: [],
+			temporaryCart: "",
+			temporaryCartTotal: "",
+			memberCart: "",
 			memberOrder: {},
 			memberInfo: "",
 			memberAddresses: [],
@@ -65,7 +67,7 @@ class App extends React.Component {
 	}
 
 	userWantsToDeleteAddress(addressToDelete) {
-		var newMemberAddresses = this.state.memberAddresses
+		let newMemberAddresses = this.state.memberAddresses
 		newMemberAddresses.forEach((address) => {
 			address.userWantsToDelete = false
 		})
@@ -80,7 +82,7 @@ class App extends React.Component {
 	}
 
 	doNotDeleteMemberAddressClicked() {
-		var memberAddresses = this.state.memberAddresses
+		let memberAddresses = this.state.memberAddresses
 		memberAddresses.forEach((address)=>{
 			address.userWantsToDelete = false
 		})
@@ -100,7 +102,7 @@ class App extends React.Component {
 			{ headers: {"TOKEN": useThisToken} }
 			)
 		.then((resp)=> {
-			var modifiedMemberAddresses = resp.data.memberAddresses
+			let modifiedMemberAddresses = resp.data.memberAddresses
 			modifiedMemberAddresses.forEach((address) => {
 				address.userWantsToDelete = false
 			})
@@ -122,7 +124,7 @@ class App extends React.Component {
 			{ headers: {"TOKEN": useThisToken} }
 			)
 		.then((resp)=> {
-			var modifiedMemberAddresses = resp.data.memberAddresses
+			let modifiedMemberAddresses = resp.data.memberAddresses
 			modifiedMemberAddresses.forEach((address) => {
 				address.userWantsToDelete = false
 			})
@@ -133,9 +135,9 @@ class App extends React.Component {
 	}
 
 	imageClicked(event) {
-		var imageClicked = event.target
-		var modal = this.refs.appMyModal
-		var modalImage = this.refs.img01
+		let imageClicked = event.target
+		let modal = this.refs.appMyModal
+		let modalImage = this.refs.img01
 		modal.style.display = "block"
 		modalImage.src = imageClicked.src 
 		
@@ -146,7 +148,7 @@ class App extends React.Component {
 	}
 
 	addToCartClicked(product, productQuantity, divForUpdatedItem, updateButtonforItem) {
-		var updatedElectronics = this.state.electronics
+		let updatedElectronics = this.state.electronics
 		updatedElectronics.forEach(function(electronicProduct) {
 			if(electronicProduct === product) {
 				electronicProduct.style = {opacity: 0.5}
@@ -197,8 +199,8 @@ class App extends React.Component {
 				)
 				.then(() => { 
 					if(divForUpdatedItem) {
-					var currentClassName = divForUpdatedItem.className
-					var newClassName = "item-in-cart-updated-successfully"
+					let currentClassName = divForUpdatedItem.className
+					let newClassName = "item-in-cart-updated-successfully"
 					divForUpdatedItem.className = "item-in-cart-updated-successfully"
 					updateButtonforItem.className = "hide-update-cart-button"
 					setTimeout(function() { divForUpdatedItem.className = currentClassName }, 1000)
@@ -208,54 +210,41 @@ class App extends React.Component {
 			} 
 	    } else {
 	    	
-	    	if(localStorage.getItem("temporaryCart").length) {
-
+	    	if(this.state.temporaryCart.length) {
 	    		let temporaryCart = JSON.parse(localStorage.getItem("temporaryCart"))
-	    		let isProductAlreadyInCart = false;
-	    		
+	    		let isProductAlreadyInCart = false;    		
 	    		temporaryCart.forEach((itemObject,index) => {
-	    			for(var key in itemObject) {
+	    			for(let key in itemObject) {
 	    				if(itemObject[key].id === product.id) {
 	    					isProductAlreadyInCart = true
-	    					let modifyProductQuantity = {[productQuantity]: product}
-	    					temporaryCart.splice(index, 1, modifyProductQuantity)
+	    					let productQuatityModified = {[productQuantity]: product}
+	    					temporaryCart.splice(index, 1, productQuatityModified)
 	    				} 
 	    			}
 	    		})
 	    		if(!isProductAlreadyInCart) {
-
 	    			temporaryCart.push({[productQuantity]: product})
 	    		}
-	    		console.log("CCCC:", temporaryCart)
 	    		localStorage.setItem("temporaryCart", JSON.stringify(temporaryCart))
 	    		this.setState({
 	    			temporaryCart: temporaryCart
-	    		})
+	    		}, () => this.temporaryCartTotal())
 
-	    	} else {  
-	    	console.log("xxxxxxx")		
-	    		let setTemporaryCart = []
-	    		setTemporaryCart.push({[productQuantity]: product})
-	    		localStorage.setItem("temporaryCart", JSON.stringify(setTemporaryCart))
+	    	} else { 	
+	    		let newTemporaryCart = []
+	    		newTemporaryCart.push({[productQuantity]: product})
+	    		localStorage.setItem("temporaryCart", JSON.stringify(newTemporaryCart))
 	    		this.setState({
-	    			temporaryCart: setTemporaryCart
-	    		})
+	    			temporaryCart: newTemporaryCart
+	    		}, () => this.temporaryCartTotal())
 	    	}
 		}
 	}
 
-
 	removeFromCartClicked(product) {
 		let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
-		// let localStorageToken = localStorage.getItem("token") 
-		// let sessionStorageToken = sessionStorage.getItem("token")
-		// if(localStorageToken) {
-		// 	useThisToken = localStorageToken
-		// } else {
-		// 	useThisToken = sessionStorageToken
-		// }
 
-		var productToRemove = parseInt(Object.values(product)[0].id)
+		let productToRemove = parseInt(Object.values(product)[0].id)
 		if(this.state.userSignedIn) {
 			axios.delete(`http://localhost:3000/api/v1/order_details/${productToRemove}`,{
 				headers: { 'token': useThisToken }
@@ -268,11 +257,9 @@ class App extends React.Component {
 			let temporaryCart = JSON.parse(localStorage.getItem("temporaryCart"))
 			
 			temporaryCart.forEach((itemObject,index) => {
-				for(var key in itemObject) {
+				for(let key in itemObject) {
 					
 					if(itemObject[key].id === Object.values(product)[0].id) {
-						console.log("item:", product)
-						// delete itemObject[key]
 						temporaryCart.splice(index, 1)
 						break;
 					}
@@ -281,17 +268,42 @@ class App extends React.Component {
 			localStorage.setItem("temporaryCart", JSON.stringify(temporaryCart))
 			this.setState({
 				temporaryCart: temporaryCart
+			}, () => this.temporaryCartTotal())
+		}
+	}
+
+	temporaryCartTotal() {
+		if(this.state.temporaryCart.length) {
+			let allTemporaryCartItemsTotalArray = []
+			this.state.temporaryCart.forEach((itemObject) => {
+				for(let key in itemObject) {
+					let itemQuantity = parseInt(key)
+					let itemTotal = itemQuantity * (itemObject[key].sale_price * 100)
+
+					allTemporaryCartItemsTotalArray.push(itemTotal)
+				}
+			})
+			let temporaryCartSubTotal = (allTemporaryCartItemsTotalArray.reduce((acc, total) => {
+				return acc + total
+			}) / 100).toFixed(2)
+			let taxOnTemporaryCart = parseFloat(((8.75 / 100) * temporaryCartSubTotal).toFixed(2)) //we have to use parseFloat here because .toFixed() converts a number to a string and also becuase we want a decimal value.
+			let temporaryCartTotal = parseFloat(((((temporaryCartSubTotal * 100) + (taxOnTemporaryCart * 100)) / 100) + 999 / 100).toFixed(2))
+			this.setState({
+				temporaryCartTotal: {subTotal: temporaryCartSubTotal, tax: taxOnTemporaryCart, total: temporaryCartTotal, shipping: 9.99}
 			})
 		}
 	}
 
 	electronicsClicked(e) {	
+		let memberCart = this.state.memberCart || this.state.temporaryCart
 		axios.get("http://localhost:3000/api/v1/products")
 		.then((resp)=> {
-			if(this.state.memberCart.length >= 1 ) {
+
+			if(memberCart.length >= 1 ) {
+
 				resp.data.forEach(function(item,i) {					
-					this.state.memberCart.forEach(function(prodObj) {
-						for(var key in prodObj) {
+					memberCart.forEach(function(prodObj) {
+						for(let key in prodObj) {
 							if(prodObj[key].id === item.id) {
 								item.style = {opacity: "0.5"}
 							} 
@@ -378,14 +390,14 @@ class App extends React.Component {
 	}
 
 	signinOnEmailChange(e) {
-		var signinEmailFieldValue = e.target.value.trim()	
+		let signinEmailFieldValue = e.target.value.trim()	
 		 	this.setState({
 				signinEmail: signinEmailFieldValue,
 			},()=> console.log(this.state.signinEmail))
 	}
 
 	signinOnPasswordChange(e, signinPasswordField) {
-		var signinPasswordFieldValue = e.target.value.trim()
+		let signinPasswordFieldValue = e.target.value.trim()
 		if(signinPasswordFieldValue.length > 15) {
 			signinPasswordField.value = signinPasswordFieldValue.substr(0,15)
 			this.setState({
@@ -417,15 +429,6 @@ class App extends React.Component {
 		      	signInPasswordError: "",
 				userSignedIn: true
 			}))
-			// .then(()=> {
-			// 	if(localStorage.getItem("temporaryCart")) {				
-			// 		JSON.parse(localStorage.getItem("temporaryCart")).forEach((itemObject) => {
-			// 			for(var key in itemObject) {
-			// 					this.addToCartClicked(itemObject[key], parseInt(key))
-			// 			}
-			// 		})
-			// 	}	
-			// })
 			.then(()=> this.userSignedInMessageModal())
 		      .then((resp)=> this.props.history.push("/main"))
 		      .catch((error)=> { 
@@ -496,19 +499,12 @@ class App extends React.Component {
 		this.setState({
 				showLoadingSymbol: "show-loading-symbol"
 			})
-		let useThisToken = null
-		let localStorageToken = localStorage.getItem("token")
-		let sessionStorageToken = sessionStorage.getItem("token")
-		if(localStorageToken) {
-			useThisToken = localStorageToken
-		} else {
-			useThisToken = sessionStorageToken
-		}
+		let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
 		if(useThisToken) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
 				headers: { token: useThisToken }
 			}).then((resp)=> {
-					var modifiedMemberAddresses = resp.data.addresses
+					let modifiedMemberAddresses = resp.data.addresses
 					modifiedMemberAddresses.forEach((address) => {
 					address.userWantsToDelete = false
 					})
@@ -521,20 +517,24 @@ class App extends React.Component {
 			    	})
 			})
 			.then(()=> {
-				if(localStorage.getItem("temporaryCart")) {				
-					JSON.parse(localStorage.getItem("temporaryCart")).forEach((itemObject) => {
-						for(var key in itemObject) {
+				if(this.state.temporaryCart) {				
+					this.state.temporaryCart.forEach((itemObject) => {
+						for(let key in itemObject) {
 							this.addToCartClicked(itemObject[key], parseInt(key))
 						}
 					})
-				}	
+					localStorage.removeItem("temporaryCart")
+					this.setState({
+						temporaryCart: ""
+					})
+				}
 			})
 			.catch((error)=> console.log(error.response))
 		} 
 		else {
 			this.setState({
 				userSignedIn: false,
-				memberCart: [],
+				memberCart: "",
 				memberOrder: {},
 				memberInfo: "",
 				memberAddresses: []
@@ -547,20 +547,13 @@ class App extends React.Component {
 
 	componentDidMount() {
 		console.log("APP DID MOUNT", this.state)
-		var localStorageToken = localStorage.getItem("token")
-		var sessionStorageToken = sessionStorage.getItem("token")
-		var useThisToken = null
-		if(localStorageToken) {
-			useThisToken = localStorageToken
-		} else {
-			useThisToken = sessionStorageToken
-		}
+		let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
 	
 		if(useThisToken) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
 				headers: { token: useThisToken }
 			}).then((resp)=>  { 
-					var modifiedMemberAddresses = resp.data.addresses
+					let modifiedMemberAddresses = resp.data.addresses
 					modifiedMemberAddresses.forEach((address) => {
 						address.userWantsToDelete = false
 					})
@@ -579,13 +572,12 @@ class App extends React.Component {
 			})
 		}
 		if (localStorage.temporaryCart){
-			var getLocalCart = JSON.parse(localStorage.temporaryCart)
+			let getTemporaryCart = JSON.parse(localStorage.temporaryCart)
 			this.setState({
-				temporaryCart: getLocalCart
-			})
+				temporaryCart: getTemporaryCart
+			}, () => this.temporaryCartTotal())
 		}
 		setTimeout(()=> this.setState({
-			// showMainPage: "show-main-page",
 			showLoadingSymbol: "hide-loading-symbol"
 		}), 1000)
 	}
@@ -597,9 +589,11 @@ class App extends React.Component {
 			<div >
 			
 			  	<div id={this.state.showMainPage}>
+
 			  		<div id="navBar">
 						<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberCart={this.state.memberCart} temporaryCart={this.state.temporaryCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} navBarSignOutClicked={this.navBarSignOutClicked.bind(this)} />
 			  		</div>
+
 			  		<div id={this.state.showLoadingSymbol}>
 			  			<div id="loading-symbol-body">
 			    			<FontAwesome className="circle-o-notch" name="circle-o-notch" spin size="5x"/>
@@ -607,34 +601,35 @@ class App extends React.Component {
 			    		</div>
 			  		</div>
 
-			  	{ this.state.addedToCart ? 
-			  		<div id="myModal" ref="appMyModal" className="appModal" >
+			  		{ this.state.addedToCart ? 
+			  			<div id="myModal" ref="appMyModal" className="appModal" >
+							<span className="appClose" onClick={ this.myModalSpanClicked.bind(this) } >&times;</span>
+							<img className="app-modal-content" id="img01" ref="img01" />
+							<div id="caption" ref="caption" ></div>
+						</div> 
+					: null }
+
+					<div id="myModal" ref="appMyModal" className="appModal" >
 						<span className="appClose" onClick={ this.myModalSpanClicked.bind(this) } >&times;</span>
 						<img className="app-modal-content" id="img01" ref="img01" />
 						<div id="caption" ref="caption" ></div>
-					</div> 
-					: null }
+					</div>
 
-				<div id="myModal" ref="appMyModal" className="appModal" >
-					<span className="appClose" onClick={ this.myModalSpanClicked.bind(this) } >&times;</span>
-					<img className="app-modal-content" id="img01" ref="img01" />
-					<div id="caption" ref="caption" ></div>
-				</div>
+					{ this.state.userLoggedOutMessageModal ? <UserLoggedOutMessageModal userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} /> : null }
+					{ this.state.accountCreatedMessageModal ? <AccountCreatedMessageModal accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} /> : null }
+					{ this.state.userSignedInMessageModal  ? <UserSignedInMessageModal /> : null }
+			  		{ this.state.userLogInModal ? <UserLogInModal keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} appState={this.state} /> : null }
 
-				{ this.state.userLoggedOutMessageModal ? <UserLoggedOutMessageModal userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} /> : null }
-				{ this.state.accountCreatedMessageModal ? <AccountCreatedMessageModal accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} /> : null }
-				{ this.state.userSignedInMessageModal  ? <UserSignedInMessageModal /> : null }
-			  	{ this.state.userLogInModal ? <UserLogInModal keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} appState={this.state} /> : null }
-
-			  	<Switch>
-			      <Route exact path="/" render={(props)=> <Welcome {...props} />} />
-			      <Route exact path="/login" render={(props)=> <UserLogInModal keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} appState={this.state} /> } />
-	  			  <Route exact path="/register" render={(props)=> <Register {...props} userSignedIn={this.state.userSignedIn} keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} userSignedInMessageModal={this.userSignedInMessageModal.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signinButtonClicked={this.signinButtonClicked.bind(this)} signinEmail={this.state.signinEmail} signinPassword={this.state.signinPassword} signInAjaxErrorMessage={this.state.signInAjaxErrorMessage} signInEmailError={this.state.signInEmailError} signInPasswordError={this.state.signInPasswordError} /> }/>
-			      <Route exact path="/electronics" render={(props) => <Electronics {...props} electronics={this.state.electronics} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} memberCart={this.state.memberCart} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
-	  			  <Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
-			  	  <Route exact path="/checkout" component={Checkout} />
-			  	  <Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} userWantsToDeleteAddress={this.userWantsToDeleteAddress.bind(this)} doNotDeleteMemberAddressClicked={this.doNotDeleteMemberAddressClicked.bind(this)} permanentlyDeleteMemberAddress={this.permanentlyDeleteMemberAddress.bind(this)} setDefaultAddressClicked={this.setDefaultAddressClicked.bind(this)} /> }/>			  	  
-			  	</Switch>
+			  		<Switch>
+			      		<Route exact path="/" render={(props)=> <Welcome {...props} />} />
+			      		<Route exact path="/login" render={(props)=> <UserLogInModal keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} navBarSigninCloseClicked={this.navBarSigninCloseClicked.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signInModalSubmitButtonClicked={this.signInModalSubmitButtonClicked.bind(this)} appState={this.state} /> } />
+	  			  		<Route exact path="/register" render={(props)=> <Register {...props} userSignedIn={this.state.userSignedIn} keepMeSignedInClicked={this.keepMeSignedInClicked.bind(this)} accountCreatedMessageModal={this.accountCreatedMessageModal.bind(this)} userSignedInMessageModal={this.userSignedInMessageModal.bind(this)} signinOnEmailChange={this.signinOnEmailChange.bind(this)} signinOnPasswordChange={this.signinOnPasswordChange.bind(this)} signinButtonClicked={this.signinButtonClicked.bind(this)} signinEmail={this.state.signinEmail} signinPassword={this.state.signinPassword} signInAjaxErrorMessage={this.state.signInAjaxErrorMessage} signInEmailError={this.state.signInEmailError} signInPasswordError={this.state.signInPasswordError} /> }/>
+			      		<Route exact path="/electronics" render={(props) => <Electronics {...props} electronics={this.state.electronics} imageClicked={this.imageClicked.bind(this)} electronicsList={this.state.electronics} memberCart={this.state.memberCart} addToCartClicked={this.addToCartClicked.bind(this)}/> } />
+	  			  		<Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} temporaryCartTotal={this.state.temporaryCartTotal} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
+			  	  		<Route exact path="/checkout" component={Checkout} />
+			  	  		<Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} userWantsToDeleteAddress={this.userWantsToDeleteAddress.bind(this)} doNotDeleteMemberAddressClicked={this.doNotDeleteMemberAddressClicked.bind(this)} permanentlyDeleteMemberAddress={this.permanentlyDeleteMemberAddress.bind(this)} setDefaultAddressClicked={this.setDefaultAddressClicked.bind(this)} /> }/>			  	  
+			  			<Route exact path="/forgotpassword" render={(props)=> <ForgotPassword {...props} /> } />
+			  		</Switch>
 				</div>
 			</div>
 

@@ -1,11 +1,25 @@
-/*
-body {
-	background-color: white;
+
+html, body {
+	height: 100%;
+}
+
+#root {
+	height: 100%;
+ 	background-color: white;
+}
+
+/*[data-reactroot] {
+	height: 100% !important; 
 }*/
 
-/*#navBar {
-	position: fixed;
-}*/
+#root > :first-child {
+	height: 100% !important;
+}
+
+#show-main-page {
+	height: 100%;
+	background-color: white;
+}
 
 #hide-main-page {
 	display: none;
@@ -20,6 +34,7 @@ body {
 	background-color: #FFE4C4;
 	width: 100%;
 }
+
 #electronicsData ul {
 	display: inline-block;
 	float: left;
