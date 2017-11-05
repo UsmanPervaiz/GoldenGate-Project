@@ -96,8 +96,8 @@ export default class CreateAccountSecurityQuestionModal extends React.Component 
 					<form>
 
 					{ repeatDiv.map((num, i) => { 
-						var a = 0
-						var b = 0
+						let a = 0
+						let b = 0
 						if(i === 0) {
 							a = 0
 							b = 5

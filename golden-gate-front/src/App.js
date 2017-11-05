@@ -47,10 +47,36 @@ class App extends React.Component {
 			userLogInModal: "",
 			userLoggedOutMessageModal: "",
 			userSignedInMessageModal: "",
-			accountCreatedMessageModal: ""
+			accountCreatedMessageModal: "",
+			forgotPasswordEmail: null,
+			memberSecurityQuestions: null
 			}
 
 		}
+
+
+
+	forgotPasswordEmailChange(event) {
+		this.setState({
+			forgotPasswordEmail: event.target.value
+		}, ()=>console.log(this.state.forgotPasswordEmail))
+	}
+
+	forgotPasswordContinueButtonClicked(rotateForgotPasswordModal){
+		this.getSecurityQuestions(rotateForgotPasswordModal)
+
+	}
+
+	getSecurityQuestions(rotateForgotPasswordModal) {
+		axios.get(`http://localhost:3000/api/v1/security_questions`, {
+			 params: { 
+			 	forgotPasswordEmail: this.state.forgotPasswordEmail 
+			 } 
+			} )
+		.then((resp) => this.setState({memberSecurityQuestions: resp.data.security_questions}))
+		.then(()=> console.log(this.state.memberSecurityQuestions))
+		.then(()=> rotateForgotPasswordModal())
+	}
 
 	keepMeSignedInClicked(e) {
 		console.log("EVIL", e.target.checked)
@@ -430,9 +456,8 @@ class App extends React.Component {
 				userSignedIn: true
 			}))
 			.then(()=> this.userSignedInMessageModal())
-		      .then((resp)=> this.props.history.push("/main"))
-		      .catch((error)=> { 
-		      	console.log(error.response)
+		    .then((resp)=> this.props.history.push("/main"))
+		    .catch((error)=> { 
 		  		this.setState({
 		  			signInAjaxErrorMessage: error.response.data.error
 		  		}, () => signInErrorDiv.className = "show-signin-error-div" )} 
@@ -487,6 +512,16 @@ class App extends React.Component {
 		)
 	}
 
+	// shouldComponentUpdate(nextProp, nextState){
+	// 	console.log(nextProp)
+	// 	if(nextState.forgotPasswordEmail) {
+	// 		return false
+	// 	} else {
+	// 		return true
+	// 	}
+		
+	// }
+
 	componentDidUpdate(prevProps, prevState) {
 		console.log("APP DID UPDATE", this.state)
 
@@ -495,7 +530,8 @@ class App extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		// This life-cycle method is skppied on "this.setState" and that is the reason why the loading symbol is not seen when updating the sign-in input fields
-		console.log("APPWillReceiveProps", nextProps)
+		console.log("APPWillReceiveProps", nextProps.location.pathname)
+		if(nextProps.location.pathname !== "/forgotpassword") {
 		this.setState({
 				showLoadingSymbol: "show-loading-symbol"
 			})
@@ -543,6 +579,7 @@ class App extends React.Component {
 		setTimeout(()=> this.setState({
 			showLoadingSymbol: "hide-loading-symbol"
 		}), 1000)
+	}
 	}
 
 	componentDidMount() {
@@ -628,7 +665,7 @@ class App extends React.Component {
 	  			  		<Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} temporaryCartTotal={this.state.temporaryCartTotal} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  		<Route exact path="/checkout" component={Checkout} />
 			  	  		<Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} userWantsToDeleteAddress={this.userWantsToDeleteAddress.bind(this)} doNotDeleteMemberAddressClicked={this.doNotDeleteMemberAddressClicked.bind(this)} permanentlyDeleteMemberAddress={this.permanentlyDeleteMemberAddress.bind(this)} setDefaultAddressClicked={this.setDefaultAddressClicked.bind(this)} /> }/>			  	  
-			  			<Route exact path="/forgotpassword" render={(props)=> <ForgotPassword {...props} /> } />
+			  			<Route exact path="/forgotpassword" render={(props)=> <ForgotPassword {...props} memberSecurityQuestions={this.state.memberSecurityQuestions} forgotPasswordContinueButtonClicked={this.forgotPasswordContinueButtonClicked.bind(this)} forgotPasswordEmailChange={this.forgotPasswordEmailChange.bind(this)} /> } />
 			  		</Switch>
 				</div>
 			</div>

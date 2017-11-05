@@ -1,20 +1,24 @@
 class Api::V1::SecurityQuestionsController < ApplicationController
 
-	# def show 
 
-	# 	security_question_instances = SecurityQuestion.all
-	# 	security_questions = security_question_instances.map{ |question_instance| question_instance.question }
-	# 	render json: security_questions
-	# end
+	def index 
+		
+		member = Member.find_by(email: params["forgotPasswordEmail"])
+		if(member) 
+		#member has_many :security_questions, through: :security_question_answer
+			render json: {security_questions: member.security_questions}
+		else 
+			render json: {error: "No account exists with the email provided!"}, status: 422
+		end
+	end
 
 	def create
-		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first
-		array_of_question_ids_and_answers = []
-		
+		decoded_token = authorize_account(request.headers["HTTP_TOKEN"]).first #only to retrieve member.id and not to authenticate
+		# array_of_question_ids_and_answers = []	
 		params["questionsAndAnswers"].each do |ques, ans|
 			SecurityQuestion.all.each do |question|
 				if(question.question === ques)
-					array_of_question_ids_and_answers.push({question.id => ans})
+					# array_of_question_ids_and_answers.push({question.id => ans})
 					SecurityQuestionAnswer.create(member_id: decoded_token["member_id"], security_question_id: question.id, answer: ans)
 				end
 			end

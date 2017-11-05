@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   		resources :order_details, only: [:create, :update, :destroy]
   		resources :products, only: [:index]
   		get 'carts/show', to: "carts#show"
-  		post 'security_questions', to: "security_questions#create"
+      resources :security_questions, only: [:index, :create]
       resources :addresses, only: [:create, :update, :destroy]
       put "set_default_address/:id", to: "addresses#set_default_address"
   	  

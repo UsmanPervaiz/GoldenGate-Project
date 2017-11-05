@@ -375,9 +375,15 @@
 	border-radius: 2%;
 	font-size: 2em;
 	color: white;
-	background-color: black;	
-	
+	background-color: black;		
+}
 
+#signinPageForgotPassword {
+	color: blue;
+}
+
+#signinPageForgotPassword:hover {
+	cursor: pointer;
 }
 
 

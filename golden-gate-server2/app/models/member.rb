@@ -10,7 +10,7 @@ class Member < ApplicationRecord
   has_many :orders
   has_many :addresses
   has_many :security_question_answers
-  has_many :security_questions, through: :security_question_answer
+  has_many :security_questions, through: :security_question_answers
   validates_presence_of :first_name, message: "First Name cannot be blank!"
   validates_presence_of :last_name, message: "Last Name cannot be blank!"
   # validates_presence_of :birthday, message: "Birth dates cannot be blank!"

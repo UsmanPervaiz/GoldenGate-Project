@@ -22,7 +22,7 @@ private
 		product_details = []
 	  	order = Order.find_by(member_id: member_id, order_status: "incart") #If you use one of the more generic finder syntaxes (like find_by_field_name), the assumption is that if it isn't there, that is an acceptable situation so just return nil.	
   		order.products.each do |product|
-  		# has_many :products, through: :order_details . 
+  		# Order has_many :products, through: :order_details . 
   		# SELECT "products".* FROM "products" INNER JOIN "order_details" ON 
   		# "products"."id" = "order_details"."product_id" 
   		# WHERE "order_details"."order_id" = ?  [["order_id", 6]]
