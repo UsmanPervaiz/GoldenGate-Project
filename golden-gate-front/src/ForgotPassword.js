@@ -4,6 +4,7 @@ import "./ForgotPassword.css"
 
 export default function ForgotPassword(props) {
 
+	let forgotPasswordModalWrapper = null;
 	let forgotPasswordModalEmailContent = null;
 	let forgotPasswordModalSecurityQuestionsContent = null;
 	let forgotPasswordInputField = null;
@@ -11,48 +12,82 @@ export default function ForgotPassword(props) {
 	let forgotPasswordSecurityAnswerInputField = null;
 	let forgotPasswordSecurityAnswerInputFieldLabel = null;
 	let forgotPasswordSecurityQuestionBodyDiv = null;
+	let forgotPasswordModalNewPasswordContent = null;
+	let forgotPasswordNewPasswordInputFieldLabel = null;
+	let forgotPasswordNewPasswordInputField = null;
+
 	let prom = new Promise(function(resolve, reject){
 					setTimeout(function() { 
-						resolve(<button type="submit" className="forgot-password-continue-button" onClick={(e)=>forgotPasswordContinueButtonClicked(e)} >Continue</button>)}, 2100)
+						resolve(<button type="submit" className="forgot-password-continue-button" >Continue</button>)}, 2100)
 				})
 	let randomQuestion = Math.floor(Math.random() * 3)
 
-	function forgotPasswordLabelClicked() {
-		forgotPasswordInputFieldLabel.style.fontSize = "1em"
-		forgotPasswordInputField.focus()
-		
+	function inputFieldLabelClicked(inputFieldLabel, inputField) {
+		inputFieldLabel.style.fontSize = "0.7em"
+		inputField.focus()	
 	}
 
-	function forgotPasswordInputFieldFocused() {
-		forgotPasswordInputFieldLabel.style.fontSize = "1em"
+	function inputFieldFosuced(inputFieldLabel) {
+		inputFieldLabel.style.fontSize = "0.7em"
 	}
 
-	function forgotPasswordContinueButtonClicked(e) {
+	function forgotPasswordContinueButtonClicked(e, prevContentDiv, newContentDiv) {
 		e.preventDefault()
-		let anonymousFuction = rotateForgotPasswordModal()
-		props.forgotPasswordContinueButtonClicked(anonymousFuction)
+		let rotateContentDivsAnonymousFunction = rotateContentDivs(prevContentDiv, newContentDiv)
+		props.forgotPasswordContinueButtonClicked(rotateContentDivsAnonymousFunction)
 	}
 
-	function rotateForgotPasswordModal() {
-		let a = forgotPasswordModalEmailContent;
-		let b = forgotPasswordModalSecurityQuestionsContent;
-		console.log(forgotPasswordSecurityQuestionBodyDiv)
+	function rotateContentDivs(prevContentDiv, newContentDiv) {
+		let a = prevContentDiv;
+		let b = newContentDiv;
 		return function() {
-				a.style.transform = "rotateY(180deg)";		
+				a.style.transform = "rotateY(180deg)";
+				a.style.overflow = "hidden";
+				// a.style.backfaceVisibility = "hidden";		
 				b.style.transform = "rotateY(0deg)";
-				b.style.zIndex ="2";
-				
 				setTimeout(function() { b.style.borderRadius = "0%"; b.style.color = "black";}, 800)
 			
 		}
 	}
 
-	function forgotPasswordSecurityAnswerInputFieldFocused() {
-		forgotPasswordSecurityAnswerInputFieldLabel.style.fontSize = "0.5em"
+	function memberInputtingSecurityQuestionAnswer(e) {
+		props.memberInputtingSecurityQuestionAnswer(e)
 	}
-	console.log("XXXXXX", props.memberSecurityQuestions)
+
+	function memberWantsToSubmitAnswer(e, ) {
+		let anonymousFuction = rotateContentDivs(forgotPasswordModalSecurityQuestionsContent, forgotPasswordModalNewPasswordContent)
+		props.memberWantsToSubmitAnswer(e, props.memberSecurityQuestions[randomQuestion], anonymousFuction)
+	}
+
+	function memberWantsToSubmitNewPassword() {
+		console.log("djo")
+		props.memberWantsToSubmitNewPassword()
+	}
+
+	function forgotPasswordCloseErrorMessage() {
+		props.forgotPasswordCloseErrorMessage()
+	}
+
+	function closeForgotPasswordModal(e){
+		if (e.target === forgotPasswordModalWrapper) {
+			props.closeForgotPasswordModal()
+		}
+		
+	}
+
+	console.log("PROPS", props)
+
 	return (
-		<div className="forgot-password-modal-wrapper" >
+		<div className="forgot-password-modal-wrapper" ref={(div)=> forgotPasswordModalWrapper = div}  onClick={(e)=> closeForgotPasswordModal(e)}>
+
+			{ props.forgotPasswordErrors ? 
+				<div className="forgot-password-modal-error-div">
+					<div>
+						{props.forgotPasswordErrors[Object.keys(props.forgotPasswordErrors)[0]]}
+						<span id="forgot-password-close-error-message" onClick={()=> forgotPasswordCloseErrorMessage()} >Close</span>
+					</div>
+				</div> : null
+			}
 
 			<div className="forgot-password-modal-email-content" ref={(div)=> forgotPasswordModalEmailContent = div} >
 				<div className="forgot-password-modal-header" >
@@ -60,11 +95,17 @@ export default function ForgotPassword(props) {
 				</ div>
 
 				<div className="forgot-password-modal-body" >
-					<form>
-						<label onClick={() => forgotPasswordLabelClicked()} ref={(label) => {forgotPasswordInputFieldLabel = label} }  for="forgot-password-enter-email-field" className="forgot-password-enter-email-field-label" >Email</label>
-						<input type="email" ref={(input) => { forgotPasswordInputField = input }} onFocus={()=> forgotPasswordInputFieldFocused()} onChange={(e) => props.forgotPasswordEmailChange(e)} name="forgot-password-enter-email-field" className="forgot-password-enter-email-field" />
+					<form onSubmit={(e)=>forgotPasswordContinueButtonClicked(e, forgotPasswordModalEmailContent, forgotPasswordModalSecurityQuestionsContent)}>
+						<label onClick={() => inputFieldLabelClicked(forgotPasswordInputFieldLabel, forgotPasswordInputField)} ref={(label) => {forgotPasswordInputFieldLabel = label} }  for="forgot-password-enter-email-field" className="forgot-password-enter-email-field-label" >Email</label>
+						<input type="email" required ref={(input) => { forgotPasswordInputField = input }} onFocus={()=> inputFieldFosuced(forgotPasswordInputFieldLabel)} onChange={(e) => props.forgotPasswordEmailChange(e)} name="forgot-password-enter-email-field" className="forgot-password-enter-email-field" />
+						{props.forgotPasswordInvalidEmail ? 
+							<div id="forgot-password-invalid-email-error">
+								No account found with this email!
+							</div> : null
+						}
 						<Async promise={prom} then={(val) => val} />
-					</ form>
+						
+					</form>
 				</ div>			
 			</ div>
 
@@ -74,10 +115,26 @@ export default function ForgotPassword(props) {
 							<p>
 								{props.memberSecurityQuestions[randomQuestion].question}
 							</p>
-							<label for="forgot-password-security-question-answer" ref={(label)=> forgotPasswordSecurityAnswerInputFieldLabel = label} className="forgot-password-security-question-answer-label" >Answer</label>
-							<input type="text" name="forgot-password-security-question-answer" ref={(input)=> forgotPasswordSecurityAnswerInputField = input } className="forgot-password-security-question-answer-input-field" onFocus={()=> forgotPasswordSecurityAnswerInputFieldFocused()} />
-						</div> : null }	
+							<form>
+							<label for="forgot-password-security-question-answer" ref={(label)=> forgotPasswordSecurityAnswerInputFieldLabel = label} className="forgot-password-security-question-answer-label" onClick={() => inputFieldLabelClicked(forgotPasswordSecurityAnswerInputFieldLabel, forgotPasswordSecurityAnswerInputField)} >Answer</label>
+							<input type="text" required name="forgot-password-security-question-answer" ref={(input)=> forgotPasswordSecurityAnswerInputField = input } className="forgot-password-security-question-answer-input-field" onFocus={()=> inputFieldFosuced(forgotPasswordSecurityAnswerInputFieldLabel)} onChange={(e)=> memberInputtingSecurityQuestionAnswer(e)} />
+							<span id="forgot-password-modal-security-question-next-button" onClick={(e)=> memberWantsToSubmitAnswer(e)} ></span>
+							</form>
+						</div> 
+						: null }	
 			</div>
+
+			<div className="forgot-password-modal-new-password-content" ref={(div)=> forgotPasswordModalNewPasswordContent = div} >
+				<div className="forgot-password-security-question-body-div password-body-div">
+					<p>
+						New Password
+					</p>
+					<label for="forgot-password-new-password-input-filed" ref={(label)=> forgotPasswordNewPasswordInputFieldLabel = label} className="forgot-password-security-question-answer-label" onClick={() => inputFieldLabelClicked(forgotPasswordNewPasswordInputFieldLabel, forgotPasswordNewPasswordInputField)} >Password</label>
+					<input type="text" name="forgot-password-new-password-input-filed" ref={(input)=> forgotPasswordNewPasswordInputField = input} className="forgot-password-security-question-answer-input-field" onFocus={()=> inputFieldFosuced(forgotPasswordNewPasswordInputFieldLabel)} onChange={(e)=> props.memberEnteringNewPassword(e)} />
+					<span id="forgot-password-modal-security-question-next-button" onClick={(e)=> memberWantsToSubmitNewPassword(e)} ></span>
+				</div>
+			</div>
+
 		</ div>
 		)
 }

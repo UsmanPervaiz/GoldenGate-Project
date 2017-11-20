@@ -26,4 +26,20 @@ class Api::V1::SecurityQuestionsController < ApplicationController
 		
 	end
 
+	def verify_security_question_answer
+		
+		member = Member.find_by(email: params["memberEmail"])
+		security_question_id = params["question_id"]
+		security_question_answer = SecurityQuestionAnswer.find_by(member_id: member.id, security_question_id: security_question_id)
+		key = ActiveSupport::KeyGenerator.new('password').generate_key(ENV['SALT'], 32)
+		crypt = ActiveSupport::MessageEncryptor.new(key)
+		
+		if(crypt.decrypt_and_verify(security_question_answer.answer) == params["memberAnswer"])
+			render json: {member_answer: true}
+		else 
+			render json: {member_answer: false}, status: 422
+		end
+
+	end
+
 end

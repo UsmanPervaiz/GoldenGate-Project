@@ -1,11 +1,17 @@
 
-html, body {
-	height: 100%;
+html {
+  height: 100%;
+  background-color: white;
+}
+
+body {
+ height: 100%;
+  background-color: white;
 }
 
 #root {
 	height: 100%;
- 	background-color: white;
+ 	overflow: auto;
 }
 
 /*[data-reactroot] {
@@ -18,7 +24,6 @@ html, body {
 
 #show-main-page {
 	height: 100%;
-	background-color: white;
 }
 
 #hide-main-page {

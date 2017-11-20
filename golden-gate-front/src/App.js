@@ -49,34 +49,138 @@ class App extends React.Component {
 			userSignedInMessageModal: "",
 			accountCreatedMessageModal: "",
 			forgotPasswordEmail: null,
-			memberSecurityQuestions: null
+			forgotPasswordInvalidEmail: null,
+			forgotPasswordEmail2: null,
+			forgotPasswordNewPassword: null,
+			forgotPasswordErrors: null,
+			memberSecurityQuestions: null,
+			securityQuestionAnswer: null,
 			}
 
 		}
 
-
+	closeForgotPasswordModal(e) {
+		window.location.assign("/register")
+		this.setState({
+			forgotPasswordEmail: null,
+			securityQuestionAnswer: null,
+			memberSecurityQuestions: null,
+		})
+		
+	}
 
 	forgotPasswordEmailChange(event) {
-		this.setState({
-			forgotPasswordEmail: event.target.value
-		}, ()=>console.log(this.state.forgotPasswordEmail))
+		let memberEmail = event.target.value.trim()
+		if(this.state.forgotPasswordInvalidEmail){
+			this.setState({
+				forgotPasswordInvalidEmail: null
+			}, () => this.setState({
+				forgotPasswordEmail: memberEmail,
+			})
+			)
+		} else {
+			if(memberEmail) {
+				this.setState({
+					forgotPasswordEmail: memberEmail,
+				})
+			}
+		}
+    }
+
+	forgotPasswordContinueButtonClicked(rotateContentDivs){
+		this.forgotPasswordCheckIfMemberExists(rotateContentDivs)
 	}
 
-	forgotPasswordContinueButtonClicked(rotateForgotPasswordModal){
-		this.getSecurityQuestions(rotateForgotPasswordModal)
+	forgotPasswordCheckIfMemberExists(rotateContentDivs) {
+		axios.post("http://localhost:3000/api/v1/check_if_member_exists",
+				{ memberEmail: this.state.forgotPasswordEmail}
+			)
+		.then(()=> this.getSecurityQuestions(rotateContentDivs))
+		.catch((error)=> { 
+						this.setState({
+							forgotPasswordInvalidEmail: true,
+							forgotPasswordEmail: null
+						})
+					}
+		)
 
 	}
 
-	getSecurityQuestions(rotateForgotPasswordModal) {
+	getSecurityQuestions(rotateContentDivs) {
 		axios.get(`http://localhost:3000/api/v1/security_questions`, {
 			 params: { 
 			 	forgotPasswordEmail: this.state.forgotPasswordEmail 
 			 } 
 			} )
-		.then((resp) => this.setState({memberSecurityQuestions: resp.data.security_questions}))
-		.then(()=> console.log(this.state.memberSecurityQuestions))
-		.then(()=> rotateForgotPasswordModal())
+		.then((resp) => this.setState({
+							memberSecurityQuestions: resp.data.security_questions,
+							forgotPasswordEmail2: this.state.forgotPasswordEmail, // saving the value of forgotPasswordEmail before setting it to null, so we can use the value when calling memberWantsToSubmitAnswer() method.
+							forgotPasswordEmail: null // setting to null to re-render App.js Component, look at shouldComponentUpdate() method.
+						})
+		)
+		.then(()=> rotateContentDivs())
 	}
+
+	memberInputtingSecurityQuestionAnswer(e) {
+		let memberAnswer = e.target.value.trim()
+		//we have to use an if statement to make sure the value of this.state.securityQuestionAnswer never turns false.
+		//because when a user deletes all the letters from the input field, an empty string will be set as the value of securityQuestionAnswer, 
+		//thus making 'this.state.securityQuestionAnswer = false ',which in return  will cause shouldComponentUpdate to return false and re-render
+		//the app.js component.
+		if(memberAnswer) {
+			this.setState({
+				securityQuestionAnswer: memberAnswer
+
+			})
+		}
+	}
+
+	memberWantsToSubmitAnswer(e, securityQuestion, rotateContentDivs) {
+		console.log(this.state.securityQuestionAnswer)
+		axios.post(`http://localhost:3000/api/v1/verify_security_question_answer/${securityQuestion.id}`, 
+			{ memberAnswer: this.state.securityQuestionAnswer,
+			  memberEmail: this.state.forgotPasswordEmail2 }
+			)
+		.then((resp)=> {
+						console.log(resp.data.member_answer)
+						this.setState({
+							securityQuestionAnswer: null
+						})
+		})
+		.then(()=> rotateContentDivs())
+		.catch((error)=> {
+						console.log(error.response.data.member_answer)
+						
+		})
+	}
+
+	memberEnteringNewPassword(e) {
+		let newPassword = e.target.value.trim()
+		this.setState({
+			forgotPasswordNewPassword: newPassword
+		})
+	}
+
+	memberWantsToSubmitNewPassword() {
+		axios.put("http://localhost:3000/api/v1/update_password_with_forgot_password", 
+				{ newPassword: this.state.forgotPasswordNewPassword,
+				  memberEmail: this.state.forgotPasswordEmail2 }
+			)
+		.catch((error)=> {
+			console.log(error.response.data.error)
+			this.setState({
+				forgotPasswordErrors: error.response.data.error
+			})
+		})
+		
+	}
+
+	forgotPasswordCloseErrorMessage() {
+		this.setState({
+			forgotPasswordErrors: null
+		})
+	}
+
 
 	keepMeSignedInClicked(e) {
 		console.log("EVIL", e.target.checked)
@@ -512,15 +616,15 @@ class App extends React.Component {
 		)
 	}
 
-	// shouldComponentUpdate(nextProp, nextState){
-	// 	console.log(nextProp)
-	// 	if(nextState.forgotPasswordEmail) {
-	// 		return false
-	// 	} else {
-	// 		return true
-	// 	}
+	shouldComponentUpdate(nextProp, nextState){
+		console.log("NEXTSTATE", nextState)
+		if(nextState.securityQuestionAnswer || nextState.forgotPasswordEmail) {
+			return false
+		} else {
+			return true
+		}
 		
-	// }
+	}
 
 	componentDidUpdate(prevProps, prevState) {
 		console.log("APP DID UPDATE", this.state)
@@ -665,7 +769,7 @@ class App extends React.Component {
 	  			  		<Route exact path="/cart" render={(props)=> <Cart {...props} userSignedIn={this.state.userSignedIn} navBarSignInClicked={this.navBarSignInClicked.bind(this)} temporaryCart={this.state.temporaryCart} temporaryCartTotal={this.state.temporaryCartTotal} memberCart={this.state.memberCart} memberOrder={this.state.memberOrder} addToCartClicked={this.addToCartClicked.bind(this)} removeFromCartClicked={this.removeFromCartClicked.bind(this)} /> } />
 			  	  		<Route exact path="/checkout" component={Checkout} />
 			  	  		<Route exact path="/myaccount" render={(props)=> <MyAccount {...props} userSignedIn={this.state.userSignedIn} memberInfo={this.state.memberInfo} updateMemberInfo={this.updateMemberInfo.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} memberAddresses={this.state.memberAddresses} updateMemberAddresses={this.updateMemberAddresses.bind(this)} userWantsToDeleteAddress={this.userWantsToDeleteAddress.bind(this)} doNotDeleteMemberAddressClicked={this.doNotDeleteMemberAddressClicked.bind(this)} permanentlyDeleteMemberAddress={this.permanentlyDeleteMemberAddress.bind(this)} setDefaultAddressClicked={this.setDefaultAddressClicked.bind(this)} /> }/>			  	  
-			  			<Route exact path="/forgotpassword" render={(props)=> <ForgotPassword {...props} memberSecurityQuestions={this.state.memberSecurityQuestions} forgotPasswordContinueButtonClicked={this.forgotPasswordContinueButtonClicked.bind(this)} forgotPasswordEmailChange={this.forgotPasswordEmailChange.bind(this)} /> } />
+			  			<Route exact path="/forgotpassword" render={(props)=> <ForgotPassword {...props} memberSecurityQuestions={this.state.memberSecurityQuestions} forgotPasswordContinueButtonClicked={this.forgotPasswordContinueButtonClicked.bind(this)} forgotPasswordCheckIfMemberExists={this.forgotPasswordCheckIfMemberExists.bind(this)} forgotPasswordEmailChange={this.forgotPasswordEmailChange.bind(this)} memberInputtingSecurityQuestionAnswer={this.memberInputtingSecurityQuestionAnswer.bind(this)} memberWantsToSubmitAnswer={this.memberWantsToSubmitAnswer.bind(this)} memberEnteringNewPassword={this.memberEnteringNewPassword.bind(this)} memberWantsToSubmitNewPassword={this.memberWantsToSubmitNewPassword.bind(this)} forgotPasswordInvalidEmail={this.state.forgotPasswordInvalidEmail} forgotPasswordErrors={this.state.forgotPasswordErrors} forgotPasswordCloseErrorMessage={this.forgotPasswordCloseErrorMessage.bind(this)} closeForgotPasswordModal={this.closeForgotPasswordModal.bind(this)} /> } />
 			  		</Switch>
 				</div>
 			</div>

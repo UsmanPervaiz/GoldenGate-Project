@@ -81,7 +81,7 @@ class NavBar extends React.Component {
 	}
 
   render() {
-  console.log("RRRRRRR", this.props)
+
   let memberCart = null
 		if(this.props.memberCart.length) {
 			memberCart = this.props.memberCart

@@ -5,7 +5,7 @@
 }*/
 
 .NavBar {
-	height: 100px;
+	height: 110px;
 	background-color: #800000;
 	/*color: #ffffff;*/
 	list-style: none;
@@ -130,8 +130,6 @@
 	text-align: center;
 	line-height: 30px;
 	position: relative;
-	z-index: 1000;
-	
 }
 
 .navDepartments ul li:hover > ul {
@@ -221,8 +219,9 @@
 
 .navSignIn.show button:nth-child(1) {
 	position: absolute;
+	display: inline-block;
 	top: 11.1%;
-	right: 243px;
+	right: 15%;
 	width: 5.5%;
 	height: 27px;
 	border: none;
@@ -231,11 +230,12 @@
 	outline: none;
 	font-size: 17px;
 	color: white;
-	
+	overflow: auto;
 }
 
 .navSignIn.show button:nth-child(2) {
 	position: absolute;
+	display: inline-block;
 	top: 11.1%;
 	font-size: 17px;
 	right: 8.5%;

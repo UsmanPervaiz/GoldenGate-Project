@@ -54,7 +54,7 @@ class Api::V1::MembersController < ApplicationController
 				end
 		    end
 		    if(member.errors.present?)
-		    	render json: {error: member.errors}, status: 422
+		    	render json: {error: member.errors.full_messages}, status: 422
 		    end
 		    
 		end	
@@ -68,6 +68,27 @@ class Api::V1::MembersController < ApplicationController
 			render json: {passwordUpdated: "Password Updated Successfully!"}
 		else render json: {error: "Incorrect Current Password!"}, status: 422
 		end
+	end
+
+	def check_if_member_exists?
+		member = Member.find_by(email: params["memberEmail"])
+		if(member)
+			render json: "ok"
+		else
+			render json: {error: "No account found with this email!"}, status: 422
+		end
+	end
+
+	def update_password_with_forgot_password
+		
+		member = Member.find_by(email: params["memberEmail"])
+		if( member.update_attributes(password: params["newPassword"]) )
+			member.update(password: params["newPassword"])
+			render json: {passwordUpdated: "Password Updated Successfully"}
+		else 
+			render json: {error: member.errors}, status: 422
+		end
+
 	end
 	
 	def destroy
