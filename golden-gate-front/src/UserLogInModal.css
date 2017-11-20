@@ -39,7 +39,7 @@
 	background-color: #E80000;
 	overflow: auto;
 	box-sizing: border-box;
-	animation: signInErrorModal 2s linear infinite;
+	animation: signInErrorModal 1s linear infinite;
 
 }
 
