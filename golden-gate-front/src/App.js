@@ -317,15 +317,36 @@ class App extends React.Component {
 							token: token,
 							quantity: productQuantity
 					
-				}).then((resp)=> { 
+				}).then((resp) => { 
 
 					this.setState({
 									memberCart: resp.data.currentOrderDetails,
 									memberOrder: resp.data.order,
 									addedToCart: true,
 									electronics: updatedElectronics
-				}) 
+					}) 
 
+				})
+				.then(() => {
+					if(this.state.temporaryCart.length) {
+						console.log("AddToCart-TempCart", this.state.temporaryCart)
+						let newTemporaryCart = this.state.temporaryCart
+						newTemporaryCart.shift()
+						this.setState({
+							temporaryCart: newTemporaryCart
+						}, () => { 
+							if(this.state.temporaryCart.length) {
+								let singleProductObject = this.state.temporaryCart[0]
+								let singleProductKey = Object.keys(singleProductObject)[0]
+								this.addToCartClicked(singleProductObject[singleProductKey], parseInt(singleProductKey))
+							} else {
+								this.setState({
+									temporaryCart: ""
+								})
+							}
+						})
+						
+					}
 				})
 				.catch((error)=> console.log(error))
 			
@@ -348,15 +369,37 @@ class App extends React.Component {
 					electronics: updatedElectronics
 				}) 
 				)
+				.then(() => {
+					if(this.state.temporaryCart.length) {
+						console.log("AddToCart-TempCart", this.state.temporaryCart)
+						let newTemporaryCart = this.state.temporaryCart
+						newTemporaryCart.shift()
+						this.setState({
+							temporaryCart: newTemporaryCart
+						}, () => { 
+							if(this.state.temporaryCart.length) {
+								let singleProductObject = this.state.temporaryCart[0]
+								let singleProductKey = Object.keys(singleProductObject)[0]
+								this.addToCartClicked(singleProductObject[singleProductKey], parseInt(singleProductKey))
+							} else {
+								this.setState({
+									temporaryCart: ""
+								})
+							}
+						})
+						
+					}
+				})
 				.then(() => { 
 					if(divForUpdatedItem) {
-					let currentClassName = divForUpdatedItem.className
-					let newClassName = "item-in-cart-updated-successfully"
-					divForUpdatedItem.className = "item-in-cart-updated-successfully"
-					updateButtonforItem.className = "hide-update-cart-button"
-					setTimeout(function() { divForUpdatedItem.className = currentClassName }, 1000)
+						let currentClassName = divForUpdatedItem.className
+						let newClassName = "item-in-cart-updated-successfully"
+						divForUpdatedItem.className = "item-in-cart-updated-successfully"
+						updateButtonforItem.className = "hide-update-cart-button"
+						setTimeout(function() { divForUpdatedItem.className = currentClassName }, 1000)
 
-				}})
+					}
+				})
 				.catch((error) => console.log(error))
 			} 
 	    } else {
@@ -655,56 +698,53 @@ class App extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		// This life-cycle method is skppied on "this.setState" and that is the reason why the loading symbol is not seen when updating the sign-in input fields
-		console.log("APPWillReceiveProps", nextProps.location.pathname)
+		console.log("APPWillReceiveProps", nextProps)
 		if(nextProps.location.pathname !== "/forgotpassword") {
-		this.setState({
+			this.setState({
 				showLoadingSymbol: "show-loading-symbol"
 			})
-		let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
-		if(useThisToken) {
-			axios.get("http://localhost:3000/api/v1/carts/show", {
-				headers: { token: useThisToken }
-			}).then((resp)=> {
-					let modifiedMemberAddresses = resp.data.addresses
-					modifiedMemberAddresses.forEach((address) => {
-					address.userWantsToDelete = false
-					})
-					this.setState({
-						userSignedIn: true,
-						memberCart: resp.data.currentOrderDetails,
-						memberOrder: resp.data.order,
-						memberInfo: resp.data.memberInfo,
-						memberAddresses: modifiedMemberAddresses
-			    	})
-			})
-			.then(()=> {
-				if(this.state.temporaryCart) {				
-					this.state.temporaryCart.forEach((itemObject) => {
-						for(let key in itemObject) {
-							this.addToCartClicked(itemObject[key], parseInt(key))
-						}
-					})
+			let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
+			if(useThisToken) {
+				axios.get("http://localhost:3000/api/v1/carts/show", {
+					headers: { token: useThisToken }
+				}).then((resp)=> {
+						let modifiedMemberAddresses = resp.data.addresses
+						modifiedMemberAddresses.forEach((address) => {
+						address.userWantsToDelete = false
+						})
+						this.setState({
+							userSignedIn: true,
+							memberCart: resp.data.currentOrderDetails,
+							memberOrder: resp.data.order,
+							memberInfo: resp.data.memberInfo,
+							memberAddresses: modifiedMemberAddresses
+				    	})
+				})
+				.then(()=> {
+					if(this.state.temporaryCart.length) {	
+					console.log("CompWillRecProps-TempCart", this.state.temporaryCart)					
+						let singleProductObject = this.state.temporaryCart[0]
+						let singleProductKey = Object.keys(singleProductObject)[0]
+						this.addToCartClicked(singleProductObject[singleProductKey], parseInt(singleProductKey))
+					
 					localStorage.removeItem("temporaryCart")
-					this.setState({
-						temporaryCart: ""
-					})
-				}
-			})
-			.catch((error)=> console.log(error.response))
-		} 
-		else {
-			this.setState({
-				userSignedIn: false,
-				memberCart: "",
-				memberOrder: {},
-				memberInfo: "",
-				memberAddresses: []
-			})
+					}
+				})
+				.catch((error)=> console.log(error.response))
+			} 
+			else {
+				this.setState({
+					userSignedIn: false,
+					memberCart: "",
+					memberOrder: {},
+					memberInfo: "",
+					memberAddresses: []
+				})
+			}
+			setTimeout(()=> this.setState({
+				showLoadingSymbol: "hide-loading-symbol"
+			}), 1000)
 		}
-		setTimeout(()=> this.setState({
-			showLoadingSymbol: "hide-loading-symbol"
-		}), 1000)
-	}
 	}
 
 	componentDidMount() {

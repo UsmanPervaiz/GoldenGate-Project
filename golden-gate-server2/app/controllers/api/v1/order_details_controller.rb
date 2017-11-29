@@ -4,12 +4,14 @@ class Api::V1::OrderDetailsController < ApplicationController
 	
   def create
   	decoded_token = authorize_account(params[:token])
+   
 	 if (decoded_token.present?)
 	    member = Member.find(decoded_token.first['member_id'])
 	    order = member.orders.new()
 	    order.save
       #Order: before_create: set_order_status, set_tax, set_shipping
 	    order_detail = order.order_details.new(product_id: params[:product_id], quantity: params[:quantity])
+
 		  order_detail.save
       #OrderDetail: before_save: def finalize self[:unit_price] = self.product.sale_price; self[:total] = self.quantity * self[:unit_price]; end
 
@@ -20,6 +22,7 @@ class Api::V1::OrderDetailsController < ApplicationController
   		order_total(order)
       #order.total = order.subtotal + (order.tax + order.shipping)
       order.save	
+
   		render json: { currentOrderDetails: current_order_details(member.id), order: order }
 	else 
 		render json: {error: "Please sign in."}, status: 422
