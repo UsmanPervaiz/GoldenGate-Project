@@ -1,4 +1,4 @@
-# GoldenGate | [Video Demo](https://www.youtube.com/watch?v=ZtQsc7Jv0KE&feature=youtu.be) | (Still under construction)
+# GoldenGate | [Video Demo](https://www.youtube.com/watch?v=ZtQsc7Jv0KE&feature=youtu.be)
 
 >### An e-commerce platform inspired by eBay and Amazon.com  
  > * **Developed a single page e-commerce website with Rails API backend and React component based frontend.**  
@@ -7,11 +7,9 @@
 
 Welcome, and thank you for viewing my Github profile page.
 
-This is my first after-school solo project and it is still in progress, about 75% is complete, but, I am still uploading a demo video to explain the features of this project for employment purposes. 
+This is my first after-school solo project and it is still in progress, about 95% is complete, but, I am still uploading a demo video to explain the features of this project for employment purposes. 
 
 **The project is not re-factored as of yet, my main goal here is to practice everything that I have learned so far. I still have to separate Dumb Components from Smart Components, it can be seen that some Componenets are stateless, but still are defined as Class-Components. The most important thing to me is that whatever features I have implemented so far are working 100% and as desired. I have learned a lot in the past few weeks coding on my own, in the beginning some of my code was not according to the "DRY" principle, but as i progressed, my css and my coding got better and is still getting better. Overall I am happy and satisfied with my progress.**
-
-I have been working on it for about 7-8 weeks, had many ups and downs, yes and nos, this and that moments. I wanted to bring it as close as possible to a real e-commerce website experience.
 
 I used simple CSS because before moving onto bootstrap or any other designing framework, I really wanted to understand the basics of CSS.
 
@@ -76,17 +74,23 @@ I have two signin-in forms on the website, one is located inside the registratio
 
 I have not applied any validations on the sign in process, because during the registration I made sure that I am saving the correct information in the database. But, users do get informed about the wrong password and email combination or if there is no account in the database with the provided email address.
 
+### FORGOT PASSWORD FEATURE:
+
+If the user forgets his/her password, he/she has the option to reset the password by clicking on the "forgot password" link and answering any one of the security questions that he/she selected at the time of registration.
+
+The security question will be random everytime a user accesses the "Forgot Password" link. The first thing thing a user will be asked for is the email address associated with the account. If no account exists with the email provided by the user, an error message will appear to inform the user. Once the user has given the right email, the user will then be asked for the answer to a randomly selected security question. If the user submits a wrong answer, an error message will appear to inform the user. If a right answer is submitted, the user will be given the option to submit a new password, upon submission if the password is not according to the validations set on the server, an error message will appear to inform the user about how to fix the new password.
+
 ### UPDATING USER INFO:
 
 The users have the option to update their personal info such as, name, email, date of birth, etc.
 
 The password can also be updated.
 
-Another cool feature that I have applied in this section is when the user wants to update his/her date of birth. The way I have it designed is 
-
 ### OPTION TO ADD BILLING AND SHIPPING ADDRESSES:
 
-This feature has not yet been applied and is next in the list.
+User has the option to add billing and shipping addresses and then select one default address from each category. User can easily change the default address with a click of a button. Users can also modify the adresses. 
+
+The way it is setup is that the default addresses will always appear on the top followed by all other addresses.
 
 ### QUANTITY INCREASE AND DECREASE BUTTONS:
 
@@ -103,6 +107,12 @@ Along with the spin/rotate affect, **I have added another great feature which I 
 **Another feature added for user protection is that, let's say, you added 2 quantities of a product and now if you by mistake again add another 2 quatities of the same product (not knowing that the item is already in your cart), there will be no changes to your cart, in other words the cart will not be updated. The only time the cart will be updated is when the user adds a different quantity (plus or minus) then what is already in the cart.**
 
 The above two features were added based on my personal online shopping experience. And I believe these features are a must have for any modern website.
+
+### ADD TO CART FEATURE EVEN WHEN NOT SIGNED IN
+
+This one was one of the most complicated feature for me. The way it is set up is that you can browse products as a guest, meaning not signed in, and then add items to the cart as a guest. But, you have to sign-in in order to checkout and once you do sign-in to your account all the offline cart items will be associated with your account and can be viewed in your cart.
+
+If you already had items in the cart associated with your account, the new offline cart items will be added to your current cart and will not affect the items that were already in the account cart.
 
 ### ADD TO CART QUANTITY NOTIFICATION:
 
@@ -133,6 +143,4 @@ The user also has the option to remove an item from the cart with a click of a b
 The in-cart total is displayed right next to the products in the cart page. The total includes a fixed shipping rate of $9.99 and a tax of 8.75% on the total amount.
 
 ## FEATURES WAITING TO BE IMPLEMENTED:
-
-1- User can add item to cart even if they are not signed in.
-2- User can complete the checkout.
+1- User can checkout.
