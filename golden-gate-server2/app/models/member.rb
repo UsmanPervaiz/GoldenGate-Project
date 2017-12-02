@@ -22,6 +22,7 @@ class Member < ApplicationRecord
   validates_format_of :first_name, with: /\A[a-zA-z]+\z/, message: "Only letters allowed for First Name!"
   validates_format_of :last_name, with: /\A[a-zA-z]+\z/, message: "Only letters allowed for Last Name!"
   validate :password_complexity# this is to add custom devise password validations on create and also when updating, using devise_security_extension is recommended though. WE can also say on: :create - if we only want this validation when creating and not when updating.
+  validate :password_cannot_be_blank_on_creation, on: :create
   before_save {|member| member.email = member.email.downcase}
   before_save :save_signup_date, :capitalize_name, :lowercase_email
   # we use before create here, so it only does it once in the lifecycle, when an instance is created.
@@ -34,15 +35,21 @@ class Member < ApplicationRecord
 private
 
   def password_complexity # password_complexity to be used with devise for custom password validations
-  	if(!password.present?)
-  		self.errors.add :password_is_blank, "Password cannot be blank!"
-  		elsif(password.match(/^[a-zA-Z]/).nil?)
+  	if(password.present?) 	
+  		if(password.match(/^[a-zA-Z]/).nil?)
   			self.errors.add :password_no_numbers, "Password cannot begin with a number!"
   		elsif(password.length < 6)
   			self.errors.add :password_min_length, "Minimum password length is 6 characters!"
   		elsif(password.length > 15)
-  			self.errors.add :password_max_length, "Maximum password length is 15 characters!" 		
+  			self.errors.add :password_max_length, "Maximum password length is 15 characters!"
+      end 		
   	end
+  end
+
+  def password_cannot_be_blank_on_creation
+    if(!password.present?)
+      self.errors.add :password_is_blank, "Password cannot be blank!"
+    end
   end
 
   def capitalize_name

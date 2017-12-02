@@ -54,7 +54,7 @@ class Api::V1::MembersController < ApplicationController
 				end
 		    end
 		    if(member.errors.present?)
-		    	render json: {error: member.errors.full_messages}, status: 422
+		    	render json: {error: [member.errors.full_messages]}, status: 422
 		    end
 		    
 		end	
