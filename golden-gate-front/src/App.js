@@ -31,7 +31,7 @@ class App extends React.Component {
 			electronics: [],
 			temporaryCart: "",
 			temporaryCartTotal: "",
-			memberSearch: null,
+			memberSearchWord: null,
 			memberCart: "",
 			memberOrder: {},
 			memberInfo: "",
@@ -63,9 +63,58 @@ class App extends React.Component {
 
 		}
 
-	memberEnteringDataInSearchField() {
-		console.log("search")
+	memberEnteringDataInSearchField(e) {
+		this.setState({
+			memberSearchWord: e.target.value.trim().toLowerCase()
+		},()=> console.log(this.state.memberSearchWord))
 	} 
+
+	memberWantsToSubmitSearch() {
+		console.log("search")
+		let memberCart = this.state.memberCart || this.state.temporaryCart
+		axios.get("http://localhost:3000/api/v1/products")
+		.then((resp)=> {
+
+			if(memberCart.length >= 1 ) {
+
+				resp.data.forEach(function(item,i) {					
+					memberCart.forEach(function(prodObj) {
+						for(let key in prodObj) {
+							if(prodObj[key].id === item.id) {
+								item.style = {opacity: "0.5"}
+							} 
+						}
+					})
+				}.bind(this))
+					this.setState({
+						electronics: resp.data
+					})
+			} else {
+				this.setState({
+					electronics: resp.data
+				})
+			}
+				
+		})
+		.then(()=> {
+			let memberSearchResults = [];
+			let that = this
+			this.state.electronics.forEach(function(product) {
+				console.log(product.name)
+				if(product.name.toLowerCase().includes(that.state.memberSearchWord)) {
+					console.log(product)
+					memberSearchResults.push(product)
+				}
+			})
+			this.setState({
+				electronics: memberSearchResults
+			}, () => this.props.history.push("/electronics"))
+		})
+		.catch((error)=> console.log(error))
+
+	}
+
+
 
 	closeForgotPasswordModal(e) {
 		window.location.assign("/register")
@@ -511,7 +560,7 @@ class App extends React.Component {
 				}.bind(this))
 					this.setState({
 						electronics: resp.data
-					})
+					},()=> console.log("ELECTRONICS", this.state.electronics))
 			} else {
 				this.setState({
 					electronics: resp.data
@@ -798,7 +847,7 @@ class App extends React.Component {
 			  	<div id={this.state.showMainPage}>
 
 			  		<div id="navBar">
-						<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberEnteringDataInSearchField={this.memberEnteringDataInSearchField.bind(this)} memberCart={this.state.memberCart} temporaryCart={this.state.temporaryCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} navBarSignOutClicked={this.navBarSignOutClicked.bind(this)} />
+						<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberEnteringDataInSearchField={this.memberEnteringDataInSearchField.bind(this)} memberWantsToSubmitSearch={this.memberWantsToSubmitSearch.bind(this)} memberCart={this.state.memberCart} temporaryCart={this.state.temporaryCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} navBarSignOutClicked={this.navBarSignOutClicked.bind(this)} />
 			  		</div>
 
 			  		<div id={this.state.showLoadingSymbol}>
