@@ -93,6 +93,7 @@ export default class Account extends React.Component {
 	}
 
 	aboutMeDateOfBirthMonthOrDayChanged(event, arg) {
+		
 		var valueToChange = {} // we are going to pass an object to "setState", so it is not explicit to either month or day
 		if(event.target.value.length > 2) {
 			valueToChange[arg] = event.target.value.slice(0,2)
@@ -105,13 +106,19 @@ export default class Account extends React.Component {
 			this.setState(
 				valueToChange
 			)
+		} else if (parseInt(event.target.value,10) && event.target.value.length === 1 ) {
+			valueToChange[arg] = `0${event.target.value}`
+			this.setState(
+				valueToChange
+			, ()=> console.log("change", this.state[arg], valueToChange))
 		}
-		  else if (this.state[arg].length && this.state[arg].length < 2) {
-						valueToChange[arg] = "0" + this.state[arg]
-						this.setState(
-							valueToChange
-						)
-					}
+		//   else if (this.state[arg].length && this.state[arg].length < 2) {
+		// 				valueToChange[arg] = "0" + this.state[arg]
+		// 				this.setState(
+		// 					valueToChange
+		// 				)
+		// }
+
 	}
 
 	aboutMeDateOfBirthYearChanged(event) {
@@ -175,7 +182,8 @@ export default class Account extends React.Component {
 					updateAccountErrorModal: "show"
 				}, ()=> this.props.updateMemberInfo())
 			)
-		} else {
+		} else { 
+			console.log("AAABAN", this.state)
 			closeModal("ok")
 		}
 	}
