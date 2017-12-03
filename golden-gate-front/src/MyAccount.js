@@ -484,153 +484,153 @@ export default class Account extends React.Component {
 		console.log("ACCOUNT RENDERING:", this.props)
 		return (
 			<div id="my-account-wrapper" >
-			{ this.props.userSignedIn ? <div>
-				{ this.state.updateAccountErrorModal ? <CreateAccountErrorModal createAccountErrorResponseData={this.state.updateAccountErrorResponseData} createAccountErrorModalCloseClicked={this.updateAccountErrorModalCloseClicked.bind(this)}/> : null }
-				{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
-				{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
-				{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked} addNewAddressDataChanged={this.addNewAddressDataChanged.bind(this)} newAddressData={this.state.newAddressData} addNewAddressSaveButtonClicked={this.addNewAddressSaveButtonClicked.bind(this)} addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
+				{ this.props.userSignedIn ? <div id="account-container-1">
+					{ this.state.updateAccountErrorModal ? <CreateAccountErrorModal createAccountErrorResponseData={this.state.updateAccountErrorResponseData} createAccountErrorModalCloseClicked={this.updateAccountErrorModalCloseClicked.bind(this)}/> : null }
+					{ this.state.aboutMeModal ===  "show-about-me-modal" ? <MyAccountAboutMeModal aboutMeEditCloseClicked={this.aboutMeEditCloseClicked.bind(this)} memberInfo={this.props.memberInfo} aboutMeFirstNameChanged={this.aboutMeFirstNameChanged.bind(this)} aboutMeLastNameChanged={this.aboutMeLastNameChanged.bind(this)} aboutMeEmailChanged={this.aboutMeEmailChanged.bind(this)} aboutMeGenderClicked={this.aboutMeGenderClicked.bind(this)} aboutMeDateOfBirthMonthOrDayChanged={this.aboutMeDateOfBirthMonthOrDayChanged.bind(this)} aboutMeDateOfBirthYearChanged={this.aboutMeDateOfBirthYearChanged.bind(this)} aboutMeModalUpdateButtonClicked={this.aboutMeModalUpdateButtonClicked.bind(this)} /> : null }
+					{ this.state.updatePasswordModal === "show-update-password-modal" ? <UpdatePasswordModal updatePasswordModalCloseClicked={this.updatePasswordModalCloseClicked.bind(this)} newPasswordChanged={this.newPasswordChanged.bind(this)} confirmNewPasswordChanged={this.confirmNewPasswordChanged.bind(this)} saveNewPasswordClicked={this.saveNewPasswordClicked.bind(this)} currentPasswordChanged={this.currentPasswordChanged.bind(this)} newPasswordError={this.state.newPasswordError} newPasswordErrorDisplay={this.state.newPasswordErrorDisplay} newPasswordConfirmError={this.state.newPasswordConfirmError} newPasswordConfirmErrorDisplay={this.state.newPasswordConfirmErrorDisplay} currentPasswordError={this.state.currentPasswordError} currentPasswordErrorDisplay={this.state.currentPasswordErrorDisplay} /> : null }
+					{ this.state.addNewAddressModal === "show-add-new-address-modal" ? <AddNewAddressModal addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked} addNewAddressDataChanged={this.addNewAddressDataChanged.bind(this)} newAddressData={this.state.newAddressData} addNewAddressSaveButtonClicked={this.addNewAddressSaveButtonClicked.bind(this)} addNewAddressModalCloseClicked={this.addNewAddressModalCloseClicked.bind(this)} /> : null }
 
-			<div id="account-container">
-			
-				<div id="account-menu">
-					<div id="account-header">
-						MY ACCOUNT 
+				<div id="account-container-2">
+				
+					<div id="account-menu">
+						<div id="account-header">
+							MY ACCOUNT 
+						</div>
+
+						<ul id="account-menu-list-ul">
+							<li className="list-group-item">
+								<a className="a-list-item" id="order-history" href="/myaccount/order-history">Order History</a>
+							</li><br />
+							<li className="list-group-item">
+								<a className="a-list-item" id="account-settings" href="/myaccount">Account Settings</a>
+							</li>
+						</ul>
 					</div>
 
-					<ul id="account-menu-list-ul">
-						<li className="list-group-item">
-							<a className="a-list-item" id="order-history" href="/myaccount/order-history">Order History</a>
-						</li><br />
-						<li className="list-group-item">
-							<a className="a-list-item" id="account-settings" href="/myaccount">Account Settings</a>
-						</li>
-					</ul>
-				</div>
+					<div id="user-information-container">
+						<h1>ACCOUNT SETTINGS</h1>
+						<div id="user-about-me">
+							<h3 className="all-account-settings-headings">About Me</h3>
+							<div id="user-about-me-details">
 
-				<div id="user-information-container">
-					<h1>ACCOUNT SETTINGS</h1>
-					<div id="user-about-me">
-						<h3 className="all-account-settings-headings">About Me</h3>
-						<div id="user-about-me-details">
+								<div id="user-name-container">
+									<div id="user-name-header">
+										Name:
+									</div>
+									<div id="user-first-name">
+										{this.props.memberInfo.firstName}
+									</div>
+									<div id="user-last-name">
+										{this.props.memberInfo.lastName}
+									</div>
+								</div>
 
-							<div id="user-name-container">
-								<div id="user-name-header">
-									Name:
+								<div id="user-email-container">
+									<div id="user-email-header">
+										Email:
+									</div>
+									<div id="user-email">
+										{this.props.memberInfo.email}
+									</div>
 								</div>
-								<div id="user-first-name">
-									{this.props.memberInfo.firstName}
-								</div>
-								<div id="user-last-name">
-									{this.props.memberInfo.lastName}
-								</div>
-							</div>
 
-							<div id="user-email-container">
-								<div id="user-email-header">
-									Email:
+								<div id="user-gender-container">
+									<div id="user-gender-header">
+										Gender:
+									</div>
+									<div id="user-gender">
+										{this.props.memberInfo.gender}
+									</div>
 								</div>
-								<div id="user-email">
-									{this.props.memberInfo.email}
-								</div>
-							</div>
 
-							<div id="user-gender-container">
-								<div id="user-gender-header">
-									Gender:
+								<div id="user-dob-container">
+									<div id="user-dob-header">
+										DOB:
+									</div>
+									<div id="user-dob">
+										{this.props.memberInfo.dob}
+									</div>
 								</div>
-								<div id="user-gender">
-									{this.props.memberInfo.gender}
-								</div>
-							</div>
 
-							<div id="user-dob-container">
-								<div id="user-dob-header">
-									DOB:
+								<div id="user-info-edit-container">
+									<button id="user-info-edit-button" onClick={this.aboutMeEditClicked.bind(this)}  >Edit</button>
 								</div>
-								<div id="user-dob">
-									{this.props.memberInfo.dob}
-								</div>
-							</div>
-
-							<div id="user-info-edit-container">
-								<button id="user-info-edit-button" onClick={this.aboutMeEditClicked.bind(this)}  >Edit</button>
 							</div>
 						</div>
-					</div>
 
-					<div id="update-user-password">
-						<span onClick={this.updatePasswordClicked.bind(this)} >Update Password</span>
-					</div>
-
-					<div id="saved-user-addresses-container">
-						<h3 className="all-account-settings-headings">Saved Addresses</h3>
-						<h4 className="all-account-settings-headings" onClick={this.addNewAddressClicked.bind(this)} >Add Address</h4>
-						<div id="saved-user-address-wrapper">
-							{this.props.memberAddresses.length  ? 
-										
-											this.props.memberAddresses.map((address) =>{
-											
-												return address.default ? !address.userWantsToDelete ? (
-													<div className="member-default-address-content" >
-														
-														<div className="default-address-type-header">
-															<span className="remove-address-from-database" onClick={(event)=>this.deleteAddressAskMember(event,address)} >&times;</span>
-															{address.address_type}
-														</div><br />
-														{address.first_name} {address.last_name}<br />
-														{address. address_line_1}{address.address_line_2.length ? <br /> : null}
-														{address.address_line_2.length ? address.address_line_2 : null}<br />
-														{address.city}, {address.state}, {address.zip_code}<br />
-														{address.phone}<br />
-													</div>
-												) : <div className="member-address-content" >
-														<br /><br /><br /><br />
-														Do You Really Want To Delete This Address?<br /><br />
-														<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm" onClick={()=>this.doNotDeleteMemberAddressClicked(address.id)} >No</button>
-													</div> : null
-											})
-										
-									: null 
-							} 
+						<div id="update-user-password">
+							<span onClick={this.updatePasswordClicked.bind(this)} >Update Password</span>
 						</div>
-						<div id="saved-user-address-wrapper">
-							{this.props.memberAddresses.length  ? 
-										
-											this.props.memberAddresses.map((address) => {
+
+						<div id="saved-user-addresses-container">
+							<h3 className="all-account-settings-headings">Saved Addresses</h3>
+							<h4 className="all-account-settings-headings" onClick={this.addNewAddressClicked.bind(this)} >Add Address</h4>
+							<div id="saved-user-address-wrapper">
+								{this.props.memberAddresses.length  ? 
 											
-												return address.default ? null : !address.userWantsToDelete ? (
-													<div className="member-address-content" >
-														
-														<div className="address-type-header">
-															<span className="remove-address-from-database" onClick={(event)=>this.deleteAddressAskMember(event,address)} >&times;</span>
-															{address.address_type}
-														</div><br />
-														{address.first_name} {address.last_name}<br />
-														{address. address_line_1}{address.address_line_2 ? <br /> : null}
-														{address.address_line_2.length ? address.address_line_2 : null}<br />
-														{address.city}, {address.state}, {address.zip_code}<br />			
-														{address.phone}<br />
-														{address.address_line_2.length ? null : <br />}
-														<div className="set-address-as-default" onClick={()=>this.props.setDefaultAddressClicked(address.id)} >
-															Set As Default
+												this.props.memberAddresses.map((address) =>{
+												
+													return address.default ? !address.userWantsToDelete ? (
+														<div className="member-default-address-content" >
+															
+															<div className="default-address-type-header">
+																<span className="remove-address-from-database" onClick={(event)=>this.deleteAddressAskMember(event,address)} >&times;</span>
+																{address.address_type}
+															</div><br />
+															{address.first_name} {address.last_name}<br />
+															{address. address_line_1}{address.address_line_2.length ? <br /> : null}
+															{address.address_line_2.length ? address.address_line_2 : null}<br />
+															{address.city}, {address.state}, {address.zip_code}<br />
+															{address.phone}<br />
 														</div>
-													</div>
-												) : <div className="member-address-content" >
-														<br /><br /><br /><br />
-														Do You Really Want To Delete This Address?<br /><br />
-														<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm" onClick={()=>this.doNotDeleteMemberAddressClicked(address.id)} >No</button>
-													</div>
-											})
-										
-									: <div>No Saved Addresses....</div> 
-							} 
+													) : <div className="member-address-content" >
+															<br /><br /><br /><br />
+															Do You Really Want To Delete This Address?<br /><br />
+															<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm" onClick={()=>this.doNotDeleteMemberAddressClicked(address.id)} >No</button>
+														</div> : null
+												})
+											
+										: null 
+								} 
+							</div>
+							<div id="saved-user-address-wrapper">
+								{this.props.memberAddresses.length  ? 
+											
+												this.props.memberAddresses.map((address) => {
+												
+													return address.default ? null : !address.userWantsToDelete ? (
+														<div className="member-address-content" >
+															
+															<div className="address-type-header">
+																<span className="remove-address-from-database" onClick={(event)=>this.deleteAddressAskMember(event,address)} >&times;</span>
+																{address.address_type}
+															</div><br />
+															{address.first_name} {address.last_name}<br />
+															{address. address_line_1}{address.address_line_2 ? <br /> : null}
+															{address.address_line_2.length ? address.address_line_2 : null}<br />
+															{address.city}, {address.state}, {address.zip_code}<br />			
+															{address.phone}<br />
+															{address.address_line_2.length ? null : <br />}
+															<div className="set-address-as-default" onClick={()=>this.props.setDefaultAddressClicked(address.id)} >
+																Set As Default
+															</div>
+														</div>
+													) : <div className="member-address-content" >
+															<br /><br /><br /><br />
+															Do You Really Want To Delete This Address?<br /><br />
+															<button className="member-address-delete-confirm" onClick={()=>this.permanentlyDeleteMemberAddress(address.id)} >Yes</button> <button className="member-address-delete-confirm" onClick={()=>this.doNotDeleteMemberAddressClicked(address.id)} >No</button>
+														</div>
+												})
+											
+										: <div>No Saved Addresses....</div> 
+								} 
+							</div>
 						</div>
+
 					</div>
 
-				</div>
-
-			</div> 
-			</div> : null } 
+				</div> 
+				</div> : null } 
 			</div>
 			)
 	}

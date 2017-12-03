@@ -19,35 +19,35 @@ export default function AddNewAddressModal(props) {
 					<form onSubmit={(event)=>props.addNewAddressSaveButtonClicked(event, addNewAddressModalContentRef)} >
 						<div id="new-address-zip-code-container" className="new-address-long-fields" >
 							<label className="all-new-address-labels" htmlFor="new-address-zip-code">Zip Code</label>
-							<input id="new-address-zip-code" required className="all-new-address-input-fields" defaultValue="" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressZipCode")} />
+							<input autoComplete="off" id="new-address-zip-code" required className="all-new-address-input-fields" defaultValue="" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressZipCode")} />
 						</div>
 						<div id="new-address-first-name" className="new-address-short-fields">
 							<label className="all-new-address-labels" htmlFor="new-address-first-name">First Name</label>
-							<input className="all-new-address-input-fields" required id="new-address-first-name" type="text" defaultValue="" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressFirstName")} />
+							<input autoComplete="off" className="all-new-address-input-fields" required id="new-address-first-name" type="text" defaultValue="" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressFirstName")} />
 					    </div>
 					    <div id="new-address-last-name" className="new-address-short-fields">
 					    	<label className="all-new-address-labels" htmlFor="new-address-last-name">Last Name</label>
-							<input className="all-new-address-input-fields" required id="new-address-last-name" type="text" defaultValue="" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressLastName")}/>					
+							<input autoComplete="off" className="all-new-address-input-fields" required id="new-address-last-name" type="text" defaultValue="" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressLastName")}/>					
 						</div>
 						<div id="new-address-line1-container" className="new-address-long-fields" >
 							<label className="all-new-address-labels" htmlFor="new-address-line1-field">Street Address</label>
-							<input id="new-address-line1-field" required className="all-new-address-input-fields" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressLine1")} />
+							<input autoComplete="off" id="new-address-line1-field" required className="all-new-address-input-fields" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressLine1")} />
 						</div>
 						<div id="new-address-line2-container" className="new-address-long-fields" >
 							<label className="all-new-address-labels" htmlFor="new-address-line2-field">Apt #, Floor, etc. (Optional)</label>
-							<input id="new-address-line2-field" className="all-new-address-input-fields" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressLine2")} />
+							<input autoComplete="off" id="new-address-line2-field" className="all-new-address-input-fields" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressLine2")} />
 						</div>
 						<div id="new-address-city-container" className="new-address-short-fields">
 							<label className="all-new-address-labels" htmlFor="new-address-city-field">City</label>
-							<input className="all-new-address-input-fields" id="new-address-city-field"  type="text" value={props.newAddressData.newAddressCity} readOnly="true" />
+							<input autoComplete="off" className="all-new-address-input-fields" id="new-address-city-field"  type="text" value={props.newAddressData.newAddressCity} readOnly="true" />
 					    </div>
 					    <div id="new-address-state-container" className="new-address-short-fields">
 					    	<label className="all-new-address-labels" htmlFor="new-address-state-field">State</label>
-							<input className="all-new-address-input-fields" id="new-address-state-field" type="text" value={props.newAddressData.newAddressState} readOnly="true" />					
+							<input autoComplete="off" className="all-new-address-input-fields" id="new-address-state-field" type="text" value={props.newAddressData.newAddressState} readOnly="true" />					
 						</div>
 						<div id="new-address-phone-container" className="new-address-long-fields">
 							<label className="all-new-address-labels" htmlFor="new-address-phone-field">Phone Number</label>
-							<input className="all-new-address-input-fields" id="new-address-phone-field" required type="text" defaultValue="" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressPhoneNumber")} />
+							<input autoComplete="off" className="all-new-address-input-fields" id="new-address-phone-field" required type="text" defaultValue="" onChange={(event)=>props.addNewAddressDataChanged(event, "newAddressPhoneNumber")} />
 						</div>
 						<div id="new-address-type-container" className="new-address-long-fields">
 					

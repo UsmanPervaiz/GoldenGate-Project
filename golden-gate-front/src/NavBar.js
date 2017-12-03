@@ -112,7 +112,7 @@ class NavBar extends React.Component {
 		: null }
 
 		<div id="nav-search-div" onFocus={this.navBarSearchFieldFocused.bind(this)} ref={(navBarSearchDiv) => { this.navBarSearchDiv = navBarSearchDiv } } >
-			<input type="text" name="searchbox" placeholder="Search Here" />
+			<input type="text" name="searchbox" placeholder="Search Here" onChange={this.props.memberEnteringDataInSearchField} />
 			<button id="search-button">Search</button>
 		</div>
 

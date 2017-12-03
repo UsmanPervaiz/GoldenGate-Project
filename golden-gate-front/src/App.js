@@ -31,6 +31,7 @@ class App extends React.Component {
 			electronics: [],
 			temporaryCart: "",
 			temporaryCartTotal: "",
+			memberSearch: null,
 			memberCart: "",
 			memberOrder: {},
 			memberInfo: "",
@@ -61,6 +62,10 @@ class App extends React.Component {
 			}
 
 		}
+
+	memberEnteringDataInSearchField() {
+		console.log("search")
+	} 
 
 	closeForgotPasswordModal(e) {
 		window.location.assign("/register")
@@ -793,7 +798,7 @@ class App extends React.Component {
 			  	<div id={this.state.showMainPage}>
 
 			  		<div id="navBar">
-						<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberCart={this.state.memberCart} temporaryCart={this.state.temporaryCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} navBarSignOutClicked={this.navBarSignOutClicked.bind(this)} />
+						<NavBar electronicsClicked={this.electronicsClicked.bind(this)} userSignedIn={this.state.userSignedIn} memberEnteringDataInSearchField={this.memberEnteringDataInSearchField.bind(this)} memberCart={this.state.memberCart} temporaryCart={this.state.temporaryCart} memberInfo={this.state.memberInfo} userLoggedOutMessageModal={this.userLoggedOutMessageModal.bind(this)} navBarSignInClicked={this.navBarSignInClicked.bind(this)} navBarSignOutClicked={this.navBarSignOutClicked.bind(this)} />
 			  		</div>
 
 			  		<div id={this.state.showLoadingSymbol}>
