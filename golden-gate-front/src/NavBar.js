@@ -80,6 +80,10 @@ class NavBar extends React.Component {
 		this.props.history.push("/cart")
 	}
 
+	navBarSearchFieldFocused() {
+		this.navBarSearchDiv.style.width = "45%";
+	}
+
   render() {
 
   let memberCart = null
@@ -92,55 +96,42 @@ class NavBar extends React.Component {
 	return (
 	  <div id="navbardiv">
 
-		<div className="navBrandNameLogo">
+		<div id="nav-bar-company-logo">
 			<a href="/main">Golden Gate</a>
 			<a href="#">Become a VIP Member</a>
 		</div>
 
-		<div className="navDepartments">
-			<ul>
-				<li id="department">Departments
-					<ul>
-						<li onClick={this.electronicsClicked.bind(this)} >Electronics
-							<ul>
-								<li>Laptop</li>
-								<li>Tablets</li>
-							</ul>
-						</li>
-						<li id="second">Clothing
-							<ul>
-								<li>Clothing 1</li>
-								<li>Clothing 2</li>
-								<li>Clothing 3</li>
-							</ul>
-						</li>
-					</ul>
-				</li>	
-			</ul>
-
-		</div>
-
-		<div>
-			<ul className="NavBar">
-			 
-			</ul>
+		<div id="electronic-div" onClick={this.electronicsClicked.bind(this)}>
+			Electronics
 		</div>
 			
-		<div className="navSearchInput">
-			{ this.props.userSignedIn ? <p>Welcome, {this.props.memberInfo.firstName} {this.props.memberInfo.lastName} </p> : null }
+		{ this.props.userSignedIn ? 
+			<div id="nav-bar-user-name">
+				Welcome, {this.props.memberInfo.firstName} {this.props.memberInfo.lastName} 
+			</div>
+		: null }
+
+		<div id="nav-search-div" onFocus={this.navBarSearchFieldFocused.bind(this)} ref={(navBarSearchDiv) => { this.navBarSearchDiv = navBarSearchDiv } } >
 			<input type="text" name="searchbox" placeholder="Search Here" />
-			<span className="searchButton"><button>Search</button></span>
+			<button id="search-button">Search</button>
 		</div>
 
-		<div className="navEnvelope">
-			<FontAwesome className="envelope" name="envelope" size="2x"
-			 style={{ position: "absolute", color: "yellow", right: "35px", top: "25px" }}/>
+		<div id="nav-bar-envelope">
+			<FontAwesome name="envelope" size="2x"
+			 style={{ position: "absolute", color: "yellow", right: "1.8%", top: "5%" }}/>
 		</div>
 
-		<div className="navShoppingCartDiv" onClick={this.navCartClicked.bind(this)} >
-			<FontAwesome className="shoppingCart" name="shopping-cart" size="3x"
-			 style={{ position: "absolute", color: "#DEB887", float:"right", right: "4.3%", top: "9.4%" }}/>
-			 <span id="navCartName" >Cart</span>
+		<div id="nav-bar-customer-service">
+			Customer Service 
+		</div>
+
+		<div id="nav-bar-feedback">
+			Feedback
+		</div>
+
+		<div id="navShoppingCartDiv" onClick={this.navCartClicked.bind(this)} >
+			<FontAwesome name="shopping-cart" size="3x"
+			 style={{ position: "absolute", color: "#DEB887", right: "1.5%", top: "58%" }}/>
 			 { memberCart.length > 0 ? <div id="cartCount">{memberCart.length}</div> : null }
 		</div>
 
@@ -148,12 +139,6 @@ class NavBar extends React.Component {
 		<div className='nav-my-account-button show'>
 			<button onClick={this.myAccountButtonClicked.bind(this)} >My Account</button><span><button id="navBarSignout" onClick={this.signOutClicked.bind(this)} >Sign Out</button></span>
 		</div> : null }
-
-		<div className="nav-favorites hidden">
-			<FontAwesome className="heart" name="heart" size="lg"
-			 style={{ position: "absolute", color: "red", right: "85px", top: "1px" }}/>
-			Favorites
-		</div>
 		
 		{this.props.userSignedIn ? 
 		 null :
@@ -163,18 +148,6 @@ class NavBar extends React.Component {
 		</div>
 		}
 
-		<div className="navCustomerService">
-			Customer Service 
-		</div>
-
-		<div className="navMembership">
-			Membership
-		</div>
-
-		<div className="navFeedback">
-			Feedback
-		</div>
-
 		
 	</div>
 		)
@@ -182,3 +155,10 @@ class NavBar extends React.Component {
 }
 
 export default withRouter(NavBar)
+
+// <div className="nav-favorites hidden">
+// 			<FontAwesome className="heart" name="heart" size="lg"
+// 			 style={{ position: "absolute", color: "red", right: "0", top: "0" }}/>
+// 			Favorites
+// </div>
+

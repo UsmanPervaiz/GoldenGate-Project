@@ -157,7 +157,7 @@ export default class Cart extends React.Component {
 		// } 
 		
 		return (
-		<div>
+		
 			<div id={this.state.showCartPage}>
 				<div id="cartPageLogoDiv">
 			  		<div id="cartPageHeading" >
@@ -166,7 +166,8 @@ export default class Cart extends React.Component {
 		
 			  		<div id={this.state.cartPageAskSignIn}>
 			  			Have an account? Sign in and save time.
-			  		<span id="cartpageSigninButtonSpan"><button id="cartPageSignInButton" onClick={()=> this.props.navBarSignInClicked()}  >Sign In</button></span></div>
+			  			<span id="cartpageSigninButtonSpan"><button id="cartPageSignInButton" onClick={()=> this.props.navBarSignInClicked()}  >Sign In</button></span>
+			  		</div>
 			  
 			  		<div id={this.state.itemsInCartDiv}>
 			  			{memberCart.length} {cartArrayItem}
@@ -176,8 +177,35 @@ export default class Cart extends React.Component {
 			  			YOUR CART IS EMPTY...
 			  		</div>
 			  	</div>
-			  		
 
+			  	<div id={this.state.divOrderSummary} >
+			  		<div id="orderSummaryH4">
+			  			<h4 id="orderSummaryText" >ORDER SUMMARY</h4>
+			  		</div>
+
+			  		<div id="merchandiseDiv" >
+			  			<div>Marchandise:<span>{this.props.memberOrder.subtotal || this.props.temporaryCartTotal.subTotal}</span></div>
+			  		</div>
+
+			  		<div id="cartTaxDiv">
+			  			<div>Tax:<span>{this.props.memberOrder.tax || this.props.temporaryCartTotal.tax}</span></div>
+			  		</div>
+
+			  		<div id="estimatedShippingDiv">
+			  			<div>Estimated Shipping:<span>{this.props.memberOrder.shipping || this.props.temporaryCartTotal.shipping}</span></div>	
+			  		</div>
+
+			  		<div id="cartSubtotalDiv">
+			  			<div>SUB TOTAL:<span>{this.props.memberOrder.total || this.props.temporaryCartTotal.total}</span></div>
+			  		</div>
+
+			  		<div id="checkoutButtonDiv">
+			  			<button onClick={this.checkoutButtonClicked.bind(this)} >PROCEED TO CHECKOUT</button>
+			  		</div>
+
+			  	</div>
+			  		
+			  	<div id="cart-product-list-div">
 			  		{ memberCart.length ? memberCart.map( (product, i) => { 
 			  			let productQuantity = Object.keys(product)[0]
 			  			let productDetails = Object.values(product)[0]
@@ -235,37 +263,13 @@ export default class Cart extends React.Component {
 
 			  		 }): null }
 			  		
-
-			  	<div id={this.state.divOrderSummary} >
-			  		<div id="orderSummaryH4">
-			  			<h4 id="orderSummaryText" >ORDER SUMMARY</h4>
-			  		</div>
-
-			  		<div id="merchandiseDiv" >
-			  			<div>Marchandise:<span>{this.props.memberOrder.subtotal || this.props.temporaryCartTotal.subTotal}</span></div>
-			  		</div>
-
-			  		<div id="cartTaxDiv">
-			  			<div>Tax:<span>{this.props.memberOrder.tax || this.props.temporaryCartTotal.tax}</span></div>
-			  		</div>
-
-			  		<div id="estimatedShippingDiv">
-			  			<div>Estimated Shipping:<span>{this.props.memberOrder.shipping || this.props.temporaryCartTotal.shipping}</span></div>	
-			  		</div>
-
-			  		<div id="cartSubtotalDiv">
-			  			<div>SUB TOTAL:<span>{this.props.memberOrder.total || this.props.temporaryCartTotal.total}</span></div>
-			  		</div>
-
-			  		<div id="checkoutButtonDiv">
-			  			<button onClick={this.checkoutButtonClicked.bind(this)} >PROCEED TO CHECKOUT</button>
-			  		</div>
-
 			  	</div>
+
+			  	
 			
 			</div>
 		
-		</div>
+	
 
 			)
 	}

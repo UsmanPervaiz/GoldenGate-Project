@@ -96,7 +96,7 @@ export default function ForgotPassword(props) {
 				<div className="forgot-password-modal-body" >
 					<form onSubmit={(e)=>forgotPasswordContinueButtonClicked(e, forgotPasswordModalEmailContent, forgotPasswordModalSecurityQuestionsContent)}>
 						<label onClick={() => inputFieldLabelClicked(forgotPasswordInputFieldLabel, forgotPasswordInputField)} ref={(label) => {forgotPasswordInputFieldLabel = label} }  for="forgot-password-enter-email-field" className="forgot-password-enter-email-field-label" >Email</label>
-						<input type="email" required ref={(input) => { forgotPasswordInputField = input }} onFocus={()=> inputFieldFosuced(forgotPasswordInputFieldLabel)} onChange={(e) => props.forgotPasswordEmailChange(e)} name="forgot-password-enter-email-field" className="forgot-password-enter-email-field" />
+						<input type="email" autoComplete="off" required ref={(input) => { forgotPasswordInputField = input }} onFocus={()=> inputFieldFosuced(forgotPasswordInputFieldLabel)} onChange={(e) => props.forgotPasswordEmailChange(e)} name="forgot-password-enter-email-field" className="forgot-password-enter-email-field" />
 						{props.forgotPasswordInvalidEmail ? 
 							<div id="forgot-password-invalid-email-error">
 								No account found with this email!
@@ -116,7 +116,7 @@ export default function ForgotPassword(props) {
 							</p>
 							<form>
 							<label for="forgot-password-security-question-answer" ref={(label)=> forgotPasswordSecurityAnswerInputFieldLabel = label} className="forgot-password-security-question-answer-label" onClick={() => inputFieldLabelClicked(forgotPasswordSecurityAnswerInputFieldLabel, forgotPasswordSecurityAnswerInputField)} >Answer</label>
-							<input type="text" required name="forgot-password-security-question-answer" ref={(input)=> forgotPasswordSecurityAnswerInputField = input } className="forgot-password-security-question-answer-input-field" onFocus={()=> inputFieldFosuced(forgotPasswordSecurityAnswerInputFieldLabel)} onChange={(e)=> memberInputtingSecurityQuestionAnswer(e)} />
+							<input type="text" autoComplete="off" required name="forgot-password-security-question-answer" ref={(input)=> forgotPasswordSecurityAnswerInputField = input } className="forgot-password-security-question-answer-input-field" onFocus={()=> inputFieldFosuced(forgotPasswordSecurityAnswerInputFieldLabel)} onChange={(e)=> memberInputtingSecurityQuestionAnswer(e)} />
 							{props.forgotPasswordInvalidAnswer ? 
 								<div id="forgot-password-invalid-answer-div">
 									Wrong Answer!
@@ -134,7 +134,7 @@ export default function ForgotPassword(props) {
 						New Password
 					</p>
 					<label for="forgot-password-new-password-input-filed" ref={(label)=> forgotPasswordNewPasswordInputFieldLabel = label} className="forgot-password-security-question-answer-label" onClick={() => inputFieldLabelClicked(forgotPasswordNewPasswordInputFieldLabel, forgotPasswordNewPasswordInputField)} >Password</label>
-					<input type="text" name="forgot-password-new-password-input-filed" ref={(input)=> forgotPasswordNewPasswordInputField = input} className="forgot-password-security-question-answer-input-field" onFocus={()=> inputFieldFosuced(forgotPasswordNewPasswordInputFieldLabel)} onChange={(e)=> props.memberEnteringNewPassword(e)} />
+					<input type="text" autoComplete="off" name="forgot-password-new-password-input-filed" ref={(input)=> forgotPasswordNewPasswordInputField = input} className="forgot-password-security-question-answer-input-field" onFocus={()=> inputFieldFosuced(forgotPasswordNewPasswordInputFieldLabel)} onChange={(e)=> props.memberEnteringNewPassword(e)} />
 					<span id="forgot-password-modal-security-question-next-button" onClick={(e)=> memberWantsToSubmitNewPassword(e)} ></span>
 				</div>
 			</div>

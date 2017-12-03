@@ -13,8 +13,10 @@ createAccountErrorModalCloseClicked() {
 }
 
 	render() {
+		console.log("PROPSSSSS", Object.values(this.props.createAccountErrorResponseData.error))
 		var accountErrors = []
 		Object.values(this.props.createAccountErrorResponseData.error).map(function(errorArray) {
+			console.log("ERRRORS", typeof errorArray)
 				errorArray.forEach(function(error) {
 					accountErrors.push(error)
 				})

@@ -1,207 +1,122 @@
 
 
-/*#navbardiv {
+#navbardiv {
 
-}*/
-
-.NavBar {
-	height: 110px;
+	position: fixed;
+	width: 100%;
+	height: 12%;
 	background-color: #800000;
-	/*color: #ffffff;*/
 	list-style: none;
 	padding: 20px 0 20px 0;
 	overflow: hidden;
-	
+	box-sizing: border-box;
+	z-index: 10;
 }
 
-.NavBar li {
-	display: inline-block;
-	padding-right: 50px;
-
-}
-
-.NavBar li a {
-	text-decoration: none;
-	color: #ffffff;
-	
-}
-
-.NavBar li a:hover {
-	color: #c1c1c1;
-	
-}
-
-.navSearchInput {
-	position: absolute;
-	float: left;
-	top: 60px;
-	left: 260px;
-	
-}
-
-.navSearchInput p {
-	position: relative;
-	top: -50px;
-	color: white;
-}
-
-.navSearchInput input {
-	height: 40px;
-	width: 500px;
-	float: left;
-	font-size: 1.5em;
-	border-radius: 6px;
-	border: none;
-	outline: 0;
-	text-indent: 1em;
-	
-}
-
-.searchButton {
-	width: 50px;
-	float: right;
-	
-}
-
-.searchButton button {
-	float: right;
-	position: relative;
-	width: 120%;
-	height: 40px;
-	left: 0%;
-	font-size: 16px;
-	border: none;
-	border-top-right-radius: 6px;
-	border-bottom-right-radius: 6px;
-	outline: 0;
-	background-color: #696969;
-	
-}
-
-.navBrandNameLogo a:nth-child(1) {
+#nav-bar-company-logo a:nth-child(1) {
 	position: absolute;
 	color: orange;
 	top: 3%;
-	font-size: 2.5em;
+	font-size: 3vw;
 	font-weight: bold;
-	left: 10px;
+	left: 1%;
 	text-decoration: none;
 	font-family: fantasy;
 	
 }
 
-.navBrandNameLogo a:nth-child(2) {
+#nav-bar-company-logo a:nth-child(2) {
 	position: absolute;
-	top: 8%;
-	font-size: 12px;
+	top: 55%;
+	font-size: 0.75vw;
 	color: white;
-	left: 110px;
+	left: 10%;
 	font-family: arial, sans-serif;
 	
 }
 
-.navDepartments {
+#electronic-div {
 	position: absolute;
-	top: 12%;
-	left: 1%;
-
-}
-
-.navDepartments ul {
-	position: relative;
-	list-style: none;
-	/*line-height: 0px;*/
-	
-}
-
-#department {
-	position: relative;
-	top: -15px;
-	box-shadow: 0 0 60px red, 0 0 60px red;
+	height: 20%;
+	width: 6%;
+	top: 72%;
+	left: 2%;
 	color: white;
-}
-
-.navDepartments ul li {
-	width: 140%;
-	height: 30px;
-	background-color: #696969;
-	border-radius: 10px;
-	border: 2px solid red;
+	font-size: 1.2vw;
 	text-align: center;
-	line-height: 30px;
-	position: relative;
-}
-
-.navDepartments ul li:hover > ul {
-	/* by mentioning ">" we are selecting only the child of the <li> we hover upon.
-	if we do not mention ">", all <ul>s following "ul li:hover" will be selected.*/
-	display: block;
+	padding-left: 0.5%;
+	padding-right: 0.5%;
+	background-color: orange;
+	border: 2px solid yellow;
+	box-shadow: 0 0 60px orange;
+	overflow: auto;
 
 }
 
-.navDepartments ul li ul {
-	top: 6%;
-	left: -3%;
+#electronic-div:hover {
+	cursor: pointer;
+	height: 19.7%;
+	width: 5.8%;
 }
 
-
-.navDepartments ul ul {
-	/* here we are hiding all <ul>s that are children of ".navDepartments ul"*/
-	display: none;
-	
-}
-
-
-.navDepartments ul ul li:hover {
-	/* if we define ".navDepartments > ul > li:hover", it will then only select
-	the direct <ul> children of ".navDepartments", and not all <ul>*/
-	background-color: yellow;
-}
-
-.navDepartments ul ul li {
-	/* here we are selecting all the <ul>s that are children of ".navDepartments ul ul"*/
-	width: 105%;
-	background-color: red;
-	border: 2px solid black;
-	
-}
-
-.navDepartments ul ul li:nth-child(1) ul {
-	/* here we are selecting all the <ul>s that are children of ".navDepartments ul ul"*/
-	top: 0%;
-	margin-left: 104%;
-	width: 100%; 
+#nav-bar-user-name {
 	position: absolute;
-}
-
-.navDepartments ul ul li:nth-child(2) ul {
-	/* here we are selecting all the <ul>s that are children of ".navDepartments ul ul"*/
-	top: 0%;
-	width: 100%;	
-	margin-left: 104%;
-	position: absolute;
-}
-
-/*.navShoppingCartDiv {
-	display: inline-block
-}*/
-
-#navCartName {
-	position: absolute;
-	top: 10.2%;
+	top: 20%;
+	left: 20%;
 	color: white;
-	right: 1%;
-	font-size: 24px;
-	font-family: Ariel;
+	font-size: 1vw;
+}
+
+#nav-search-div {
+	position: absolute;
+	height: 35%;
+	width: 15%;
+	top: 50%;
+	left: 20%;
+	transition: all 1s;
+	box-sizing: border-box;
+	border: 2px solid black;
+	overflow: hidden;
+}
+
+#nav-search-div input {
+	height: 100%;
+	width: 100%;
+	text-indent: 5%;
+	border: none;
+	outline: 0;
+	font-size: 1vw;
+}
+
+#search-button {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	width: 23%;
+	top: 0;
+	font-size: 0.8vw;
+	outline: 0;
+	text-align: center;
+	background-color: #696969;
+	padding-left: 2%;
+	padding-right: 2%;
+	overflow: auto;
+}
+
+#search-button:hover {
+	cursor: pointer;
+}
+
+#nav-bar-envelope:hover {
+	cursor: pointer;
 }
 
 #cartCount {
 	position: absolute;
-	right: 0.2%;
-	margin-right: 4.6%;
-	top: 8.5%;
+	right: 1.9%;
+	top: 45%;
 	color: black;
-	font-size: 20px;
+	font-size: 1.4vw;
 	text-align: center;
 	border-radius: 50%;
 	min-width: 23px;
@@ -209,8 +124,67 @@
 	color: white;
 }
 
-#cartCount button {
 
+
+#navShoppingCartDiv:hover {
+	cursor: pointer;
+
+}
+
+#nav-bar-customer-service {
+	position: absolute;
+	right: 5%;
+	top: 8%;
+	color: white;
+	font-size: 1.1vw;
+	
+}
+
+#nav-bar-feedback {
+	position: absolute;
+	right: 14%;
+	top: 8%;
+	color: white;
+	font-size: 1.1vw;
+	
+}
+
+#navBarSignout {
+	position: absolute;
+	top: 69%;
+	right: 6%;
+	width: 4.2%;
+	height: 26%;
+	font-size: 0.8vw;
+	line-height: 10%;
+	color: white;
+	background-color: red;
+	outline: none;
+}
+
+#navBarSignout:hover {
+	cursor: pointer;
+	width: 4%;
+	height: 25.3%;
+}
+
+.nav-my-account-button.show button {
+	position: absolute;
+	top: 69%;
+	right: 11%;
+	width: 6%;
+	height: 26%;
+	color: black;
+	font-size: 0.8vw;
+	background-color: red;
+	line-height: 30px;
+	outline: none;
+}
+
+.nav-my-account-button.show button:hover {
+	cursor: pointer;
+	width: 5.7%;
+	height: 25.3%;
 }
 
 .navSignIn.hidden {
@@ -219,44 +193,42 @@
 
 .navSignIn.show button:nth-child(1) {
 	position: absolute;
-	display: inline-block;
-	top: 11.1%;
-	right: 15%;
-	width: 5.5%;
-	height: 27px;
-	border: none;
-	background-color: #696969;
-	border-radius: 4px;
+	top: 69%;
+	right: 6%;
+	width: 4.2%;
+	height: 26%;
+	font-size: 0.8vw;
+	line-height: 10%;
+	color: black;
+	background-color: red;
 	outline: none;
-	font-size: 17px;
-	color: white;
-	overflow: auto;
+}
+
+.navSignIn.show button:nth-child(1):hover {
+	cursor: pointer;
+	width: 4%;
+	height: 25.3%;
 }
 
 .navSignIn.show button:nth-child(2) {
 	position: absolute;
-	display: inline-block;
-	top: 11.1%;
-	font-size: 17px;
-	right: 8.5%;
-	width: 5.5%;
-	height: 27px;
-	border: none;
-	background-color: #696969;
-	border-radius: 4px;
+	top: 69%;
+	right: 11%;
+	width: 6%;
+	height: 26%;
+	font-size: 0.8vw;
+	line-height: 30px;
+	color: black;
+	background-color: white;
 	outline: none;
-	padding-left: 2px;
-	color: white;
 }
 
-.navCustomerService {
-	position: absolute;
-	right: 85px;
-	top: 30px;
-	color: white;
-	font-size: 18px;
-	
+.navSignIn.show button:nth-child(2):hover {
+	cursor: pointer;
+	width: 5.7%;
+	height: 25.3%;
 }
+
 
 .navMembership {
 	position: absolute;
@@ -267,50 +239,11 @@
 	
 }
 
-.navFeedback {
-	position: absolute;
-	right: 390px;
-	top: 30px;
-	color: white;
-	font-size: 18px;
-	
-}
-
-.nav-my-account-button.show button {
-	position: absolute;
-	margin-top: -.6%;
-	right: 11.5%;
-	width: 9%;
-	height: 34px;
-	top: 11.5%;
-	color: black;
-	font-size: 18px;
-	background-color: red;
-	border-radius: 10px;
-	border: 2px solid red;
-	line-height: 30px;
-	
-}
-
-#navBarSignout {
-	background-color: white;
-	position: absolute;
-	right: 8%;
-	width: 3%;
-	height: 3%;
-	font-size: 8px;
-	border-radius: 10px;
-	line-height: 10%;
-	color: red;
-	top: 11.7%;
-
-}
-
 .nav-my-account-button.hidden {
 	display: none;
 }
 
-.nav-favorites {
+/*.nav-favorites {
 	position: absolute;
 	right: 320px;
 	top: 120px;
@@ -328,4 +261,4 @@
 	height: 30px;
 	background-color:  orange;
 
-}
+}*/

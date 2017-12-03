@@ -50,9 +50,10 @@
 
 #add-new-address-wrapper {
 	position: absolute;
+	padding-top: 2%;
 	min-width: 100%;
 	min-height: 100%;
-	z-index: 1;   /* sit on top of other divs */
+	z-index: 20;   /* sit on top of other divs */
 	background-color: rgba(0,0,0,.9); /* you must define background color with opacity for the wrapper div, so other divs inside the wrapper are not affected by opacity and will have full opacity. */
 	/* opacity: .5; if we define opacity separately, it will affect all child divs inside the wrapper, but we do not want that and that is why we set opacity on the background color of the wrapper div, and not on the wrapper div itself. */
 	overflow: auto;

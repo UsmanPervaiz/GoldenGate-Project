@@ -589,8 +589,8 @@ export default class Register extends React.Component{ c
 					</div>
 
 					<div id="signinBirthdayMonthDiv">
-						<select name="month" id="signinBirthdayMonthSelect" onChange={this.birthdayMonthChange.bind(this)} style={{width: "180px", height: "45px"}}>
-							<option value="" disabled selected>Month</option>
+						<select name="month" id="signinBirthdayMonthSelect" onChange={this.birthdayMonthChange.bind(this)} style={{width: "25%"}}>
+							<option value="" disabled selected >Month</option>
 							<option value="01">January</option>
 							<option value="02">February</option>
 							<option value="03">March</option>
@@ -605,7 +605,7 @@ export default class Register extends React.Component{ c
 							<option value="12">December</option>
 						</select>
 
-						<span><select name="day" id="signinBirthdayDaySelect"  onChange={this.birthdayDayChange.bind(this)} style={{width: "180px", height: "45px"}}>
+						<span><select name="day" id="signinBirthdayDaySelect"  onChange={this.birthdayDayChange.bind(this)} style={{width: "25%"}}>
 							<option value="" disabled selected>Day</option>
 							{Array.from(new Array(32), (x, index) => { 
 								if(index !== 0) {
@@ -619,7 +619,7 @@ export default class Register extends React.Component{ c
 							}	
 						</select></span>
 
-						<span><select name="year" id="signinBirthdayYearSelect"  onChange={this.birthdayYearChange.bind(this)} style={{width: "180px", height: "45px"}}>
+						<span><select name="year" id="signinBirthdayYearSelect"  onChange={this.birthdayYearChange.bind(this)} style={{width: "25%"}}>
 							<option value="" disabled selected>Year</option>
 							{ numbers.map((number) => <option value={number}>{number}</option> ) }
 						</select></span>

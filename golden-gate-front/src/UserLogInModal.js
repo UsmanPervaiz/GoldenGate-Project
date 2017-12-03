@@ -1,5 +1,6 @@
 import React from "react";
 import FontAwesome from "react-fontawesome";
+import { Link } from 'react-router-dom'
 import "./UserLogInModal.css";
 
 
@@ -42,6 +43,12 @@ export default class UserLogInModal extends React.Component {
 		this.props.signinOnPasswordChange(e, signInPasswordField)
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if(window.location.pathname === "/forgotpassword") {
+			this.props.navBarSigninCloseClicked()
+		}
+	}
+
 	render() {
 		return(
 			<div id="user-sign-in-modal-wrapper" className="user-sign-in-modal-wrapper" ref="user-sign-in-modal-wrapper" onClick={this.navBarSigninCloseClicked.bind(this)} >
@@ -67,7 +74,7 @@ export default class UserLogInModal extends React.Component {
 						<input type="password" placeholder="Password" className="sign-in-modal-input-field" required ref="sign-in-password-field" onChange={this.signinOnPasswordChange.bind(this)}/>
 						<label htmlFor="sign-in-modal-checkbox" className="keep-me-signed-in-checkbox-label" >Keep me signed in</label>
 						<input type="checkbox" id="sign-in-modal-checkbox" onChange={(e)=>this.props.keepMeSignedInClicked(e)} />
-						<a href="#" id="forgot-password" >Forgot your password?</a>
+						<Link to="/forgotpassword" style={{display: "block", marginLeft: "8%", paddingTop: "2%" }} >Forgot your password?</Link>
 						<button type="submit" className="sign-in-modal-submit-button" ></button>
 					</form>
 				</div>

@@ -1,7 +1,11 @@
-
+#my-account-wrapper {
+	position: relative;
+	top: 12%;
+	height: 100%;
+}
 
 #account-container {
-	position: absolute;
+	
 	background-color: #DEB887;
 	overflow: auto;
 	min-width: 100%;
@@ -283,7 +287,7 @@
 }
 
 #saved-user-addresses-container {
-	position: absolute;
+	position: relative;
 	margin: 0 auto;
 	width: 800px;
 	min-height: 100px;
