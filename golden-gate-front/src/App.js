@@ -19,6 +19,8 @@ import AccountCreatedMessageModal from "./AccountCreatedMessageModal.js";
 import ForgotPassword from "./ForgotPassword.js";
 import {withRouter} from "react-router";
 
+var copyOfAllElectronics = null;
+
 class App extends React.Component {
 
 	constructor(props) {
@@ -62,57 +64,6 @@ class App extends React.Component {
 			}
 
 		}
-
-	memberEnteringDataInSearchField(e) {
-		this.setState({
-			memberSearchWord: e.target.value.trim().toLowerCase()
-		},()=> console.log(this.state.memberSearchWord))
-	} 
-
-	memberWantsToSubmitSearch() {
-		console.log("search")
-		let memberCart = this.state.memberCart || this.state.temporaryCart
-		axios.get("http://localhost:3000/api/v1/products")
-		.then((resp)=> {
-
-			if(memberCart.length >= 1 ) {
-
-				resp.data.forEach(function(item,i) {					
-					memberCart.forEach(function(prodObj) {
-						for(let key in prodObj) {
-							if(prodObj[key].id === item.id) {
-								item.style = {opacity: "0.5"}
-							} 
-						}
-					})
-				}.bind(this))
-					this.setState({
-						electronics: resp.data
-					})
-			} else {
-				this.setState({
-					electronics: resp.data
-				})
-			}
-				
-		})
-		.then(()=> {
-			let memberSearchResults = [];
-			let that = this
-			this.state.electronics.forEach(function(product) {
-				console.log(product.name)
-				if(product.name.toLowerCase().includes(that.state.memberSearchWord)) {
-					console.log(product)
-					memberSearchResults.push(product)
-				}
-			})
-			this.setState({
-				electronics: memberSearchResults
-			}, () => this.props.history.push("/electronics"))
-		})
-		.catch((error)=> console.log(error))
-
-	}
 
 
 
@@ -542,37 +493,6 @@ class App extends React.Component {
 		}
 	}
 
-	electronicsClicked(e) {	
-		let memberCart = this.state.memberCart || this.state.temporaryCart
-		axios.get("http://localhost:3000/api/v1/products")
-		.then((resp)=> {
-
-			if(memberCart.length >= 1 ) {
-
-				resp.data.forEach(function(item,i) {					
-					memberCart.forEach(function(prodObj) {
-						for(let key in prodObj) {
-							if(prodObj[key].id === item.id) {
-								item.style = {opacity: "0.5"}
-							} 
-						}
-					})
-				}.bind(this))
-					this.setState({
-						electronics: resp.data
-					},()=> console.log("ELECTRONICS", this.state.electronics))
-			} else {
-				this.setState({
-					electronics: resp.data
-				})
-			}
-				
-		})
-		.then(()=> this.props.history.push("/electronics"))
-		.catch((error)=> console.log(error))
-			
-	}
-
 	isUserSignedIn() {
 		let checkThisToken = null
 		let localStorageToken = localStorage.getItem("token")
@@ -734,6 +654,100 @@ class App extends React.Component {
 		)
 	}
 
+	electronicsClicked(e) {	
+		this.setState({
+			electronics: copyOfAllElectronics
+		},() => this.props.history.push("/electronics"))		
+	}
+
+	memberEnteringDataInSearchField(e) {
+		this.setState({
+			memberSearchWord: e.target.value.trim().toLowerCase()
+		},()=> console.log(this.state.memberSearchWord))
+	} 
+
+	memberWantsToSubmitSearch() {
+		let memberSearchResults = [];
+			let that = this
+			copyOfAllElectronics.forEach(function(product) {
+				if(product.name.toLowerCase().includes(that.state.memberSearchWord)) {
+					memberSearchResults.push(product)
+				}
+			})
+			this.setState({
+				electronics: memberSearchResults
+			}, () => this.props.history.push("/electronics"))
+	}
+
+	getElectronicsFromServerAndCheckIfAlreadyInCart() {
+		axios.get("http://localhost:3000/api/v1/products")
+		.then((resp)=> {
+			let memberCart = this.state.memberCart || this.state.temporaryCart
+			if(memberCart.length >= 1 ) {
+
+				resp.data.forEach(function(item,i) {					
+					memberCart.forEach(function(prodObj) {
+						for(let key in prodObj) {
+							if(prodObj[key].id === item.id) {
+								item.style = {opacity: "0.5"}
+							} 
+						}
+					})
+				}.bind(this))
+				this.setState({
+					electronics: resp.data
+				},()=> copyOfAllElectronics = this.state.electronics)
+			} else {
+				this.setState({
+					electronics: resp.data
+				},()=> copyOfAllElectronics = this.state.electronics)
+			}
+				
+		})
+	}
+
+	componentDidMount() {
+		console.log("APP DID MOUNT", this.state)
+
+
+
+		// let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
+		let useThisToken = localStorage.getItem("token")
+	
+		if(useThisToken) {
+			axios.get("http://localhost:3000/api/v1/carts/show", {
+				headers: { token: useThisToken }
+			}).then((resp)=>  { 
+					let modifiedMemberAddresses = resp.data.addresses
+					modifiedMemberAddresses.forEach((address) => {
+						address.userWantsToDelete = false
+					})
+					this.setState({
+						memberCart: resp.data.currentOrderDetails,
+						memberOrder: resp.data.order,
+						userSignedIn: true,
+						memberInfo: resp.data.memberInfo,
+						memberAddresses: modifiedMemberAddresses
+			    	})
+		   	})
+			.catch((error)=> console.log(error.response))
+			.then(()=> this.getElectronicsFromServerAndCheckIfAlreadyInCart() )
+		} else {
+			this.setState({
+				userSignedIn: false
+			},()=> this.getElectronicsFromServerAndCheckIfAlreadyInCart() )
+		}
+		if (localStorage.temporaryCart){
+			let getTemporaryCart = JSON.parse(localStorage.temporaryCart)
+			this.setState({
+				temporaryCart: getTemporaryCart
+			}, () => this.temporaryCartTotal())
+		}
+		setTimeout(()=> this.setState({
+			showLoadingSymbol: "hide-loading-symbol"
+		}), 1000)
+	}
+
 	shouldComponentUpdate(nextProp, nextState){
 		console.log("NEXTSTATE", nextState)
 		if(nextState.securityQuestionAnswer || nextState.forgotPasswordEmail) {
@@ -749,7 +763,6 @@ class App extends React.Component {
 
 	}
 
-
 	componentWillReceiveProps(nextProps) {
 		// This life-cycle method is skppied on "this.setState" and that is the reason why the loading symbol is not seen when updating the sign-in input fields
 		console.log("APPWillReceiveProps", nextProps)
@@ -761,13 +774,14 @@ class App extends React.Component {
 			if(useThisToken) {
 				axios.get("http://localhost:3000/api/v1/carts/show", {
 					headers: { token: useThisToken }
-				}).then((resp)=> {
+				})
+				.then((resp)=> {
 						let modifiedMemberAddresses = resp.data.addresses
 						modifiedMemberAddresses.forEach((address) => {
 						address.userWantsToDelete = false
 						})
 						this.setState({
-							userSignedIn: true,
+							// userSignedIn: true,
 							memberCart: resp.data.currentOrderDetails,
 							memberOrder: resp.data.order,
 							memberInfo: resp.data.memberInfo,
@@ -800,44 +814,6 @@ class App extends React.Component {
 			}), 1000)
 		}
 	}
-
-	componentDidMount() {
-		console.log("APP DID MOUNT", this.state)
-		let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
-	
-		if(useThisToken) {
-			axios.get("http://localhost:3000/api/v1/carts/show", {
-				headers: { token: useThisToken }
-			}).then((resp)=>  { 
-					let modifiedMemberAddresses = resp.data.addresses
-					modifiedMemberAddresses.forEach((address) => {
-						address.userWantsToDelete = false
-					})
-					this.setState({
-						memberCart: resp.data.currentOrderDetails,
-						memberOrder: resp.data.order,
-						userSignedIn: true,
-						memberInfo: resp.data.memberInfo,
-						memberAddresses: modifiedMemberAddresses
-			    	})
-		   	})
-			.catch((error)=> console.log(error.response))
-		} else {
-			this.setState({
-				userSignedIn: false
-			})
-		}
-		if (localStorage.temporaryCart){
-			let getTemporaryCart = JSON.parse(localStorage.temporaryCart)
-			this.setState({
-				temporaryCart: getTemporaryCart
-			}, () => this.temporaryCartTotal())
-		}
-		setTimeout(()=> this.setState({
-			showLoadingSymbol: "hide-loading-symbol"
-		}), 1000)
-	}
-
 
 	render () {
 	

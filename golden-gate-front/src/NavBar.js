@@ -84,6 +84,12 @@ class NavBar extends React.Component {
 		this.navBarSearchDiv.style.width = "45%";
 	}
 
+	pressedEnterInSearchField(event) {
+		if(event.keyCode === 13) {
+			this.searchButton.click()
+		}
+	}
+
   render() {
 
   let memberCart = null
@@ -112,8 +118,8 @@ class NavBar extends React.Component {
 		: null }
 
 		<div id="nav-search-div" onFocus={this.navBarSearchFieldFocused.bind(this)} ref={(navBarSearchDiv) => { this.navBarSearchDiv = navBarSearchDiv } } >
-			<input type="text" name="searchbox" placeholder="Search Here" onChange={(e)=>this.props.memberEnteringDataInSearchField(e)} />
-			<button id="search-button" onClick={()=>this.props.memberWantsToSubmitSearch()} >Search</button>
+			<input type="text" name="searchbox" placeholder="Search Here" onChange={(e)=>this.props.memberEnteringDataInSearchField(e)} onKeyDown={this.pressedEnterInSearchField.bind(this)} />
+			<button id="search-button" onClick={()=>this.props.memberWantsToSubmitSearch()} ref={(searchButton) => {this.searchButton = searchButton}} >Search</button>
 		</div>
 
 		<div id="nav-bar-envelope">
