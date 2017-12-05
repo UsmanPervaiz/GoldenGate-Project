@@ -305,33 +305,26 @@ class App extends React.Component {
 	}
 
 	addToCartClicked(product, productQuantity, divForUpdatedItem, updateButtonforItem) {
-		let updatedElectronics = this.state.electronics
-		updatedElectronics.forEach(function(electronicProduct) {
-			if(electronicProduct === product) {
-				electronicProduct.style = {opacity: 0.5}
-			}
-		})
+		// let updatedElectronics = JSON.parse(JSON.stringify(this.state.electronics))
+		// updatedElectronics.forEach(function(electronicProduct) {
+		// 	if(electronicProduct.id === product.id) {
+		// 		electronicProduct.style = {opacity: 0.5}
+		// 	}
+		// })
 		if(this.state.userSignedIn) {
 			if(this.state.memberCart.length === 0) {
-		  		let token = localStorage.getItem("token")
-		  		if(!token) {
-		  			token = sessionStorage.getItem("token")
-		  		}
+		  		let token = localStorage.getItem("token") || sessionStorage.getItem("token")
 		  		axios.post('http://localhost:3000/api/v1/order_details', {
-						
 							product_id: product.id,
 							token: token,
-							quantity: productQuantity
-					
+							quantity: productQuantity				
 				}).then((resp) => { 
-
 					this.setState({
 									memberCart: resp.data.currentOrderDetails,
 									memberOrder: resp.data.order,
 									addedToCart: true,
-									electronics: updatedElectronics
+									// electronics: updatedElectronics
 					}) 
-
 				})
 				.then(() => {
 					if(this.state.temporaryCart.length) {
@@ -357,22 +350,18 @@ class App extends React.Component {
 				.catch((error)=> console.log(error))
 			
 			} else {
-				let token = localStorage.getItem("token")
-		  		if(!token) {
-		  			token = sessionStorage.getItem("token")
-		  		}
-		  		axios.put("http://localhost:3000/api/v1/order_details/500", {
+				let token = localStorage.getItem("token") || sessionStorage.getItem("token")
 
+		  		axios.put("http://localhost:3000/api/v1/order_details/500", {
 				 		product_id: product.id,
 						quantity: productQuantity,
 						token: token  
-
 				})
 				.then((resp)=> this.setState({
 					memberCart: resp.data.currentOrderDetails,
 					memberOrder: resp.data.order,
 					addedToCart: true,
-					electronics: updatedElectronics
+					// electronics: updatedElectronics
 				}) 
 				)
 				.then(() => {
@@ -427,16 +416,29 @@ class App extends React.Component {
 	    		}
 	    		localStorage.setItem("temporaryCart", JSON.stringify(temporaryCart))
 	    		this.setState({
-	    			temporaryCart: temporaryCart
-	    		}, () => this.temporaryCartTotal())
+	    			temporaryCart: temporaryCart,
+	    			// electronics: updatedElectronics
+	    		}, () => {
+	    			this.temporaryCartTotal()
+	    			console.log(copyOfAllElectronics)
+	    			this.checkIfElectronicItemIsAlreadyInCart()
+	    		})
+
+
 
 	    	} else { 	
 	    		let newTemporaryCart = []
 	    		newTemporaryCart.push({[productQuantity]: product})
 	    		localStorage.setItem("temporaryCart", JSON.stringify(newTemporaryCart))
 	    		this.setState({
-	    			temporaryCart: newTemporaryCart
-	    		}, () => this.temporaryCartTotal())
+	    			temporaryCart: newTemporaryCart,
+	    			// electronics: updatedElectronics
+	    		}, () => {
+	    			console.log(copyOfAllElectronics)
+	    			this.temporaryCartTotal()
+	    			this.checkIfElectronicItemIsAlreadyInCart()
+	    		}
+	    		)
 	    	}
 		}
 	}
@@ -453,7 +455,8 @@ class App extends React.Component {
 							memberCart: resp.data.currentOrderDetails,
 							memberOrder: resp.data.order
 						},() => {
-							this.checkIfElectronicItemIsAlreadyInCart(copyOfAllElectronics)})
+							this.resetElectronicsListAfterRemoveFromCartClicked(product)
+						})
 			
 			).catch((error)=> console.log(error))
 		} else {
@@ -471,7 +474,10 @@ class App extends React.Component {
 			localStorage.setItem("temporaryCart", JSON.stringify(temporaryCart))
 			this.setState({
 				temporaryCart: temporaryCart
-			}, () => this.temporaryCartTotal())
+			}, () => {
+				this.temporaryCartTotal()
+				this.resetElectronicsListAfterRemoveFromCartClicked(product)
+			})
 		}
 	}
 
@@ -618,7 +624,7 @@ class App extends React.Component {
 						})
 					})
 					.catch((error)=> console.log(error.response))
-					.then(()=> this.checkIfElectronicItemIsAlreadyInCart(this.state.electronics))
+					.then(()=> this.checkIfElectronicItemIsAlreadyInCart())
 					.then(()=> {
 						if(this.state.temporaryCart.length) {					
 							let singleProductObject = this.state.temporaryCart[0]
@@ -701,9 +707,10 @@ class App extends React.Component {
 	}
 
 	electronicsClicked(e) {	
-		this.setState({
-			electronics: copyOfAllElectronics
-		},() => this.props.history.push("/electronics"))		
+		// this.setState({
+		// 	electronics: copyOfAllElectronics
+		// },() => this.props.history.push("/electronics"))	
+		this.props.history.push("/electronics")	
 	}
 
 	memberEnteringDataInSearchField(e) {
@@ -727,46 +734,88 @@ class App extends React.Component {
 
 	getElectronicsFromServer() {
 		axios.get("http://localhost:3000/api/v1/products")
-		.then((resp)=> this.checkIfElectronicItemIsAlreadyInCart(resp.data))
+		.then((resp)=> {
+			this.setState({
+				electronicsCopy: resp.data,
+				electronics: resp.data
+			},()=> this.checkIfElectronicItemIsAlreadyInCart())
+		})
 	}
 
-	resetElectronicsListAfterRemoveFromCartClicked() {
-		let memberCart = this.state.memberCart || this.state.temporaryCart
-		if(memberCart.length >= 1) {
-			memberCart.forEach(function(prodObj){
-			 	copyOfAllElectronics.forEach(function(product, i){
-					
-						if(prodObj.id !== product.id && product.style) {
-							// delete 
-						}
-					
-				})
-			})
+	resetElectronicsListAfterRemoveFromCartClicked(product) {
+		// let memberCart = this.state.memberCart || this.state.temporaryCart
+		let z = JSON.parse(JSON.stringify(this.state.electronics))
+
+		for (let i = 0; i < z.length; i++) {
+			if(z[i].id === Object.values(product)[0].id) {
+				
+				delete z[i].style
+				console.log(z[i])
+				break;
+			}
 		}
+		this.setState({
+			electronics: z
+		})
 	}
 							
-	checkIfElectronicItemIsAlreadyInCart(respData) {
-			let notModifiedRespData = respData
-			let memberCart = this.state.memberCart || this.state.temporaryCart
-			if(memberCart.length >= 1 ) {
-
-				respData.forEach(function(item,i) {					
+	checkIfElectronicItemIsAlreadyInCart() {
+		console.log(this.state.electronics)
+		console.log(this.state.electronicsCopy)
+		let memberCart = this.state.memberCart || this.state.temporaryCart
+		let a = this.state.electronicsCopy.map(function(productObject) {
+					let instanceOfProductObject = JSON.parse(JSON.stringify(productObject))
 					memberCart.forEach(function(prodObj) {
 						for(let key in prodObj) {
-							if(prodObj[key].id === item.id) {
-								item.style = {opacity: "0.5"}
-							} 
+							if(instanceOfProductObject.id === prodObj[key].id ) {
+								instanceOfProductObject.style = {opacity: "0.5"}
+								console.log("MATCH",instanceOfProductObject)
+								break;
+							}
+							// else {
+							// 	console.log("oiyeeeee", instanceOfProductObject)
+							// 	delete instanceOfProductObject.style
+							// }
 						}
-					})
-				}.bind(this))
-				this.setState({
-					electronics: notModifiedRespData
-				},()=> copyOfAllElectronics = notModifiedRespData)
-			} else {
-				this.setState({
-					electronics: notModifiedRespData
-				},()=> copyOfAllElectronics = notModifiedRespData)
-			}		
+				})
+			return instanceOfProductObject
+		})
+
+		this.setState({
+			electronics: a
+		})
+		
+			// let electronicsToSave = this.state.electronics
+			// console.log(this.state.electronicsToSave)
+			// let memberCart = this.state.memberCart || this.state.temporaryCart
+			// // if(memberCart.length >= 1 ) {
+
+			// 	electronicsToSave.forEach(function(item,i) {					
+			// 		memberCart.forEach(function(prodObj) {
+			// 			for(let key in prodObj) {
+			// 				if(prodObj[key].id === item.id) {
+			// 					item.style = {opacity: "0.5"}
+			// 					console.log("MATCH", item)
+			// 				} 
+			// 				else {
+							
+			// 						console.log("NOMATCH",item.style)
+			// 						delete item.style
+
+								
+			// 				}
+			// 			}
+			// 		})
+			// 	}.bind(this))
+			// 	console.log(electronicsToSave)
+			// 	this.setState({
+			// 		electronics: electronicsToSave
+			// 	})
+			// // } else {
+			// // 	this.setState({
+			// // 		electronics: respData
+			// // 	},()=> { console.log(this.state.electronics); copyOfAllElectronics = respData})
+			// // }		
 	}
 
 	componentDidMount() {
@@ -788,10 +837,10 @@ class App extends React.Component {
 						userSignedIn: true,
 						memberInfo: resp.data.memberInfo,
 						memberAddresses: modifiedMemberAddresses
-			    	})
+			    	}, ()=> this.getElectronicsFromServer() )
 		   	})
 			.catch((error)=> console.log(error.response))
-			.then(()=> this.getElectronicsFromServer() )
+
 		} else {
 			this.setState({
 				userSignedIn: false
