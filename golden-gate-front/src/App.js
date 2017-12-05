@@ -733,12 +733,10 @@ class App extends React.Component {
 	} 
 
 	memberWantsToSubmitSearch() {
-		console.log(this.state.electronicsCopy)
 		let prom = new Promise(function(resolve, reject) {
 						this.setState({
 							electronics: JSON.parse(JSON.stringify(this.state.electronicsCopy))
 						},() => { 
-							console.log(this.state.electronicsCopy)
 							resolve("ok")
 						})
 					}.bind(this)
