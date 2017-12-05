@@ -31,6 +31,7 @@ class App extends React.Component {
 			keepUserSignedIn: false,
 			addedToCart: "",
 			electronics: [],
+			electronicsCopy: [],
 			temporaryCart: "",
 			temporaryCartTotal: "",
 			memberSearchWord: null,
@@ -447,10 +448,13 @@ class App extends React.Component {
 		if(this.state.userSignedIn) {
 			axios.delete(`http://localhost:3000/api/v1/order_details/${productToRemove}`,{
 				headers: { 'token': useThisToken }
-			}).then((resp)=> this.setState({
+			})
+			.then((resp)=> this.setState({
 							memberCart: resp.data.currentOrderDetails,
 							memberOrder: resp.data.order
-						})
+						},() => {
+							this.checkIfElectronicItemIsAlreadyInCart(copyOfAllElectronics)})
+			
 			).catch((error)=> console.log(error))
 		} else {
 			let temporaryCart = JSON.parse(localStorage.getItem("temporaryCart"))
@@ -592,11 +596,40 @@ class App extends React.Component {
 					sessionStorage.setItem("token", resp.data.token)
 				}
 			})
-			.then(()=> this.setState({
-				signinEmail: "",
-		      	signInPasswordError: "",
-				userSignedIn: true
-			}))
+			.then(()=> {
+				let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
+				if(useThisToken) {
+					axios.get("http://localhost:3000/api/v1/carts/show", {
+						headers: { token: useThisToken }
+					})
+					.then((resp) => {
+						let modifiedMemberAddresses = resp.data.addresses
+						modifiedMemberAddresses.forEach((address) => {
+							address.userWantsToDelete = false
+						})
+						this.setState({
+							signinEmail: "",
+		      				signInPasswordError: "",
+							userSignedIn: true,
+							memberCart: resp.data.currentOrderDetails,
+							memberOrder: resp.data.order,
+							memberInfo: resp.data.memberInfo,
+							memberAddresses: modifiedMemberAddresses
+						})
+					})
+					.catch((error)=> console.log(error.response))
+					.then(()=> this.checkIfElectronicItemIsAlreadyInCart(this.state.electronics))
+					.then(()=> {
+						if(this.state.temporaryCart.length) {					
+							let singleProductObject = this.state.temporaryCart[0]
+							let singleProductKey = Object.keys(singleProductObject)[0]
+							this.addToCartClicked(singleProductObject[singleProductKey], parseInt(singleProductKey))
+							localStorage.removeItem("temporaryCart")
+					    }
+				    })
+				}
+	
+			})
 			.then(()=> this.userSignedInMessageModal())
 		    .then((resp)=> this.props.history.push("/main"))
 		    .catch((error)=> { 
@@ -605,6 +638,19 @@ class App extends React.Component {
 		  		}, () => signInErrorDiv.className = "show-signin-error-div" )} 
 		  	  )
 	}
+
+				
+				
+			
+			// else {
+			// 	this.setState({
+			// 		userSignedIn: false,
+			// 		memberCart: "",
+			// 		memberOrder: {},
+			// 		memberInfo: "",
+			// 		memberAddresses: []
+			// 	})
+			// }
 
 	signInModalSubmitButtonClicked(e, signInErrorDiv, logInForm) {
 			axios.post("http://localhost:3000/api/v1/sign_in", {	
@@ -679,13 +725,32 @@ class App extends React.Component {
 			}, () => this.props.history.push("/electronics"))
 	}
 
-	getElectronicsFromServerAndCheckIfAlreadyInCart() {
+	getElectronicsFromServer() {
 		axios.get("http://localhost:3000/api/v1/products")
-		.then((resp)=> {
+		.then((resp)=> this.checkIfElectronicItemIsAlreadyInCart(resp.data))
+	}
+
+	resetElectronicsListAfterRemoveFromCartClicked() {
+		let memberCart = this.state.memberCart || this.state.temporaryCart
+		if(memberCart.length >= 1) {
+			memberCart.forEach(function(prodObj){
+			 	copyOfAllElectronics.forEach(function(product, i){
+					
+						if(prodObj.id !== product.id && product.style) {
+							// delete 
+						}
+					
+				})
+			})
+		}
+	}
+							
+	checkIfElectronicItemIsAlreadyInCart(respData) {
+			let notModifiedRespData = respData
 			let memberCart = this.state.memberCart || this.state.temporaryCart
 			if(memberCart.length >= 1 ) {
 
-				resp.data.forEach(function(item,i) {					
+				respData.forEach(function(item,i) {					
 					memberCart.forEach(function(prodObj) {
 						for(let key in prodObj) {
 							if(prodObj[key].id === item.id) {
@@ -695,24 +760,19 @@ class App extends React.Component {
 					})
 				}.bind(this))
 				this.setState({
-					electronics: resp.data
-				},()=> copyOfAllElectronics = this.state.electronics)
+					electronics: notModifiedRespData
+				},()=> copyOfAllElectronics = notModifiedRespData)
 			} else {
 				this.setState({
-					electronics: resp.data
-				},()=> copyOfAllElectronics = this.state.electronics)
-			}
-				
-		})
+					electronics: notModifiedRespData
+				},()=> copyOfAllElectronics = notModifiedRespData)
+			}		
 	}
 
 	componentDidMount() {
 		console.log("APP DID MOUNT", this.state)
-
-
-
 		// let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
-		let useThisToken = localStorage.getItem("token")
+		let useThisToken = localStorage.getItem("token")//sessionsStorage will clear out once the window is closed,so when component is mounted there is no sessionStorage, that is why we are only checking for localStorage.
 	
 		if(useThisToken) {
 			axios.get("http://localhost:3000/api/v1/carts/show", {
@@ -731,11 +791,11 @@ class App extends React.Component {
 			    	})
 		   	})
 			.catch((error)=> console.log(error.response))
-			.then(()=> this.getElectronicsFromServerAndCheckIfAlreadyInCart() )
+			.then(()=> this.getElectronicsFromServer() )
 		} else {
 			this.setState({
 				userSignedIn: false
-			},()=> this.getElectronicsFromServerAndCheckIfAlreadyInCart() )
+			},()=> this.getElectronicsFromServer() )
 		}
 		if (localStorage.temporaryCart){
 			let getTemporaryCart = JSON.parse(localStorage.temporaryCart)
@@ -770,45 +830,6 @@ class App extends React.Component {
 			this.setState({
 				showLoadingSymbol: "show-loading-symbol"
 			})
-			let useThisToken = localStorage.getItem("token") || sessionStorage.getItem("token")
-			if(useThisToken) {
-				axios.get("http://localhost:3000/api/v1/carts/show", {
-					headers: { token: useThisToken }
-				})
-				.then((resp)=> {
-						let modifiedMemberAddresses = resp.data.addresses
-						modifiedMemberAddresses.forEach((address) => {
-						address.userWantsToDelete = false
-						})
-						this.setState({
-							// userSignedIn: true,
-							memberCart: resp.data.currentOrderDetails,
-							memberOrder: resp.data.order,
-							memberInfo: resp.data.memberInfo,
-							memberAddresses: modifiedMemberAddresses
-				    	})
-				})
-				.then(()=> {
-					if(this.state.temporaryCart.length) {	
-					console.log("CompWillRecProps-TempCart", this.state.temporaryCart)					
-						let singleProductObject = this.state.temporaryCart[0]
-						let singleProductKey = Object.keys(singleProductObject)[0]
-						this.addToCartClicked(singleProductObject[singleProductKey], parseInt(singleProductKey))
-					
-					localStorage.removeItem("temporaryCart")
-					}
-				})
-				.catch((error)=> console.log(error.response))
-			} 
-			else {
-				this.setState({
-					userSignedIn: false,
-					memberCart: "",
-					memberOrder: {},
-					memberInfo: "",
-					memberAddresses: []
-				})
-			}
 			setTimeout(()=> this.setState({
 				showLoadingSymbol: "hide-loading-symbol"
 			}), 1000)
