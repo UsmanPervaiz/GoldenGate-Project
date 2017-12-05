@@ -42,7 +42,7 @@ export  default class Electronics extends React.Component {
     }
 
 	render () {
-		console.log("ELECTRONICS", this.props.modifiedElectronics)
+		console.log("ELECTRONICS")
 		return (
 			<div id="electronicsData">
 				 {this.props.electronics.map((item, i) => 

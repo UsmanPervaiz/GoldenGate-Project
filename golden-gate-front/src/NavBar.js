@@ -24,7 +24,7 @@ class NavBar extends React.Component {
 		this.props.history.push("/register")
 	}
 
-	signOutClicked () {
+	signOutClicked() {
 		localStorage.clear();
 		sessionStorage.clear()
 		this.props.navBarSignOutClicked()
@@ -54,22 +54,6 @@ class NavBar extends React.Component {
 		// 	})
 		// }
 	}
-
-
-// componentWillMount() {
-	
-// 		if(this.props.userSignedIn) {
-// 			this.setState({
-// 				navSignIn: "navSignIn hidden",
-// 				navBarMyAccount: "nav-my-account-button show"
-// 			})
-// 		} else {
-// 			this.setState({
-// 				navSignIn: 'navSignIn show',
-// 				navBarMyAccount: 'nav-my-account-button hidden'
-// 			})
-// 		}
-// 	}
 
 	electronicsClicked() {
 		this.props.electronicsClicked()
